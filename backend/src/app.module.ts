@@ -15,6 +15,8 @@ import { Role } from './role/role.entity';
 import { RoleModule } from './role/role.module';
 import { Extra } from './extra/extra.entity';
 import { ExtraModule } from './extra/extra.module';
+import { Type } from './type/type.entity';
+import { TypeModule } from './type/type.module';
 
 @Module({
   imports: [
@@ -28,7 +30,7 @@ import { ExtraModule } from './extra/extra.module';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: [User, Country, Province, City, Role, Extra],
+        entities: [User, Country, Province, City, Role, Extra, Type],
         synchronize: configService.get('DB_SYNC'),
       }),
       inject: [ConfigService],
@@ -38,7 +40,8 @@ import { ExtraModule } from './extra/extra.module';
     ProvinceModule,
     CityModule,
     RoleModule,
-    ExtraModule],
+    ExtraModule,
+    TypeModule],
   controllers: [AppController],
   providers: [AppService],
 })

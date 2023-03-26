@@ -8,14 +8,14 @@ import { Country } from './country.entity';
 @Injectable()
 export class CountryService {
 
-    constructor(@InjectRepository(Country) private countryService: Repository<Country>) {}
+    constructor(@InjectRepository(Country) private countryRepository: Repository<Country>) {}
 
     findAll(): Promise<Country[]> {
-        return this.countryService.find()
+        return this.countryRepository.find()
     }
     
     async findOne(id: number): Promise<Country | HttpException> {
-        const countryFound = await this.countryService.findOne({
+        const countryFound = await this.countryRepository.findOne({
             where: {
                 id
             }
@@ -28,22 +28,22 @@ export class CountryService {
     }
 
     async create(country: createCountryDto): Promise<Country | HttpException> {
-        const countryFoundDni = await this.countryService.findOne({
+        const countryFound = await this.countryRepository.findOne({
             where: {
                 name: country.name
             }
         })
-        if (countryFoundDni) {
+        if (countryFound) {
             return new HttpException('El nombre ya existe', HttpStatus.BAD_REQUEST)
         }
 
-        const newCountry = this.countryService.create(country)
+        const newCountry = this.countryRepository.create(country)
 
-        return this.countryService.save(newCountry)
+        return this.countryRepository.save(newCountry)
     }
 
     async update(id: number, country: updateCountryDto) {
-        const countryFound = await this.countryService.findOne({
+        const countryFound = await this.countryRepository.findOne({
             where: {
                 id
             }
@@ -53,11 +53,11 @@ export class CountryService {
         }
         
         const updateCountry = Object.assign(countryFound, country)
-        return this.countryService.save(updateCountry)
+        return this.countryRepository.save(updateCountry)
     }
     
     async delete(id: number) {
-        const result = await this.countryService.delete({id})
+        const result = await this.countryRepository.delete({id})
     
         if (result.affected == 0) {
             return new HttpException('Pais no encontrado', HttpStatus.NOT_FOUND)

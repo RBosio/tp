@@ -3,10 +3,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ProvinceModule } from './province/province.module';
 import { Country } from './country/country.entity';
 import { CountryModule } from './country/country.module';
 import { User } from './user/user.entity';
 import { UserModule } from './user/user.module';
+import { Province } from './province/province.entity';
 
 @Module({
   imports: [
@@ -20,13 +22,14 @@ import { UserModule } from './user/user.module';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: [User, Country],
+        entities: [User, Country, Province],
         synchronize: configService.get('DB_SYNC'),
       }),
       inject: [ConfigService],
     }),
     UserModule,
-    CountryModule],
+    CountryModule,
+    ProvinceModule],
   controllers: [AppController],
   providers: [AppService],
 })

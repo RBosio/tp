@@ -13,6 +13,8 @@ import { City } from './city/city.entity';
 import { CityModule } from './city/city.module';
 import { Role } from './role/role.entity';
 import { RoleModule } from './role/role.module';
+import { Extra } from './extra/extra.entity';
+import { ExtraModule } from './extra/extra.module';
 
 @Module({
   imports: [
@@ -26,7 +28,7 @@ import { RoleModule } from './role/role.module';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: [User, Country, Province, City, Role],
+        entities: [User, Country, Province, City, Role, Extra],
         synchronize: configService.get('DB_SYNC'),
       }),
       inject: [ConfigService],
@@ -35,7 +37,8 @@ import { RoleModule } from './role/role.module';
     CountryModule,
     ProvinceModule,
     CityModule,
-    RoleModule],
+    RoleModule,
+    ExtraModule],
   controllers: [AppController],
   providers: [AppService],
 })

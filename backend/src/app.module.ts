@@ -17,6 +17,8 @@ import { Extra } from './extra/extra.entity';
 import { ExtraModule } from './extra/extra.module';
 import { Type } from './type/type.entity';
 import { TypeModule } from './type/type.module';
+import { Room } from './room/room.entity';
+import { RoomModule } from './room/room.module';
 
 @Module({
   imports: [
@@ -30,7 +32,7 @@ import { TypeModule } from './type/type.module';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: [User, Country, Province, City, Role, Extra, Type],
+        entities: [User, Country, Province, City, Role, Extra, Type, Room],
         synchronize: configService.get('DB_SYNC'),
       }),
       inject: [ConfigService],
@@ -41,7 +43,8 @@ import { TypeModule } from './type/type.module';
     CityModule,
     RoleModule,
     ExtraModule,
-    TypeModule],
+    TypeModule,
+    RoomModule],
   controllers: [AppController],
   providers: [AppService],
 })

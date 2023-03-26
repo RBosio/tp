@@ -1,10 +1,10 @@
 import { Province } from 'src/province/province.entity'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm'
 
 @Entity()
 export class City {
-    @PrimaryGeneratedColumn()
-    id: number
+    @PrimaryColumn()
+    zipCode: string
 
     @Column()
     name: string

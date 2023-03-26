@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException, ParseIntPipe } from '@nestjs/common';
 import { createCountryDto } from './dto/create-country.dto';
 import { updateCountryDto } from './dto/update-country.dto';
 import { Country } from './country.entity';
@@ -15,7 +15,7 @@ export class CountryController {
     }
     
     @Get(':id')
-    getCountry(@Param('id') id: number): Promise<Country | HttpException> {
+    getCountry(@Param('id', ParseIntPipe) id: number): Promise<Country | HttpException> {
         return this.countryService.findOne(id)
     }
 
@@ -25,12 +25,12 @@ export class CountryController {
     }
 
     @Patch(':id')
-    updateCountry(@Param('id') id: number, @Body() country: updateCountryDto) {
+    updateCountry(@Param('id', ParseIntPipe) id: number, @Body() country: updateCountryDto) {
         return this.countryService.update(id, country)
     }
 
     @Delete(':id')
-    deleteCountry(@Param('id') id: number) {
+    deleteCountry(@Param('id', ParseIntPipe) id: number) {
         return this.countryService.delete(id)
     }
 }

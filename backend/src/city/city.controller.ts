@@ -14,9 +14,9 @@ export class CityController {
         return this.cityService.findAll()
     }
     
-    @Get(':id')
-    getCity(@Param('id') id: number): Promise<City | HttpException> {
-        return this.cityService.findOne(id)
+    @Get(':zipCode')
+    getCity(@Param('zipCode') zipCode: string): Promise<City | HttpException> {
+        return this.cityService.findOne(zipCode)
     }
 
     @Post()
@@ -24,13 +24,13 @@ export class CityController {
         return this.cityService.create(city)
     }
 
-    @Patch(':id')
-    updateCity(@Param('id') id: number, @Body() city: updateCityDto) {
-        return this.cityService.update(id, city)
+    @Patch(':zipCode')
+    updateCity(@Param('zipCode') zipCode: string, @Body() city: updateCityDto) {
+        return this.cityService.update(zipCode, city)
     }
 
-    @Delete(':id')
-    deleteCity(@Param('id') id: number) {
-        return this.cityService.delete(id)
+    @Delete(':zipCode')
+    deleteCity(@Param('zipCode') zipCode: string) {
+        return this.cityService.delete(zipCode)
     }
 }

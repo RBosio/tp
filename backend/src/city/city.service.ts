@@ -18,10 +18,10 @@ export class CityService {
         })
     }
     
-    async findOne(id: number): Promise<City | HttpException> {
+    async findOne(zipCode: string): Promise<City | HttpException> {
         const cityFound = await this.cityRepository.findOne({
             where: {
-                id
+                zipCode
             },
             relations: ['province']
         })
@@ -47,10 +47,10 @@ export class CityService {
         return this.cityRepository.save(newCity)
     }
 
-    async update(id: number, city: updateCityDto) {
+    async update(zipCode: string, city: updateCityDto) {
         const cityFound = await this.cityRepository.findOne({
             where: {
-                id
+                zipCode
             }
         })
         if (!cityFound) {
@@ -61,8 +61,8 @@ export class CityService {
         return this.cityRepository.save(updateCity)
     }
     
-    async delete(id: number) {
-        const result = await this.cityRepository.delete({id})
+    async delete(zipCode: string) {
+        const result = await this.cityRepository.delete({zipCode})
     
         if (result.affected == 0) {
             return new HttpException('Ciudad no encontrada', HttpStatus.NOT_FOUND)

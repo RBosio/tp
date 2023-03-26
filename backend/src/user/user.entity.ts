@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm'
+import { Role } from 'src/role/role.entity'
+import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm'
 
 @Entity()
 export class User {
@@ -19,6 +20,10 @@ export class User {
     
     @Column()
     phone: string
+
+    @ManyToMany(() => Role, role => role.users)
+    @JoinTable()
+    roles: Role[]
     
     @Column({type: Date, default: () => 'CURRENT_TIMESTAMP'})
     created_at: Date

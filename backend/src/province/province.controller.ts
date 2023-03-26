@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException, ParseIntPipe } from '@nestjs/common';
 import { createProvinceDto } from './dto/create-province.dto';
 import { updateProvinceDto } from './dto/update-province.dto';
 import { Province } from './province.entity';
@@ -15,7 +15,7 @@ export class ProvinceController {
     }
     
     @Get(':id')
-    getProvince(@Param('id') id: number): Promise<Province | HttpException> {
+    getProvince(@Param('id', ParseIntPipe) id: number): Promise<Province | HttpException> {
         return this.provinceService.findOne(id)
     }
 
@@ -25,12 +25,12 @@ export class ProvinceController {
     }
 
     @Patch(':id')
-    updateProvince(@Param('id') id: number, @Body() province: updateProvinceDto) {
+    updateProvince(@Param('id', ParseIntPipe) id: number, @Body() province: updateProvinceDto) {
         return this.provinceService.update(id, province)
     }
 
     @Delete(':id')
-    deleteProvince(@Param('id') id: number) {
+    deleteProvince(@Param('id', ParseIntPipe) id: number) {
         return this.provinceService.delete(id)
     }
 }

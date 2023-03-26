@@ -1,5 +1,6 @@
 import { Country } from 'src/country/country.entity'
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { City } from 'src/province copy/city.entity'
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class Province {
@@ -14,6 +15,9 @@ export class Province {
 
     @ManyToOne(() => Country, country => country.provinces)
     country: Country
+
+    @OneToMany(() => City, cities => cities.province)
+    cities: City[]
     
     @Column({type: Date, default: () => 'CURRENT_TIMESTAMP'})
     created_at: Date

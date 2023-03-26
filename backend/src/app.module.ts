@@ -9,6 +9,8 @@ import { CountryModule } from './country/country.module';
 import { User } from './user/user.entity';
 import { UserModule } from './user/user.module';
 import { Province } from './province/province.entity';
+import { City } from './province copy/city.entity';
+import { CityModule } from './province copy/city.module';
 
 @Module({
   imports: [
@@ -22,14 +24,15 @@ import { Province } from './province/province.entity';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: [User, Country, Province],
+        entities: [User, Country, Province, City],
         synchronize: configService.get('DB_SYNC'),
       }),
       inject: [ConfigService],
     }),
     UserModule,
     CountryModule,
-    ProvinceModule],
+    ProvinceModule,
+    CityModule],
   controllers: [AppController],
   providers: [AppService],
 })

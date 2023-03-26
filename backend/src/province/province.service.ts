@@ -1,7 +1,5 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Country } from 'src/country/country.entity';
-import { CountryService } from 'src/country/country.service';
 import { Repository } from 'typeorm';
 import { createProvinceDto } from './dto/create-province.dto';
 import { updateProvinceDto } from './dto/update-province.dto';
@@ -11,8 +9,7 @@ import { Province } from './province.entity';
 export class ProvinceService {
 
     constructor(
-        @InjectRepository(Province) private provinceRepository: Repository<Province>,
-        private countryService: CountryService
+        @InjectRepository(Province) private provinceRepository: Repository<Province>
         ) {}
 
     findAll(): Promise<Province[]> {
@@ -43,11 +40,6 @@ export class ProvinceService {
         })
         if (provinceFound) {
             return new HttpException('El nombre ya existe', HttpStatus.BAD_REQUEST)
-        }
-
-        const countryFound = this.countryService.findOne(province.countryId)
-        if (!countryFound) {
-            return new HttpException('Pais inexistente', HttpStatus.BAD_REQUEST)
         }
 
         const newProvince = this.provinceRepository.create(province)

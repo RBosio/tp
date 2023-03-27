@@ -16,7 +16,7 @@ export class RoomService {
         })
     }
     
-    async findOne(id: number): Promise<Room | HttpException> {
+    async findOne(id: number) {
         const roomFound = await this.roomRepository.findOne({
             where: {
                 id

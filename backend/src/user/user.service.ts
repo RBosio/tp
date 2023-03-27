@@ -14,7 +14,7 @@ export class UserService {
         return this.userRepository.find()
     }
     
-    async findOne(dni: string): Promise<User | HttpException> {
+    async findOne(dni: string) {
         const userFound = await this.userRepository.findOne({
             where: {
                 dni

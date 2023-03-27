@@ -2,16 +2,19 @@ import { Injectable } from '@nestjs/common';
 import { HttpStatus } from '@nestjs/common/enums';
 import { HttpException } from '@nestjs/common/exceptions';
 import { InjectRepository } from '@nestjs/typeorm';
+import { RoomService } from 'src/room/room.service';
+import { UserService } from 'src/user/user.service';
 import { Repository } from 'typeorm';
 import { Booking } from './booking.entity';
 import { createBookingDto } from './dto/create-booking.dto';
-import { updateBookingDto } from './dto/update-booking.dto';
 
 @Injectable()
 export class BookingService {
     
     constructor(
-        @InjectRepository(Booking) private bookingRepository: Repository<Booking>
+        @InjectRepository(Booking) private bookingRepository: Repository<Booking>,
+        private userService: UserService,
+        private roomService: RoomService
         ) {}
 
     findAll(): Promise<Booking[]> {
@@ -45,6 +48,7 @@ export class BookingService {
     }
 
     async create(booking: createBookingDto): Promise<Booking | HttpException> {
+
         const bookingFound = await this.bookingRepository.findOne({
             where: {
                 userDni: booking.userDni,
@@ -54,8 +58,14 @@ export class BookingService {
         if (bookingFound) {
             throw new HttpException('Reserva existente', HttpStatus.BAD_REQUEST)
         }
-        
+
         const newBooking = this.bookingRepository.create(booking)
+
+        const userFound = await this.userService.findOne(booking.userDni)
+        newBooking.user = userFound
+        
+        const roomFound = await this.roomService.findOne(booking.roomId)
+        newBooking.room = roomFound
 
         return this.bookingRepository.save(newBooking)
     }

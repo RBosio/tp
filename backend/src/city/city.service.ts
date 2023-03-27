@@ -26,7 +26,7 @@ export class CityService {
             relations: ['province']
         })
         if (!cityFound) {
-            return new HttpException('Ciudad no encontrada', HttpStatus.NOT_FOUND)
+            throw new HttpException('Ciudad no encontrada', HttpStatus.NOT_FOUND)
         }
         
         return cityFound
@@ -39,7 +39,7 @@ export class CityService {
             }
         })
         if (cityFound) {
-            return new HttpException('El nombre ya existe', HttpStatus.BAD_REQUEST)
+            throw new HttpException('El nombre ya existe', HttpStatus.BAD_REQUEST)
         }
         
         const newCity = this.cityRepository.create(city)
@@ -54,7 +54,7 @@ export class CityService {
             }
         })
         if (!cityFound) {
-            return new HttpException('Ciudad no encontrada', HttpStatus.NOT_FOUND)
+            throw new HttpException('Ciudad no encontrada', HttpStatus.NOT_FOUND)
         }
         
         const updateCity = Object.assign(cityFound, city)
@@ -65,7 +65,7 @@ export class CityService {
         const result = await this.cityRepository.delete({zipCode})
     
         if (result.affected == 0) {
-            return new HttpException('Ciudad no encontrada', HttpStatus.NOT_FOUND)
+            throw new HttpException('Ciudad no encontrada', HttpStatus.NOT_FOUND)
         }
 
         return result

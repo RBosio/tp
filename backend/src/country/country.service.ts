@@ -21,7 +21,7 @@ export class CountryService {
             }
         })
         if (!countryFound) {
-            return new HttpException('Pais no encontrado', HttpStatus.NOT_FOUND)
+            throw new HttpException('Pais no encontrado', HttpStatus.NOT_FOUND)
         }
         
         return countryFound
@@ -34,7 +34,7 @@ export class CountryService {
             }
         })
         if (countryFound) {
-            return new HttpException('El nombre ya existe', HttpStatus.BAD_REQUEST)
+            throw new HttpException('El nombre ya existe', HttpStatus.BAD_REQUEST)
         }
 
         const newCountry = this.countryRepository.create(country)
@@ -49,7 +49,7 @@ export class CountryService {
             }
         })
         if (!countryFound) {
-            return new HttpException('Pais no encontrado', HttpStatus.NOT_FOUND)
+            throw new HttpException('Pais no encontrado', HttpStatus.NOT_FOUND)
         }
         
         const updateCountry = Object.assign(countryFound, country)
@@ -60,7 +60,7 @@ export class CountryService {
         const result = await this.countryRepository.delete({id})
     
         if (result.affected == 0) {
-            return new HttpException('Pais no encontrado', HttpStatus.NOT_FOUND)
+            throw new HttpException('Pais no encontrado', HttpStatus.NOT_FOUND)
         }
 
         return result

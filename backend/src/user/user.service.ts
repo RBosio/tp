@@ -21,7 +21,7 @@ export class UserService {
             }
         })
         if (!userFound) {
-            return new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND)
+            throw new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND)
         }
         
         return userFound
@@ -34,7 +34,7 @@ export class UserService {
             }
         })
         if (userFoundDni) {
-            return new HttpException('El dni ya existe', HttpStatus.BAD_REQUEST)
+            throw new HttpException('El dni ya existe', HttpStatus.BAD_REQUEST)
         }
         
         const userFoundEmail = await this.userRepository.findOne({
@@ -43,7 +43,7 @@ export class UserService {
             }
         })
         if (userFoundEmail) {
-            return new HttpException('El email ya existe', HttpStatus.BAD_REQUEST)
+            throw new HttpException('El email ya existe', HttpStatus.BAD_REQUEST)
         }
 
         const newUser = this.userRepository.create(user)
@@ -58,7 +58,7 @@ export class UserService {
             }
         })
         if (!userFound) {
-            return new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND)
+            throw new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND)
         }
         
         const updateUser = Object.assign(userFound, user)
@@ -69,7 +69,7 @@ export class UserService {
         const result = await this.userRepository.delete({dni})
     
         if (result.affected == 0) {
-            return new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND)
+            throw new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND)
         }
 
         return result

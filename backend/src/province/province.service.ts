@@ -26,7 +26,7 @@ export class ProvinceService {
             relations: ['country']
         })
         if (!provinceFound) {
-            return new HttpException('Provincia no encontrada', HttpStatus.NOT_FOUND)
+            throw new HttpException('Provincia no encontrada', HttpStatus.NOT_FOUND)
         }
         
         return provinceFound
@@ -39,7 +39,7 @@ export class ProvinceService {
             }
         })
         if (provinceFound) {
-            return new HttpException('El nombre ya existe', HttpStatus.BAD_REQUEST)
+            throw new HttpException('El nombre ya existe', HttpStatus.BAD_REQUEST)
         }
 
         const newProvince = this.provinceRepository.create(province)
@@ -54,7 +54,7 @@ export class ProvinceService {
             }
         })
         if (!provinceFound) {
-            return new HttpException('Provincia no encontrada', HttpStatus.NOT_FOUND)
+            throw new HttpException('Provincia no encontrada', HttpStatus.NOT_FOUND)
         }
         
         const updateProvince = Object.assign(provinceFound, province)
@@ -65,7 +65,7 @@ export class ProvinceService {
         const result = await this.provinceRepository.delete({id})
     
         if (result.affected == 0) {
-            return new HttpException('Provincia no encontrada', HttpStatus.NOT_FOUND)
+            throw new HttpException('Provincia no encontrada', HttpStatus.NOT_FOUND)
         }
 
         return result

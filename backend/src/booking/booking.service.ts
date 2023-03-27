@@ -38,7 +38,7 @@ export class BookingService {
             relations: ['user', 'room']
         })
         if (!bookingFound) {
-            return new HttpException('Reserva no encontrada', HttpStatus.NOT_FOUND)
+            throw new HttpException('Reserva no encontrada', HttpStatus.NOT_FOUND)
         }
         
         return bookingFound
@@ -52,7 +52,7 @@ export class BookingService {
             }
         })
         if (bookingFound) {
-            return new HttpException('Reserva existente', HttpStatus.BAD_REQUEST)
+            throw new HttpException('Reserva existente', HttpStatus.BAD_REQUEST)
         }
         
         const newBooking = this.bookingRepository.create(booking)
@@ -68,7 +68,7 @@ export class BookingService {
             }
         })
         if (!bookingFound) {
-            return new HttpException('Reserva inexistente', HttpStatus.NOT_FOUND)
+            throw new HttpException('Reserva inexistente', HttpStatus.NOT_FOUND)
         }
         
         bookingFound.status = 'En curso'
@@ -83,7 +83,7 @@ export class BookingService {
             }
         })
         if (!bookingFound) {
-            return new HttpException('Reserva inexistente', HttpStatus.NOT_FOUND)
+            throw new HttpException('Reserva inexistente', HttpStatus.NOT_FOUND)
         }
         
         bookingFound.status = 'Finalizada'
@@ -98,7 +98,7 @@ export class BookingService {
             }
         })
         if (!bookingFound) {
-            return new HttpException('Reserva inexistente', HttpStatus.NOT_FOUND)
+            throw new HttpException('Reserva inexistente', HttpStatus.NOT_FOUND)
         }
         
         bookingFound.status = 'Cancelada'

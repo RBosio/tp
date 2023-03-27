@@ -21,7 +21,7 @@ export class TypeService {
             }
         })
         if (!typeFound) {
-            return new HttpException('Tipo no encontrado', HttpStatus.NOT_FOUND)
+            throw new HttpException('Tipo no encontrado', HttpStatus.NOT_FOUND)
         }
         
         return typeFound
@@ -34,7 +34,7 @@ export class TypeService {
             }
         })
         if (typeFound) {
-            return new HttpException('El nombre ya existe', HttpStatus.BAD_REQUEST)
+            throw new HttpException('El nombre ya existe', HttpStatus.BAD_REQUEST)
         }
 
         const newType = this.typeRepository.create(type)
@@ -49,7 +49,7 @@ export class TypeService {
             }
         })
         if (!typeFound) {
-            return new HttpException('Tipo no encontrado', HttpStatus.NOT_FOUND)
+            throw new HttpException('Tipo no encontrado', HttpStatus.NOT_FOUND)
         }
         
         const updateType = Object.assign(typeFound, type)
@@ -60,7 +60,7 @@ export class TypeService {
         const result = await this.typeRepository.delete({id})
     
         if (result.affected == 0) {
-            return new HttpException('Tipo no encontrado', HttpStatus.NOT_FOUND)
+            throw new HttpException('Tipo no encontrado', HttpStatus.NOT_FOUND)
         }
 
         return result

@@ -21,7 +21,7 @@ export class RoleService {
             }
         })
         if (!roleFound) {
-            return new HttpException('Rol no encontrado', HttpStatus.NOT_FOUND)
+            throw new HttpException('Rol no encontrado', HttpStatus.NOT_FOUND)
         }
         
         return roleFound
@@ -34,7 +34,7 @@ export class RoleService {
             }
         })
         if (roleFound) {
-            return new HttpException('El nombre ya existe', HttpStatus.BAD_REQUEST)
+            throw new HttpException('El nombre ya existe', HttpStatus.BAD_REQUEST)
         }
 
         const newRole = this.roleRepository.create(role)
@@ -49,7 +49,7 @@ export class RoleService {
             }
         })
         if (!roleFound) {
-            return new HttpException('Rol no encontrado', HttpStatus.NOT_FOUND)
+            throw new HttpException('Rol no encontrado', HttpStatus.NOT_FOUND)
         }
         
         const updateRole = Object.assign(roleFound, role)
@@ -60,7 +60,7 @@ export class RoleService {
         const result = await this.roleRepository.delete({id})
     
         if (result.affected == 0) {
-            return new HttpException('Rol no encontrado', HttpStatus.NOT_FOUND)
+            throw new HttpException('Rol no encontrado', HttpStatus.NOT_FOUND)
         }
 
         return result

@@ -24,7 +24,7 @@ export class RoomService {
             relations: ['type']
         })
         if (!roomFound) {
-            return new HttpException('Habitacion no encontrada', HttpStatus.NOT_FOUND)
+            throw new HttpException('Habitacion no encontrada', HttpStatus.NOT_FOUND)
         }
         
         return roomFound
@@ -43,7 +43,7 @@ export class RoomService {
             }
         })
         if (!roomFound) {
-            return new HttpException('Habitacion no encontrada', HttpStatus.NOT_FOUND)
+            throw new HttpException('Habitacion no encontrada', HttpStatus.NOT_FOUND)
         }
         
         const updateRoom = Object.assign(roomFound, room)
@@ -54,7 +54,7 @@ export class RoomService {
         const result = await this.roomRepository.delete({id})
     
         if (result.affected == 0) {
-            return new HttpException('Habitacion no encontrada', HttpStatus.NOT_FOUND)
+            throw new HttpException('Habitacion no encontrada', HttpStatus.NOT_FOUND)
         }
 
         return result

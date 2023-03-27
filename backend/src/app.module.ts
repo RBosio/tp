@@ -19,6 +19,8 @@ import { Type } from './type/type.entity';
 import { TypeModule } from './type/type.module';
 import { Room } from './room/room.entity';
 import { RoomModule } from './room/room.module';
+import { BookingModule } from './booking/booking.module';
+import { Booking } from './booking/booking.entity';
 
 @Module({
   imports: [
@@ -32,7 +34,7 @@ import { RoomModule } from './room/room.module';
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
-        entities: [User, Country, Province, City, Role, Extra, Type, Room],
+        entities: [User, Country, Province, City, Role, Extra, Type, Room, Booking],
         synchronize: configService.get('DB_SYNC'),
       }),
       inject: [ConfigService],
@@ -44,7 +46,8 @@ import { RoomModule } from './room/room.module';
     RoleModule,
     ExtraModule,
     TypeModule,
-    RoomModule],
+    RoomModule,
+    BookingModule],
   controllers: [AppController],
   providers: [AppService],
 })

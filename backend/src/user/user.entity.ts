@@ -1,7 +1,8 @@
 import { Booking } from 'src/booking/booking.entity'
 import { City } from 'src/city/city.entity'
 import { Role } from 'src/role/role.entity'
-import { Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm'
+import { BeforeInsert, BeforeUpdate, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryColumn } from 'typeorm'
+import { hash } from 'bcryptjs'
 
 @Entity()
 export class User {
@@ -35,4 +36,14 @@ export class User {
     
     @Column({type: Date, default: () => 'CURRENT_TIMESTAMP'})
     created_at: Date
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    async hashPassword() {
+        if (!this.password) {
+            return
+        } else {
+            this.password = await hash(this.password, 10)
+        }
+    }
 }

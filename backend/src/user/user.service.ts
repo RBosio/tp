@@ -1,5 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Role } from 'src/role/role.entity';
+import { RoleService } from 'src/role/role.service';
 import { Repository } from 'typeorm';
 import { createUserDto } from './dto/create-user.dto';
 import { updateUserDto } from './dto/update-user.dto';
@@ -8,17 +10,37 @@ import { User } from './user.entity';
 @Injectable()
 export class UserService {
 
-    constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
+    constructor(
+        @InjectRepository(User) private userRepository: Repository<User>,
+        private roleService: RoleService
+        ) {}
 
     findAll(): Promise<User[]> {
-        return this.userRepository.find()
+        return this.userRepository.find({
+            relations: ['roles']
+        })
     }
     
-    async findOne(dni: string) {
+    async findOneByDni(dni: string) {
         const userFound = await this.userRepository.findOne({
             where: {
                 dni
-            }
+            },
+            relations: ['roles']
+        })
+        if (!userFound) {
+            throw new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND)
+        }
+        
+        return userFound
+    }
+
+    async findOneByEmail(email: string) {
+        const userFound = await this.userRepository.findOne({
+            where: {
+                email
+            },
+            relations: ['roles']
         })
         if (!userFound) {
             throw new HttpException('Usuario no encontrado', HttpStatus.NOT_FOUND)
@@ -46,7 +68,19 @@ export class UserService {
             throw new HttpException('El email ya existe', HttpStatus.BAD_REQUEST)
         }
 
+        const roles = await this.roleService.findAll()
+
         const newUser = this.userRepository.create(user)
+        
+        if (!user.role) {
+            newUser.roles = roles.filter(role => role.name == 'User')
+        } else {
+            let rolesUser: Role[] = []
+            user.role.forEach(id => {
+                rolesUser.push(roles.filter(role => role.id == id)[0])
+            })
+            newUser.roles = rolesUser
+        }
 
         return this.userRepository.save(newUser)
     }

@@ -21,6 +21,7 @@ import { Room } from './room/room.entity';
 import { RoomModule } from './room/room.module';
 import { BookingModule } from './booking/booking.module';
 import { Booking } from './booking/booking.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -47,7 +48,8 @@ import { Booking } from './booking/booking.entity';
     ExtraModule,
     TypeModule,
     RoomModule,
-    BookingModule],
+    BookingModule,
+    AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

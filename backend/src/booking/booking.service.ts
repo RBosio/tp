@@ -61,7 +61,7 @@ export class BookingService {
 
         const newBooking = this.bookingRepository.create(booking)
 
-        const userFound = await this.userService.findOne(booking.userDni)
+        const userFound = await this.userService.findOneByDni(booking.userDni)
         newBooking.user = userFound
         
         const roomFound = await this.roomService.findOne(booking.roomId)

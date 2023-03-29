@@ -5,4 +5,5 @@ export class createUserDto {
     surname: string
     password: string
     phone: string
+    role?: number[]
 }

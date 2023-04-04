@@ -14,7 +14,9 @@ export class AuthService {
         const userFound = await this.userService.findOneByEmail(userLogin.email)
 
         if (await userFound.comparePassword(userLogin.password)) {
-            const payload = { username: userFound.name, sub: userFound.dni };
+            const { roles } = userFound
+
+            const payload = { username: userFound.name, sub: userFound.dni, roles: roles.map(role => role.name.toLowerCase()) };
 
             return {token: await this.jwtService.signAsync(payload)}
         } else {

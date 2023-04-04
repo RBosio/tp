@@ -1,12 +1,13 @@
-import { Body, Controller, HttpException, Post } from '@nestjs/common';
+import { Body, Controller, HttpException, Post, UseGuards } from '@nestjs/common';
 import { createUserDto } from 'src/user/dto/create-user.dto';
 import { User } from 'src/user/user.entity';
 import { UserService } from 'src/user/user.service';
-import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { AuthLoginDto } from './dto/auth-login.dto';
 import { loginResponseDto } from './dto/login-response.dto';
+import { RolesGuard } from './roles.guard';
 
+@UseGuards(RolesGuard)
 @Controller('auth')
 export class AuthController {
     constructor(

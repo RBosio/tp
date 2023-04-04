@@ -4,8 +4,11 @@ import { createProvinceDto } from './dto/create-province.dto';
 import { updateProvinceDto } from './dto/update-province.dto';
 import { Province } from './province.entity';
 import { ProvinceService } from './province.service';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { RoleEnum } from 'src/enums/role.enum';
+import { Roles } from 'src/role/roles.decorator';
 
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard, RolesGuard)
 @Controller('province')
 export class ProvinceController {
 
@@ -17,21 +20,25 @@ export class ProvinceController {
     }
     
     @Get(':id')
+    @Roles(RoleEnum.Admin)
     getProvince(@Param('id', ParseIntPipe) id: number): Promise<Province | HttpException> {
         return this.provinceService.findOne(id)
     }
 
     @Post()
+    @Roles(RoleEnum.Admin)
     createProvince(@Body() province: createProvinceDto): Promise<Province | HttpException> {
         return this.provinceService.create(province)
     }
 
     @Patch(':id')
+    @Roles(RoleEnum.Admin)
     updateProvince(@Param('id', ParseIntPipe) id: number, @Body() province: updateProvinceDto) {
         return this.provinceService.update(id, province)
     }
 
     @Delete(':id')
+    @Roles(RoleEnum.Admin)
     deleteProvince(@Param('id', ParseIntPipe) id: number) {
         return this.provinceService.delete(id)
     }

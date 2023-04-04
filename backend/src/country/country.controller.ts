@@ -4,8 +4,11 @@ import { updateCountryDto } from './dto/update-country.dto';
 import { Country } from './country.entity';
 import { CountryService } from './country.service';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { Roles } from 'src/role/roles.decorator';
+import { RoleEnum } from 'src/enums/role.enum';
 
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard, RolesGuard)
 @Controller('country')
 export class CountryController {
 
@@ -17,21 +20,25 @@ export class CountryController {
     }
     
     @Get(':id')
+    @Roles(RoleEnum.Admin)
     getCountry(@Param('id', ParseIntPipe) id: number): Promise<Country | HttpException> {
         return this.countryService.findOne(id)
     }
 
     @Post()
+    @Roles(RoleEnum.Admin)
     createCountry(@Body() country: createCountryDto): Promise<Country | HttpException> {
         return this.countryService.create(country)
     }
 
     @Patch(':id')
+    @Roles(RoleEnum.Admin)
     updateCountry(@Param('id', ParseIntPipe) id: number, @Body() country: updateCountryDto) {
         return this.countryService.update(id, country)
     }
 
     @Delete(':id')
+    @Roles(RoleEnum.Admin)
     deleteCountry(@Param('id', ParseIntPipe) id: number) {
         return this.countryService.delete(id)
     }

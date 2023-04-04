@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException, ParseIntPipe, UseGuards } from '@nestjs/common';
 import { createCountryDto } from './dto/create-country.dto';
 import { updateCountryDto } from './dto/update-country.dto';
 import { Country } from './country.entity';
 import { CountryService } from './country.service';
+import { AuthGuard } from 'src/auth/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('country')
 export class CountryController {
 

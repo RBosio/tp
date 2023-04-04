@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { createRoleDto } from './dto/create-role.dto';
 import { updateRoleDto } from './dto/update-role.dto';
 import { Role } from './role.entity';
 import { RoleService } from './role.service';
 
+@UseGuards(AuthGuard)
 @Controller('role')
 export class RoleController {
 

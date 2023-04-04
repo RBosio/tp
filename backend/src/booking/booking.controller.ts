@@ -1,10 +1,12 @@
 import { Controller } from '@nestjs/common';
-import { Body, Get, Param, Patch, Post } from '@nestjs/common/decorators';
+import { Body, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { Booking } from './booking.entity';
 import { BookingService } from './booking.service';
 import { createBookingDto } from './dto/create-booking.dto';
 
+@UseGuards(AuthGuard)
 @Controller('booking')
 export class BookingController {
     

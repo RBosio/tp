@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { createTypeDto } from './dto/create-type.dto';
 import { updateTypeDto } from './dto/update-type.dto';
 import { Type } from './type.entity';
 import { TypeService } from './type.service';
 
+@UseGuards(AuthGuard)
 @Controller('type')
 export class TypeController {
 

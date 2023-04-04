@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { createRoomDto } from './dto/create-room.dto';
 import { updateRoomDto } from './dto/update-room.dto';
 import { Room } from './room.entity';
 import { RoomService } from './room.service';
 
+@UseGuards(AuthGuard)
 @Controller('room')
 export class RoomController {
 

@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException, UseGuards } from '@nestjs/common';
 import { createCityDto } from './dto/create-city.dto';
 import { updateCityDto } from './dto/update-city.dto';
 import { City } from './city.entity';
 import { CityService } from './city.service';
+import { AuthGuard } from 'src/auth/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('city')
 export class CityController {
 

@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { createExtraDto } from './dto/create-extra.dto';
 import { updateExtraDto } from './dto/update-extra.dto';
 import { Extra } from './extra.entity';
 import { ExtraService } from './extra.service';
 
+@UseGuards(AuthGuard)
 @Controller('extra')
 export class ExtraController {
 

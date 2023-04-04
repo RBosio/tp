@@ -1,23 +1,22 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { User } from 'src/user/user.entity';
+import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
-import { AuthLoginResponseDto } from './dto/auth-login-response.dto';
 import { AuthLoginDto } from './dto/auth-login.dto';
+import { loginResponseDto } from './dto/login-response.dto';
 
 @Injectable()
 export class AuthService {
-    constructor(private userService: UserService) {}
+    constructor(
+        private userService: UserService,
+        private jwtService: JwtService) {}
     
-    async login(userLogin: AuthLoginDto): Promise<AuthLoginResponseDto | HttpException> {
+    async login(userLogin: AuthLoginDto): Promise<loginResponseDto | HttpException> {
         const userFound = await this.userService.findOneByEmail(userLogin.email)
 
         if (await userFound.comparePassword(userLogin.password)) {
-            const user = new User()
-            
-            user.name = userFound.name
-            user.surname = userFound.surname
+            const payload = { username: userFound.name, sub: userFound.dni };
 
-            return {user, token: 'asdjoisadnoandi'}
+            return {token: await this.jwtService.signAsync(payload)}
         } else {
             throw new HttpException('Email o contraseña incorrectos', HttpStatus.UNAUTHORIZED)
         }

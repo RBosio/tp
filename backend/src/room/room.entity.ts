@@ -14,6 +14,18 @@ export class Room {
     price: number
 
     @Column()
+    ac: boolean
+
+    @Column()
+    tv: boolean
+
+    @Column()
+    shower: boolean
+
+    @Column()
+    towel: boolean
+
+    @Column()
     typeId: number
 
     @ManyToOne(() => Type, type => type.rooms)

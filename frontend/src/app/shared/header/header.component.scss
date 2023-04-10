@@ -1,0 +1,40 @@
+.nav {
+    background-color: #8f8de0;
+    justify-content: space-between;
+    align-items: center;
+
+    .title {
+        font-size: 2em;
+        padding: 10px;
+    }
+
+    .hostel {
+        padding: 10px;
+        a {
+            padding-right: 5px;
+        }
+    }
+    .hostel:hover {
+        cursor: pointer;
+        opacity: .6;
+    }
+
+    .options {
+        .list {
+            justify-content: space-between;
+            align-items: center;
+            list-style-type: none;
+            
+            li {
+                padding: 10px;
+                a {
+                    padding-right: 5px;
+                }
+            }
+            li:hover {
+                cursor: pointer;
+                opacity: .6;
+            }
+        }
+    }
+}

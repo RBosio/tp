@@ -14,7 +14,7 @@ export class UserController {
     constructor(private userService: UserService) {}
 
     @Get()
-    @Roles(RoleEnum.Seller)
+    @Roles(RoleEnum.Seller, RoleEnum.Admin)
     getUsers(): Promise<User[]> {
         return this.userService.findAll()
     }

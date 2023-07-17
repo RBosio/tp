@@ -1,3 +1,24 @@
-<app-header></app-header>
+<app-header [sidenav]="sidenav"></app-header>
 
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav>
+        <mat-nav-list>
+            <a mat-list-item>Home</a>
+            <a class="title">Recepción</a>
+            <a mat-list-item>Reservas</a>
+            <a class="title">Administración</a>
+            <a mat-list-item>Usuarios</a>
+            <a mat-list-item>Tipos de habitaciones</a>
+            <a mat-list-item>Habitaciones</a>
+            <a mat-list-item>Extras</a>
+            <a mat-list-item>Ciudades</a>
+            <a mat-list-item>Provincias</a>
+            <a mat-list-item>Paises</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content style="height: 90vh;">
+        <div>
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

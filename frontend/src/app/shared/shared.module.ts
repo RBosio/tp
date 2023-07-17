@@ -18,7 +18,8 @@ import { AngularMaterialModule } from '../angular-material.module';
     AngularMaterialModule
   ],
   exports: [
-    HeaderComponent
+    HeaderComponent,
+    AngularMaterialModule
   ]
 })
 export class SharedModule { }

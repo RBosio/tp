@@ -1,19 +1,24 @@
 <header class="header">
-    <nav class="nav flex-row">
+    <mat-toolbar color="primary">
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+          <mat-icon>menu</mat-icon>
+        </button>
         <h1 class="title">Hotel</h1>
+        <span class="example-spacer"></span>
         <div class="options">
             <ul class="list flex-row">
+                <p class="welcome">Bienvenido x y!</p>
                 <li class="hostel">
                     <a [routerLink]="">Hospedarse</a>
                     <i class="fa-solid fa-house"></i>
                 </li>
-                <li class="login">
-                    <a [routerLink]="">Iniciar sesión</a>
-                    <i class="fa-solid fa-right-to-bracket"></i>
-                </li>
                 <li class="profile">
                     <a [routerLink]="">Perfil</a>
                     <i class="fa-solid fa-user"></i>
+                </li>
+                <li class="login">
+                    <a [routerLink]="">Iniciar sesión</a>
+                    <i class="fa-solid fa-right-to-bracket"></i>
                 </li>
                 <li class="logout">
                     <a [routerLink]="">Cerrar sesión</a>
@@ -21,5 +26,5 @@
                 </li>
             </ul>
         </div>
-    </nav>
+    </mat-toolbar>      
 </header>

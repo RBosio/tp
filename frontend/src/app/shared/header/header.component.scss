@@ -1,8 +1,6 @@
-.nav {
-    background-color: #1c6580;//#16ae8d;//#1e7594;//#1983a9;//#209bc7;
-    color: #fff;
-    justify-content: space-between;
-    align-items: center;
+@import "../styles/vars.scss";
+
+.header {
     user-select: none;
 
     .title {
@@ -29,6 +27,10 @@
             align-items: center;
             list-style-type: none;
             
+            .welcome {
+                padding: 10px;
+            }
+            
             li {
                 padding: 10px;
                 a {
@@ -42,4 +44,8 @@
             }
         }
     }
+}
+
+.example-spacer {
+    flex: 1 1 auto;
 }

@@ -1,17 +1,21 @@
 .nav {
-    background-color: #8f8de0;
+    background-color: #1c6580;//#16ae8d;//#1e7594;//#1983a9;//#209bc7;
+    color: #fff;
     justify-content: space-between;
     align-items: center;
+    user-select: none;
 
     .title {
         font-size: 2em;
         padding: 10px;
+        font-weight: 500;
     }
 
     .hostel {
         padding: 10px;
         a {
             padding-right: 5px;
+            text-decoration: none;
         }
     }
     .hostel:hover {
@@ -29,6 +33,7 @@
                 padding: 10px;
                 a {
                     padding-right: 5px;
+                    text-decoration: none;
                 }
             }
             li:hover {

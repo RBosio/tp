@@ -1,26 +1,23 @@
 <header class="header">
     <nav class="nav flex-row">
         <h1 class="title">Hotel</h1>
-        <div class="hostel">
-            <a [routerLink]="">Hospedarse</a>
-            <fa-icon [icon]="faHouse"></fa-icon>
-        </div>
         <div class="options">
             <ul class="list flex-row">
+                <li class="hostel">
+                    <a [routerLink]="">Hospedarse</a>
+                    <i class="fa-solid fa-house"></i>
+                </li>
                 <li class="login">
                     <a [routerLink]="">Iniciar sesión</a>
-                    <fa-icon [icon]="faRightToBracket"></fa-icon>
-                </li>
-                <li class="welcome">
-                    <a [routerLink]="">Bienvenido, Nombre usuario</a>
+                    <i class="fa-solid fa-right-to-bracket"></i>
                 </li>
                 <li class="profile">
                     <a [routerLink]="">Perfil</a>
-                    <fa-icon [icon]="faUser"></fa-icon>
+                    <i class="fa-solid fa-user"></i>
                 </li>
                 <li class="logout">
                     <a [routerLink]="">Cerrar sesión</a>
-                    <fa-icon [icon]="faRightFromBracket"></fa-icon>
+                    <i class="fa-solid fa-right-from-bracket"></i>
                 </li>
             </ul>
         </div>

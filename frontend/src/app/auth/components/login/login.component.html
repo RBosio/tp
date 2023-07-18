@@ -1,0 +1,24 @@
+<mat-card class="form">
+    <i class="fa-solid fa-user icon"></i>
+    <form (ngSubmit)="onSubmit()" [formGroup]="login">
+    <mat-card-content>
+            <mat-form-field class="input">
+                <mat-label>Email</mat-label>
+                <input type="text" matInput placeholder="Ej. ejemplo@gmail.com" formControlName="email">
+            </mat-form-field>
+            <div class="alert" *ngIf="login.get('email')?.touched && login.get('email')?.errors?.['required']">Este campo es requerido</div>
+            <div class="alert" *ngIf="login.get('email')?.touched && login.get('email')?.errors?.['email']">No es un email válido</div>
+            <br>
+            <mat-form-field class="input">
+                <mat-label>Contraseña</mat-label>
+                <input type="password" matInput placeholder="Mínimo 6 caracteres" formControlName="password">
+            </mat-form-field>
+            <div class="alert" *ngIf="login.get('password')?.touched && login.get('password')?.errors?.['required']">Este campo es requerido</div>
+            <div class="alert" *ngIf="login.get('password')?.touched && login.get('password')?.errors?.['minlength']">Mínimo 6 caracteres</div>
+        </mat-card-content>
+        <mat-card-actions class="actions">
+            <button class="button" type="submit" mat-flat-button color="primary" [disabled]="login.invalid">Ingresar</button>
+        </mat-card-actions>
+        <p class="register">¿No tienes una cuenta? <a routerLink="/auth/register">Regístrate</a></p>
+    </form>
+</mat-card>

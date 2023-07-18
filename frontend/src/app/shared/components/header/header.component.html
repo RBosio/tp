@@ -3,24 +3,24 @@
         <button mat-icon-button (click)="toggleSideNav()">
           <mat-icon>menu</mat-icon>
         </button>
-        <h1 class="title">Hotel</h1>
+        <h1 class="title" routerLink="/">Hotel</h1>
         <span class="example-spacer"></span>
         <div class="options">
             <ul class="list flex-row">
-                <p class="welcome">Bienvenido x y!</p>
-                <li class="hostel">
+                <p class="welcome" *ngIf="login || token">Bienvenido x y!</p>
+                <li class="hostel" *ngIf="login || token">
                     <a [routerLink]="">Hospedarse</a>
                     <i class="fa-solid fa-house"></i>
                 </li>
-                <li class="profile">
+                <li class="profile" *ngIf="login || token">
                     <a [routerLink]="">Perfil</a>
                     <i class="fa-solid fa-user"></i>
                 </li>
-                <li class="login">
-                    <a [routerLink]="">Iniciar sesión</a>
+                <li class="login" *ngIf="!login && !token">
+                    <a routerLink="/auth/login">Iniciar sesión</a>
                     <i class="fa-solid fa-right-to-bracket"></i>
                 </li>
-                <li class="logout">
+                <li class="logout" *ngIf="login || token" (click)="logout()">
                     <a [routerLink]="">Cerrar sesión</a>
                     <i class="fa-solid fa-right-from-bracket"></i>
                 </li>

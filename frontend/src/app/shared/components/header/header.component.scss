@@ -9,6 +9,10 @@
         font-weight: 500;
     }
 
+    .title:hover {
+        cursor: pointer;
+    }
+
     .hostel {
         padding: 10px;
         a {
@@ -36,6 +40,12 @@
                 a {
                     padding-right: 5px;
                     text-decoration: none;
+                }
+                a:any-link {
+                    color: #fff;
+                }
+                a:active {
+                    color: #fff;
                 }
             }
             li:hover {

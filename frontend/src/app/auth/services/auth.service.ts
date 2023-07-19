@@ -26,6 +26,18 @@ export class AuthService {
       })
     )
   }
+  
+  signup(user: UserLoginI) {
+    return this.http.post(environment.BASE_URL + 'auth/signup', user)
+    .pipe(
+      map((res: any) => {
+        return res
+      }),
+      catchError(err => {
+        return throwError(err.error.message)
+      })
+    )
+  }
 
   logout(): void {
     this.tokenEvent.emit(false);

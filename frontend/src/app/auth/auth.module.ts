@@ -6,12 +6,13 @@ import { LoginComponent } from './components/login/login.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AngularMaterialModule } from '../angular-material.module';
 import { SharedModule } from '../shared/shared.module';
-import { AuthService } from './services/auth.service';
+import { SignupComponent } from './components/signup/signup.component';
 
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     CommonModule,

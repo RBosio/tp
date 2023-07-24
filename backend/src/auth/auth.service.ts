@@ -16,7 +16,7 @@ export class AuthService {
         if (await userFound.comparePassword(userLogin.password)) {
             const { roles } = userFound
 
-            const payload = { username: userFound.name, sub: userFound.dni, roles: roles.map(role => role.name.toLowerCase()) };
+            const payload = { name: userFound.name, surname: userFound.surname, sub: userFound.dni, roles: roles.map(role => role.name.toLowerCase()) };
 
             return {token: await this.jwtService.signAsync(payload)}
         } else {

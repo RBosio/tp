@@ -8,7 +8,6 @@ import { RolesGuard } from 'src/auth/roles.guard';
 import { Roles } from 'src/role/roles.decorator';
 import { RoleEnum } from 'src/enums/role.enum';
 
-@UseGuards(AuthGuard, RolesGuard)
 @Controller('city')
 export class CityController {
 
@@ -20,24 +19,28 @@ export class CityController {
     }
     
     @Get(':zipCode')
+    @UseGuards(AuthGuard, RolesGuard)
     @Roles(RoleEnum.Admin)
     getCity(@Param('zipCode') zipCode: string): Promise<City | HttpException> {
         return this.cityService.findOne(zipCode)
     }
 
     @Post()
+    @UseGuards(AuthGuard, RolesGuard)
     @Roles(RoleEnum.Admin)
     createCity(@Body() city: createCityDto): Promise<City | HttpException> {
         return this.cityService.create(city)
     }
 
     @Patch(':zipCode')
+    @UseGuards(AuthGuard, RolesGuard)
     @Roles(RoleEnum.Admin)
     updateCity(@Param('zipCode') zipCode: string, @Body() city: updateCityDto) {
         return this.cityService.update(zipCode, city)
     }
 
     @Delete(':zipCode')
+    @UseGuards(AuthGuard, RolesGuard)
     @Roles(RoleEnum.Admin)
     deleteCity(@Param('zipCode') zipCode: string) {
         return this.cityService.delete(zipCode)

@@ -1,9 +1,9 @@
 <mat-toolbar color="accent" class="toolbar">
     <mat-toolbar-row>
         <div class="flex">
-            <p class="ope" routerLink="/province">Listado</p>
-            <p class="title">Provincias</p>
-            <p class="ope" routerLink="/province/add">Agregar</p>
+            <p class="ope" routerLink="/city">Listado</p>
+            <p class="title">Ciudades</p>
+            <p class="ope" routerLink="/city/add">Agregar</p>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>
@@ -19,11 +19,18 @@
             </mat-error>
         </mat-form-field>
         <mat-form-field class="input">
-            <mat-label>Escoge una opción</mat-label>
-            <mat-select formControlName="countryId">
+            <mat-label>Pais</mat-label>
+            <mat-select formControlName="countryId" (selectionChange)="onChange()">
               <mat-option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</mat-option>
             </mat-select>
-            <mat-error *ngIf="edit.get('countryId')?.touched && edit.get('countryId').errors?.['required']">Pais requerido</mat-error>
+            <mat-error *ngIf="edit.get('countryId')?.touched && edit.get('countryId').errors?.['required']">Pais <strong>requerido</strong></mat-error>
+          </mat-form-field>
+        <mat-form-field class="input">
+            <mat-label>Provincia</mat-label>
+            <mat-select formControlName="provinceId">
+              <mat-option *ngFor="let province of provinces" [value]="province.id">{{ province.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="edit.get('provinceId')?.touched && edit.get('provinceId').errors?.['required']">Pais <strong>requerido</strong></mat-error>
           </mat-form-field>
         </mat-card-content>
         <mat-card-actions class="actions">

@@ -30,12 +30,14 @@ export class AddCountryComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const country = {
-      'name': this.add.controls['name'].value
+    if(this.add.valid){
+      const country = {
+        'name': this.add.controls['name'].value
+      }
+      this.subscription1$ = this.countryService.add(country).subscribe(() => {
+      this.router.navigateByUrl('/country')
+      })
     }
-    this.subscription1$ = this.countryService.add(country).subscribe(() => {
-    this.router.navigateByUrl('/country')
-    })
   }
 
   ngOnDestroy(): void {

@@ -4,6 +4,7 @@ export class ProvinceIResponse {
     id: number
     name: string
     country: CountryIResponse
+    countryId: number
 }
 
 export class ProvinceI {

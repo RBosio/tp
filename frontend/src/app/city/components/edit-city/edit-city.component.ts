@@ -1,37 +1,43 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProvinceService } from '../../services/province.service';
+import { CityService } from '../../services/city.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CountryIResponse } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/country/services/country.service';
 import { Subscription } from 'rxjs';
+import { ProvinceIResponse } from 'src/app/models/province.model';
+import { ProvinceService } from 'src/app/province/services/province.service';
 
 @Component({
-  selector: 'app-edit-province',
-  templateUrl: './edit-province.component.html',
-  styleUrls: ['./edit-province.component.scss']
+  selector: 'app-edit-city',
+  templateUrl: './edit-city.component.html',
+  styleUrls: ['./edit-city.component.scss']
 })
-export class EditProvinceComponent {
+export class EditCityComponent {
   edit: FormGroup
-  id: number
+  zipCode: string
   name: string
   countries: CountryIResponse[]
+  provinces: ProvinceIResponse[]
 
   subscription1$: Subscription
   subscription2$: Subscription
   subscription3$: Subscription
   subscription4$: Subscription
+  subscription5$: Subscription
 
   constructor(
     private fb: FormBuilder,
-    private provinceService: ProvinceService,
+    private cityService: CityService,
     private router: Router,
     private route: ActivatedRoute,
-    private countryService: CountryService) {
+    private countryService: CountryService,
+    private provinceService: ProvinceService,
+    ) {
       this.subscription1$ = this.route.params.subscribe(params => {
-        this.id = params['id']
+        this.zipCode = params['zipCode']
 
-        this.subscription2$ = this.provinceService.getOne(this.id).subscribe(res => {
+        this.subscription2$ = this.cityService.getOne(this.zipCode).subscribe(res => {
           this.name = res.name
         })
         
@@ -48,20 +54,28 @@ export class EditProvinceComponent {
   initForm(): FormGroup {
     return this.fb.group({
       'name': ['', [Validators.required]],
-      'countryId': ['', [Validators.required]]
+      'countryId': ['', [Validators.required]],
+      'provinceId': ['', [Validators.required]]
     })
   }
 
   onSubmit() {
     if(this.edit.valid){
-      const province = {
+      const city = {
+        'zipCode': this.zipCode,
         'name': this.edit.controls['name'].value,
-        'countryId': this.edit.controls['countryId'].value
+        'provinceId': this.edit.controls['provinceId'].value
       }
-      this.subscription4$ = this.provinceService.edit(province, this.id).subscribe(() => {
-        this.router.navigateByUrl('/province')
+      this.subscription4$ = this.cityService.edit(city, this.zipCode).subscribe(() => {
+        this.router.navigateByUrl('/city')
       })
     }
+  }
+
+  onChange() {
+    this.subscription5$ = this.provinceService.getAll().subscribe(res => {
+      this.provinces = res.filter(province => province.country.id == this.edit.controls['countryId'].value)
+    })
   }
 
   ngOnDestroy(): void {
@@ -70,6 +84,7 @@ export class EditProvinceComponent {
     this.subscription3$.unsubscribe()
     if(this.subscription4$){
       this.subscription4$.unsubscribe()
+      this.subscription5$.unsubscribe()
     }
   }
 }

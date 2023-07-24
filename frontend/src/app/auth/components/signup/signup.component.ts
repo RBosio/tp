@@ -37,19 +37,20 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log(this.signup.controls['dni'].value)
-    const user: UserSignupI = {
-      name: this.signup.controls['name'].value,
-      surname: this.signup.controls['surname'].value,
-      email: this.signup.controls['email'].value,
-      password: this.signup.controls['password'].value,
-      dni: this.signup.controls['dni'].value,
-      phone: this.signup.controls['phone'].value,
+    if(this.signup.valid){
+      const user: UserSignupI = {
+        name: this.signup.controls['name'].value,
+        surname: this.signup.controls['surname'].value,
+        email: this.signup.controls['email'].value,
+        password: this.signup.controls['password'].value,
+        dni: this.signup.controls['dni'].value,
+        phone: this.signup.controls['phone'].value,
+      }
+      
+      this.subscription$ = this.authService.signup(user).subscribe(() => {
+        this.router.navigateByUrl('/auth/login')
+      })
     }
-    
-    this.subscription$ = this.authService.signup(user).subscribe(() => {
-      this.router.navigateByUrl('/auth/login');
-    });
   }
 
   ngOnDestroy(): void {

@@ -43,12 +43,14 @@ export class EditCountryComponent {
   }
 
   onSubmit() {
-    const country = {
-      'name': this.edit.controls['name'].value
+    if(this.edit.valid){
+      const country = {
+        'name': this.edit.controls['name'].value
+      }
+      this.subscription3$ = this.countryService.edit(country, this.id).subscribe(() => {
+      this.router.navigateByUrl('/country')
+      })
     }
-    this.subscription3$ = this.countryService.edit(country, this.id).subscribe(() => {
-    this.router.navigateByUrl('/country')
-    })
   }
 
   ngOnDestroy(): void {

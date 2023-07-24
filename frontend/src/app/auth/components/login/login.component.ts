@@ -35,18 +35,20 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.user = {
-      email: this.login.controls['email'].value,
-      password: this.login.controls['password'].value  
-    }  
-    this.subscription$ = this.authService.login(this.user).subscribe(
-      res => {
-        const token = res.token;
-        localStorage.setItem('token', token);
-        this.router.navigateByUrl('/');
-      },
-      () => this.openSnackBar('Email y/o contraseña incorrectos', 'Cerrar')
-      )
+    if(this.login.valid){
+      this.user = {
+        email: this.login.controls['email'].value,
+        password: this.login.controls['password'].value  
+      }  
+      this.subscription$ = this.authService.login(this.user).subscribe(
+        res => {
+          const token = res.token;
+          localStorage.setItem('token', token);
+          this.router.navigateByUrl('/');
+        },
+        () => this.openSnackBar('Email y/o contraseña incorrectos', 'Cerrar')
+        )
+    }
   }
   
   openSnackBar(message: string, action: string) {

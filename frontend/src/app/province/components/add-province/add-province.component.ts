@@ -39,13 +39,15 @@ export class AddProvinceComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const province = {
-      'name': this.add.controls['name'].value,
-      'countryId': this.add.controls['countryId'].value
+    if(this.add.valid){
+      const province = {
+        'name': this.add.controls['name'].value,
+        'countryId': this.add.controls['countryId'].value
+      }
+      this.subscription2$ = this.provinceService.add(province).subscribe(() => {
+      this.router.navigateByUrl('/province')
+      })
     }
-    this.subscription2$ = this.provinceService.add(province).subscribe(() => {
-    this.router.navigateByUrl('/province')
-    })
   }
 
   ngOnDestroy(): void {

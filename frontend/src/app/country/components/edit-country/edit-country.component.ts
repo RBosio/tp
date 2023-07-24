@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountryService } from '../../services/country.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-edit-country',
@@ -13,15 +14,19 @@ export class EditCountryComponent {
   id: number
   name: string
 
+  subscription1$: Subscription
+  subscription2$: Subscription
+  subscription3$: Subscription
+
   constructor(
     private fb: FormBuilder,
     private countryService: CountryService,
     private router: Router,
     private route: ActivatedRoute) {
-      this.route.params.subscribe(params => {
+      this.subscription1$ = this.route.params.subscribe(params => {
         this.id = params['id']
 
-        this.countryService.getOne(this.id).subscribe(res => {
+        this.subscription2$ = this.countryService.getOne(this.id).subscribe(res => {
           this.name = res.name
         })
       })
@@ -41,8 +46,16 @@ export class EditCountryComponent {
     const country = {
       'name': this.edit.controls['name'].value
     }
-    this.countryService.edit(country, this.id).subscribe(res => {
+    this.subscription3$ = this.countryService.edit(country, this.id).subscribe(() => {
     this.router.navigateByUrl('/country')
     })
+  }
+
+  ngOnDestroy(): void {
+    this.subscription1$.unsubscribe()
+    this.subscription2$.unsubscribe()
+    if(this.subscription3$){
+      this.subscription3$.unsubscribe()
+    }
   }
 }

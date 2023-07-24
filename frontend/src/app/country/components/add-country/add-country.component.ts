@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountryService } from '../../services/country.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-country',
   templateUrl: './add-country.component.html',
   styleUrls: ['./add-country.component.scss']
 })
-export class AddCountryComponent implements OnInit {
+export class AddCountryComponent implements OnInit, OnDestroy {
   add: FormGroup
+
+  subscription1$: Subscription
 
   constructor(
     private fb: FormBuilder,
@@ -30,8 +33,14 @@ export class AddCountryComponent implements OnInit {
     const country = {
       'name': this.add.controls['name'].value
     }
-    this.countryService.add(country).subscribe(res => {
+    this.subscription1$ = this.countryService.add(country).subscribe(() => {
     this.router.navigateByUrl('/country')
     })
+  }
+
+  ngOnDestroy(): void {
+    if(this.subscription1$){
+      this.subscription1$.unsubscribe()
+    }
   }
 }

@@ -3,16 +3,16 @@
 <mat-sidenav-container>
     <mat-sidenav #sidenav>
         <mat-nav-list>
-            <a mat-list-item>Home</a>
+            <a mat-list-item routerLink="/">Home</a>
             <a class="title">Recepción</a>
-            <a mat-list-item>Reservas</a>
+            <a mat-list-item routerLink="/booking">Reservas</a>
             <a class="title">Administración</a>
-            <a mat-list-item>Usuarios</a>
-            <a mat-list-item>Tipos de habitaciones</a>
-            <a mat-list-item>Habitaciones</a>
-            <a mat-list-item>Extras</a>
-            <a mat-list-item>Ciudades</a>
-            <a mat-list-item>Provincias</a>
+            <a mat-list-item routerLink="/user">Usuarios</a>
+            <a mat-list-item routerLink="/type">Tipos de habitaciones</a>
+            <a mat-list-item routerLink="/room">Habitaciones</a>
+            <a mat-list-item routerLink="/extra">Extras</a>
+            <a mat-list-item routerLink="/city">Ciudades</a>
+            <a mat-list-item routerLink="/province">Provincias</a>
             <a mat-list-item routerLink="/country">Paises</a>
         </mat-nav-list>
     </mat-sidenav>

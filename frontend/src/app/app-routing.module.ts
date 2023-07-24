@@ -16,6 +16,10 @@ const routes: Routes = [
     loadChildren: () => import('./country/country.module').then(m => m.CountryModule)
   },
   {
+    path: 'province',
+    loadChildren: () => import('./province/province.module').then(m => m.ProvinceModule)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

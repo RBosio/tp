@@ -11,3 +11,12 @@ export interface UserSignupI{
     dni: string;
     phone: string;
 }
+
+export interface UserIResponse{
+    name: string;
+    surname: string;
+    email: string;
+    password: string;
+    dni: string;
+    phone: string;
+}

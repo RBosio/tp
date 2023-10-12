@@ -1,0 +1,79 @@
+<mat-toolbar color="accent" class="toolbar">
+    <mat-toolbar-row>
+        <div class="flex">
+            <p class="title">Usuarios</p>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<div style="width: 60%; margin: auto;">
+    <form class="example-form">
+        <table class="example-full-width" cellspacing="0">
+            <tr>
+                <td>
+                    <mat-form-field class="example-form-field" style="min-width: 300px;">
+                    <mat-label>Dni</mat-label>
+                    <div style="display: flex;">
+                        <input matInput type="text" (input)="filterByDni()" [(ngModel)]="dni" name="dni" autocomplete="off">
+                        <i class="fa-solid fa-search search"></i>
+                    </div>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="example-form-field" style="min-width: 300px;">
+                    <mat-label>Nombre</mat-label>
+                    <div style="display: flex;">
+                        <input matInput type="text" (input)="filterByName()" [(ngModel)]="name" name="name" autocomplete="off">
+                        <i class="fa-solid fa-search search"></i>
+                    </div>
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+    </form>
+      
+    <div class="mat-elevation-z8 table">
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="dni">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Dni</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">{{element.dni}}</p></td>
+            </ng-container>
+    
+            <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Nombre</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">{{element.name}}</p></td>
+            </ng-container>
+            
+            <ng-container matColumnDef="surname">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Apellido</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">{{element.surname}}</p></td>
+            </ng-container>
+            
+            <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Email</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">{{element.email}}</p></td>
+            </ng-container>
+
+            <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Telefono</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">{{element.phone}}</p></td>
+            </ng-container>
+    
+            <ng-container matColumnDef="roles">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Roles</p></th>
+            <td mat-cell *matCellDef="let element">
+                <div class="buttons">
+                    <p *ngFor="let role of element.roles" class="role">{{role.name}}</p>
+                </div>
+            </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    
+        <mat-paginator [pageSizeOptions]="[5]"
+                        showFirstLastButtons>
+        </mat-paginator>
+    </div>
+</div>

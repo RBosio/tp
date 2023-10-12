@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Role } from 'src/role/role.entity';
 import { RoleService } from 'src/role/role.service';
@@ -9,7 +9,7 @@ import { User } from './user.entity';
 
 @Injectable()
 export class UserService {
-
+    private readonly logger = new Logger(UserService.name)
     constructor(
         @InjectRepository(User) private userRepository: Repository<User>,
         private roleService: RoleService
@@ -81,6 +81,8 @@ export class UserService {
             })
             newUser.roles = rolesUser
         }
+
+        this.logger.log('Creating user')
 
         return this.userRepository.save(newUser)
     }

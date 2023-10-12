@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -22,9 +22,37 @@ import { RoomModule } from './room/room.module';
 import { BookingModule } from './booking/booking.module';
 import { Booking } from './booking/booking.entity';
 import { AuthModule } from './auth/auth.module';
+import { LoggerModule } from 'nestjs-pino';
+import { CORRELATION_ID_HEADER, CorrelationIdMiddleware } from './middlewares/correlation-id.middleware';
+import { Request } from 'express';
 
 @Module({
   imports: [
+    LoggerModule.forRoot({
+      pinoHttp: {
+        transport: {
+          target: "pino-pretty",
+          options: {
+            messageKey: 'message'
+          }
+        },
+        messageKey: 'message',
+        customProps: (req: Request) => {
+          return {
+            correlationId: req[CORRELATION_ID_HEADER]
+          }
+        },
+        autoLogging: false,
+        serializers: {
+          req: () => {
+            return undefined
+          },
+          res: () => {
+            return undefined
+          }
+        }
+      }
+    }),
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -53,6 +81,8 @@ import { AuthModule } from './auth/auth.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {
-
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(CorrelationIdMiddleware).forRoutes('*')
+  }
 }

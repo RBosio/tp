@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { CountryI, CountryIResponse } from 'src/app/models/country.model';
+import { SharedService } from 'src/app/shared/services/shared.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,14 +12,12 @@ export class CountryService {
   token: string;
   headers: HttpHeaders
 
-  constructor(private http: HttpClient) {
-    this.token = localStorage.getItem('token')
-    this.headers = new HttpHeaders()
-    .set('Authorization', 'Bearer ' + this.token);
-  }
+  constructor(private http: HttpClient,
+    private sharedService: SharedService) {}
 
   getAll(): Observable<CountryIResponse[]> {
-    return this.http.get(environment.BASE_URL + 'country', {headers: this.headers})
+    const headers = this.sharedService.setHeader()
+    return this.http.get(environment.BASE_URL + 'country', {headers})
     .pipe(
       map((res: any) => {
         return res
@@ -30,7 +29,8 @@ export class CountryService {
   }
 
   getOne(id: number): Observable<CountryIResponse> {
-    return this.http.get(environment.BASE_URL + 'country/' + id, {headers: this.headers})
+    const headers = this.sharedService.setHeader()
+    return this.http.get(environment.BASE_URL + 'country/' + id, {headers})
     .pipe(
       map((res: any) => {
         return res
@@ -42,7 +42,8 @@ export class CountryService {
   }
 
   add(country: CountryI): Observable<CountryIResponse> {
-    return this.http.post(environment.BASE_URL + 'country', country, {headers: this.headers})
+    const headers = this.sharedService.setHeader()
+    return this.http.post(environment.BASE_URL + 'country', country, {headers})
     .pipe(
       map((res: any) => {
         return res
@@ -54,7 +55,8 @@ export class CountryService {
   }
   
   edit(country: CountryI, id: number): Observable<CountryIResponse> {
-    return this.http.patch(environment.BASE_URL + 'country/' + id, country, {headers: this.headers})
+    const headers = this.sharedService.setHeader()
+    return this.http.patch(environment.BASE_URL + 'country/' + id, country, {headers})
     .pipe(
       map((res: any) => {
         return res
@@ -66,7 +68,8 @@ export class CountryService {
   }
 
   delete(id: number) {
-    return this.http.delete(environment.BASE_URL + 'country/' + id, {headers: this.headers})
+    const headers = this.sharedService.setHeader()
+    return this.http.delete(environment.BASE_URL + 'country/' + id, {headers})
     .pipe(
       map((res: any) => {
         return res

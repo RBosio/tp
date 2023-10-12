@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
   tokenEvent: EventEmitter<boolean> = new EventEmitter()
+  tokenE: EventEmitter<string> = new EventEmitter()
 
   constructor(
     private http: HttpClient,
@@ -19,6 +20,7 @@ export class AuthService {
     .pipe(
       map((res: any) => {
         this.tokenEvent.emit(true);
+        this.tokenE.emit(res);
         return res
       }),
       catchError(err => {

@@ -7,7 +7,7 @@
         <span class="example-spacer"></span>
         <div class="options">
             <ul class="list flex-row">
-                <p class="welcome" *ngIf="login || token">Bienvenido x y!</p>
+                <p class="welcome" *ngIf="login || token">Bienvenido {{surname}}, {{name}}!</p>
                 <li class="hostel" *ngIf="login || token">
                     <a [routerLink]="">Hospedarse</a>
                     <i class="fa-solid fa-house"></i>

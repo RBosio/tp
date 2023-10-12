@@ -24,6 +24,10 @@ const routes: Routes = [
     loadChildren: () => import('./city/city.module').then(m => m.CityModule)
   },
   {
+    path: 'type',
+    loadChildren: () => import('./type/type.module').then(m => m.TypeModule)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

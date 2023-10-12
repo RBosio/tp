@@ -1,23 +1,25 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { ProvinceI, ProvinceIResponse } from 'src/app/models/province.model';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { TypeI, TypeIResponse } from 'src/app/models/type.model';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProvinceService {
+export class TypeService {
   token: string;
   headers: HttpHeaders
 
-  constructor(private http: HttpClient,
-    private sharedService: SharedService) {}
+  constructor(
+    private http: HttpClient,
+    private sharedService: SharedService) { }
 
-  getAll(): Observable<ProvinceIResponse[]> {
+  getAll(): Observable<TypeIResponse[]> {
     const headers = this.sharedService.setHeader()
-    return this.http.get(environment.BASE_URL + 'province', {headers})
+    return this.http.get(environment.BASE_URL + 'type', {headers})
     .pipe(
       map((res: any) => {
         return res
@@ -28,9 +30,9 @@ export class ProvinceService {
     )
   }
 
-  getOne(id: number): Observable<ProvinceIResponse> {
+  getOne(id: number): Observable<TypeIResponse> {
     const headers = this.sharedService.setHeader()
-    return this.http.get(environment.BASE_URL + 'province/' + id, {headers})
+    return this.http.get(environment.BASE_URL + 'type/' + id, {headers})
     .pipe(
       map((res: any) => {
         return res
@@ -41,9 +43,9 @@ export class ProvinceService {
     )
   }
 
-  add(province: ProvinceI): Observable<ProvinceIResponse> {
+  add(type: TypeI): Observable<TypeIResponse> {
     const headers = this.sharedService.setHeader()
-    return this.http.post(environment.BASE_URL + 'province', province, {headers})
+    return this.http.post(environment.BASE_URL + 'type', type, {headers})
     .pipe(
       map((res: any) => {
         return res
@@ -54,9 +56,9 @@ export class ProvinceService {
     )
   }
   
-  edit(province: ProvinceI, id: number): Observable<ProvinceIResponse> {
+  edit(type: TypeI, id: number): Observable<TypeIResponse> {
     const headers = this.sharedService.setHeader()
-    return this.http.patch(environment.BASE_URL + 'province/' + id, province, {headers})
+    return this.http.patch(environment.BASE_URL + 'type/' + id, type, {headers})
     .pipe(
       map((res: any) => {
         return res
@@ -69,7 +71,7 @@ export class ProvinceService {
 
   delete(id: number) {
     const headers = this.sharedService.setHeader()
-    return this.http.delete(environment.BASE_URL + 'province/' + id, {headers})
+    return this.http.delete(environment.BASE_URL + 'type/' + id, {headers})
     .pipe(
       map((res: any) => {
         return res

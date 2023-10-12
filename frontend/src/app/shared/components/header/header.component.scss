@@ -3,6 +3,15 @@
 .header {
     user-select: none;
 
+    .menu {
+        font-size: 20px;
+        padding: 5px;
+    }
+
+    .menu:hover {
+        cursor: pointer;
+    }
+
     .title {
         font-size: 2em;
         padding: 10px;

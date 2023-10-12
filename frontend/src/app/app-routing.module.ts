@@ -32,6 +32,10 @@ const routes: Routes = [
     loadChildren: () => import('./room/room.module').then(m => m.RoomModule)
   },
   {
+    path: 'extra',
+    loadChildren: () => import('./extra/extra.module').then(m => m.ExtraModule)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

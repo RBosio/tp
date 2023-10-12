@@ -2,7 +2,7 @@
 
 <mat-sidenav-container>
     <mat-sidenav #sidenav>
-        <mat-nav-list>
+        <mat-nav-list (click)="closeSidenav(sidenav)">
             <a mat-list-item routerLink="/">Home</a>
             <a class="title">Recepción</a>
             <a mat-list-item routerLink="/booking">Reservas</a>

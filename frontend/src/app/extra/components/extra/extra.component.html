@@ -1,0 +1,48 @@
+<mat-toolbar color="accent" class="toolbar">
+    <mat-toolbar-row>
+        <div class="flex">
+            <p class="ope" routerLink="/extra">Listado</p>
+            <p class="title">Extras</p>
+            <p class="ope" routerLink="/extra/add">Agregar</p>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="flex-row">
+    <div class="mat-elevation-z8 table">
+        <table mat-table [dataSource]="dataSource">
+    
+            <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef><p class="header">#</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">{{element.id}}</p></td>
+            </ng-container>
+    
+            <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Nombre</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">{{element.name}}</p></td>
+            </ng-container>
+            
+            <ng-container matColumnDef="price">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Precio</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">{{element.price | currency}}</p></td>
+            </ng-container>
+    
+            <ng-container matColumnDef="operations">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Operaciones</p></th>
+            <td mat-cell *matCellDef="let element">
+                <div class="buttons">
+                    <button mat-flat-button color="accent" routerLink="/extra/edit/{{element.id}}">Editar <i class="fa-solid fa-pen-to-square"></i></button>
+                    <button mat-flat-button color="warn" (click)="delete(element.id)">Eliminar <i class="fa-solid fa-trash"></i></button>
+                </div>
+            </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    
+        <mat-paginator [pageSizeOptions]="[5]"
+                        showFirstLastButtons>
+        </mat-paginator>
+    </div>
+</div>

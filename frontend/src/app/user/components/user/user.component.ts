@@ -49,14 +49,18 @@ export class UserComponent implements AfterViewInit, OnDestroy {
       this.subscription2$.unsubscribe()
     }
   }
-
-  filterByDni() {
-    this.dataSource = new MatTableDataSource<UserIResponse>(this.users.filter(x => x.dni.includes(this.dni)))
-    this.dataSource.paginator = this.paginator
-  }
   
-  filterByName() {
-    this.dataSource = new MatTableDataSource<UserIResponse>(this.users.filter(x => x.name.toLowerCase().includes(this.name.toLowerCase())))
+  filterByDniAndName() {
+    if(!this.dni && !this.name) {
+      this.dataSource = new MatTableDataSource<UserIResponse>(this.users)
+    } else if(!this.dni) {
+      this.dataSource = new MatTableDataSource<UserIResponse>(this.users.filter(x => x.name.toLowerCase().includes(this.name.toLowerCase())))
+    } else if(!this.name) {
+      this.dataSource = new MatTableDataSource<UserIResponse>(this.users.filter(x => x.dni.includes(this.dni)))
+    } else {
+      this.dataSource = new MatTableDataSource<UserIResponse>(this.users.filter(x => x.name.toLowerCase().includes(this.name.toLowerCase()) && x.dni.includes(this.dni)))
+    }
+
     this.dataSource.paginator = this.paginator
   }
 }

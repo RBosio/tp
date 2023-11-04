@@ -14,7 +14,7 @@
                     <mat-form-field class="example-form-field" style="min-width: 300px;">
                     <mat-label>Dni</mat-label>
                     <div style="display: flex;">
-                        <input matInput type="text" (input)="filterByDni()" [(ngModel)]="dni" name="dni" autocomplete="off">
+                        <input matInput type="text" (input)="filterByDniAndName()" [(ngModel)]="dni" name="dni" autocomplete="off">
                         <i class="fa-solid fa-search search"></i>
                     </div>
                     </mat-form-field>
@@ -23,7 +23,7 @@
                     <mat-form-field class="example-form-field" style="min-width: 300px;">
                     <mat-label>Nombre</mat-label>
                     <div style="display: flex;">
-                        <input matInput type="text" (input)="filterByName()" [(ngModel)]="name" name="name" autocomplete="off">
+                        <input matInput type="text" (input)="filterByDniAndName()" [(ngModel)]="name" name="name" autocomplete="off">
                         <i class="fa-solid fa-search search"></i>
                     </div>
                     </mat-form-field>

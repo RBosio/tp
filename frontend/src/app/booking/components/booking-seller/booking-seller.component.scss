@@ -1,0 +1,161 @@
+@import "../../../shared/styles/vars.scss";
+
+.toolbar {
+    width: 60%;
+    margin: 0 auto 20px auto;
+    
+    .mat-toolbar-row {
+        height: 50px;
+    }
+
+    .ope {
+        padding: 10px;
+    }
+
+    .ope:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    .title {
+        font-size: 24px;
+        text-decoration: underline;
+    }
+}
+
+.flex {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-toolbar-multiple-rows {
+    min-height: 0px;
+}
+
+
+.flex-row {
+    margin: auto;
+}
+
+button {
+    padding: 5px;
+    margin: 5px;
+}
+
+.mat-column-dni {
+    width: 10%;
+}
+
+.mat-column-name {
+    width: 10%;
+}
+
+.mat-column-surname {
+    width: 10%;
+}
+
+.mat-column-email {
+    width: 20%;
+}
+
+.mat-column-phone {
+    width: 20%;
+}
+
+.mat-column-roles {
+    width: 30%;
+}
+
+.header {
+    text-align: center;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    
+    .role {
+        background-color: $WARN;
+        padding: 5px;
+        margin: 2px;
+        border-radius: 10px;
+        color: #fff;
+    }
+}
+
+.mat-mdc-form-field {
+    flex-direction: row;
+    width: 80%;
+}
+
+.input {
+    display: flex;
+    width: 90%;
+    margin: auto;
+}
+
+.form {
+    padding: 15px;
+    align-items: center;
+}
+
+.example-form {
+    min-width: 150px;
+    width: 100%;
+}
+
+.pending {
+    background-color: #e95e0d;
+    color: #fff;
+}
+
+.checkin-status {
+    background-color: #18bda1;
+    color: #fff;
+}
+
+.checkout-status {
+    background-color: #1dbd18;
+    color: #fff;
+}
+
+.cancel-status {
+    background-color: #bd1818;
+    color: #fff;
+}
+
+.info {
+    color: $PRIMARY;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 2px;
+}
+
+.checkin {
+    color: #18bda1;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 2px;
+}
+
+.checkout {
+    color: #1dbd18;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 2px;
+}
+
+.cancel {
+    color: #bd1818;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 2px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

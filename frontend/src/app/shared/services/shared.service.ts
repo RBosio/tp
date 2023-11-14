@@ -1,7 +1,9 @@
 import { HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import jwt_decode from 'jwt-decode';
+import { DialogComponent } from '../components/dialog/dialog.component';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +11,10 @@ import jwt_decode from 'jwt-decode';
 export class SharedService {
   nameEvent: EventEmitter<string> = new EventEmitter<string>()
   surnameEvent: EventEmitter<string> = new EventEmitter<string>()
+  titleDialog: EventEmitter<string> = new EventEmitter<string>()
+  textDialog: EventEmitter<string> = new EventEmitter<string>()
 
-  constructor() { }
+  constructor(public dialog: MatDialog) { }
 
   getDecodedAccessToken(token: string): any {
     try {
@@ -26,5 +30,18 @@ export class SharedService {
     .set('Authorization', 'Bearer ' + token)
 
     return headers
+  }
+
+  openDialog(title: string): MatDialogRef<DialogComponent, any> {
+    const _dialog = this.dialog.open(DialogComponent, {
+      width: '250px',
+      enterAnimationDuration: '250ms',
+      exitAnimationDuration: '250ms',
+      data: {
+        title
+      }
+    });
+
+    return _dialog
   }
 }

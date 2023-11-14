@@ -40,6 +40,10 @@ const routes: Routes = [
     loadChildren: () => import('./user/user.module').then(m => m.UserModule)
   },
   {
+    path: 'booking',
+    loadChildren: () => import('./booking/booking.module').then(m => m.BookingModule)
+  },
+  {
     path: '**',
     redirectTo: ''
   }

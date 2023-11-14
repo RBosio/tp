@@ -7,6 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
+import { DialogComponent } from './components/dialog/dialog.component';
 
 
 
@@ -14,7 +15,8 @@ import { HomeComponent } from './components/home/home.component';
   declarations: [
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    DialogComponent
   ],
   imports: [
     CommonModule,

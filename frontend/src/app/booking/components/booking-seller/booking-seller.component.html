@@ -1,0 +1,82 @@
+<mat-toolbar color="accent" class="toolbar">
+    <mat-toolbar-row>
+        <div class="flex">
+            <p class="title">Reservas</p>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<div style="width: 60%; margin: auto;">
+    <form class="example-form" [formGroup]="form">
+        <table class="example-full-width" cellspacing="0">
+            <tr>
+                <td>
+                    <mat-form-field class="example-form-field" style="min-width: 300px;">
+                    <mat-label>Dni</mat-label>
+                    <div style="display: flex;">
+                        <input matInput type="text" autocomplete="off" formControlName="dni" (input)="filterByDniAndStatus()">
+                        <i class="fa-solid fa-search search"></i>
+                    </div>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field>
+                        <mat-label>Pais</mat-label>
+                        <mat-select formControlName="status" (selectionChange)="filterByDniAndStatus()">
+                            <mat-option *ngFor="let stat of statusList" [value]="stat">{{ stat }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+    </form>
+      
+    <div class="mat-elevation-z8 table">
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="nro">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Nro Hab</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">{{element.roomId}}</p></td>
+            </ng-container>
+
+            <ng-container matColumnDef="admission">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Fecha inicio</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">{{element.admissionDate | date:"dd/MM/YYYY"}}</p></td>
+            </ng-container>
+    
+            <ng-container matColumnDef="departure">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Fecha fin</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">{{element.departureDate | date:"dd/MM/YYYY"}}</p></td>
+            </ng-container>
+            
+            <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Estado</p></th>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'pending': element.status === 'Pendiente', 'checkin-status': element.status === 'En curso', 'checkout-status': element.status === 'Finalizada', 'cancel-status': element.status === 'Cancelada'}"><p style="text-align: center;">{{element.status}}</p></td>
+            </ng-container>
+            
+            <ng-container matColumnDef="dni">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Dni</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">{{element.user.dni}}</p></td>
+            </ng-container>
+
+            <ng-container matColumnDef="operations">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Operaciones</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">
+                <div class="buttons">
+                    <i class="fa-solid fa-circle-info info"  matTooltip="Info"></i>
+                    <i class="fa-solid fa-circle-check checkin" matTooltip="Checkin" *ngIf="element.status === 'Pendiente'" (click)="checkin(element.user.dni, element.admissionDate)"></i>     
+                    <i class="fa-solid fa-right-from-bracket checkout" matTooltip="Checkout" *ngIf="element.status === 'En curso'" (click)="checkout(element.user.dni, element.admissionDate)"></i>
+                    <i class="fa-solid fa-circle-xmark cancel" matTooltip="Cancelar" *ngIf="element.status === 'Pendiente'" (click)="cancel(element.user.dni, element.admissionDate)"></i>
+                </div>
+                <p>
+            </td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    
+        <mat-paginator [pageSizeOptions]="[5]"
+                        showFirstLastButtons>
+        </mat-paginator>
+    </div>
+</div>

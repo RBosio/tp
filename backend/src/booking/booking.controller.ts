@@ -52,7 +52,7 @@ export class BookingController {
     }
     
     @Patch('cancel/:userDni/:admissionDate')
-    @Roles(RoleEnum.User)
+    @Roles(RoleEnum.Seller)
     cancelBooking(@Param('userDni') userDni: string, @Param('admissionDate') admissionDate: Date): Promise<Booking | HttpException> {
         return this.bookingService.cancel(userDni, admissionDate)
     }

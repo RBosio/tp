@@ -1,0 +1,37 @@
+<div class="button" routerLink="/booking">
+    <i class="fa-solid fa-left-long"></i>
+    <p>Volver</p>
+</div>
+
+<div class="card">
+    <div class="head">
+        <div class="img"><img src="../../../../assets/habitacion.jpg" alt=""></div>
+        <div class="booking">
+            <div class="date">
+                <p>Fecha de inicio: {{booking?.admissionDate.toString().split('T')[0]}}</p>
+                <p>Fecha de fin: {{booking?.departureDate.toString().split('T')[0]}}</p>
+            </div>
+            <p class="status" [ngClass]="{'pending': booking?.status === 'Pendiente', 'checkin-status': booking?.status === 'En curso', 'checkout-status': booking?.status === 'Finalizada', 'cancel-status': booking?.status === 'Cancelada'}" >Estado: {{booking?.status}}</p>
+        </div>
+        <div class="data">
+            <h3>Datos cliente</h3>
+            <p>Dni: {{dni}}</p>
+            <p>Nombre: {{booking?.user.name}}</p>
+            <p>Apellido: {{booking?.user.surname}}</p>
+            <p>Email: {{booking?.user.email}}</p>
+            <p>Telefono: {{booking?.user.phone}}</p>
+        </div>
+    </div>
+    <div class="room">
+        <h3>Habitacion</h3>
+        <div>
+            <p>Numero: {{booking?.room?.id}}</p>
+            <p>Tipo: {{type}}</p>
+        </div>
+    </div>
+    <h3 class="extra">Extras</h3>
+    <ul class="extras">
+        <li *ngFor="let extra of extras">{{extra.name}} <i class="fa-solid fa-square-check check" *ngIf="check(extra); else elseBlock"></i></li>
+        <ng-template #elseBlock><i class="fa-solid fa-square-xmark cross"></i></ng-template>
+    </ul>
+</div>

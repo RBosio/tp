@@ -1,3 +1,4 @@
+import { ExtraIResponse } from "./extra.model"
 import { RoomIResponse } from "./room.model"
 import { UserIResponse } from "./user.model"
 
@@ -7,6 +8,7 @@ export class BookingIResponse {
     status: string
     user: UserIResponse
     room: RoomIResponse
+    extras: ExtraIResponse[]
 }
 
 export class BookingI {

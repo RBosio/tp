@@ -38,7 +38,7 @@ export class BookingService {
                 userDni,
                 admissionDate
             },
-            relations: ['user', 'room']
+            relations: ['user', 'room', 'extras']
         })
         if (!bookingFound) {
             throw new HttpException('Reserva no encontrada', HttpStatus.NOT_FOUND)

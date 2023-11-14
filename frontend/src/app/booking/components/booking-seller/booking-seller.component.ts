@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { MatOption } from '@angular/material/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-booking-seller',
@@ -33,7 +34,7 @@ export class BookingSellerComponent implements AfterViewInit, OnDestroy {
     private sharedService: SharedService,
     private fb: FormBuilder
   ) {
-    this.statusList = ['Pendiente', 'En curso', 'Finalizada', 'Cancelada']
+    this.statusList = ['', 'Pendiente', 'En curso', 'Finalizada', 'Cancelada']
     this.form = this.initForm()
   }
 
@@ -59,14 +60,6 @@ export class BookingSellerComponent implements AfterViewInit, OnDestroy {
       this.dataSource.paginator = this.paginator;
     })
   }
-  
-  // delete(id: number) {
-  //   this.subscription2$ = this.bookingService.delete(id).subscribe(() => {
-  //     const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
-  //     this.dataSource.data.splice(indice, 1)
-  //     this.dataSource._updateChangeSubscription()
-  //   })
-  // }
 
   ngOnDestroy(): void {
     this.subscription1$.unsubscribe()

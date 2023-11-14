@@ -26,9 +26,9 @@ export class BookingService {
     )
   }
 
-  getOne(id: number): Observable<BookingIResponse> {
+  getOne(dni: string, admissionDate: string): Observable<BookingIResponse> {
     const headers = this.sharedService.setHeader()
-    return this.http.get(environment.BASE_URL + 'country/' + id, {headers})
+    return this.http.get(environment.BASE_URL + `booking/${dni}/${admissionDate}`, {headers})
     .pipe(
       map((res: any) => {
         return res

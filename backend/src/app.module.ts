@@ -25,9 +25,14 @@ import { AuthModule } from './auth/auth.module';
 import { LoggerModule } from 'nestjs-pino';
 import { CORRELATION_ID_HEADER, CorrelationIdMiddleware } from './middlewares/correlation-id.middleware';
 import { Request } from 'express';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
     LoggerModule.forRoot({
       pinoHttp: {
         transport: {

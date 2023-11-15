@@ -59,4 +59,18 @@ export class RoomService {
 
         return result
     }
+
+    async uploadImage(id: number, url: string) {
+        const roomFound = await this.roomRepository.findOne({
+            where: {
+                id
+            }
+        })
+        if (!roomFound) {
+            throw new HttpException('Habitacion no encontrada', HttpStatus.NOT_FOUND)
+        }
+        
+        roomFound.image = url
+        return this.roomRepository.save(roomFound)
+    }
 }

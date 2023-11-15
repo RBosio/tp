@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Patch, HttpException, ParseIntPipe, UseGuards, UseInterceptors, Req } from '@nestjs/common';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { createRoomDto } from './dto/create-room.dto';
 import { updateRoomDto } from './dto/update-room.dto';
@@ -7,6 +7,10 @@ import { RoomService } from './room.service';
 import { Roles } from 'src/role/roles.decorator';
 import { RoleEnum } from 'src/enums/role.enum';
 import { RolesGuard } from 'src/auth/roles.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { v4 as uuidv4 } from 'uuid';
+import { Request } from 'express';
 
 @UseGuards(AuthGuard, RolesGuard)
 @Controller('room')
@@ -42,5 +46,28 @@ export class RoomController {
     @Roles(RoleEnum.Admin)
     deleteRoom(@Param('id', ParseIntPipe) id: number) {
         return this.roomService.delete(id)
+    }
+
+    @UseInterceptors(
+        FileInterceptor(
+            'file',
+            {
+                storage: diskStorage({
+                    destination: './public/uploads',
+                    filename: (req, file, cb) => {
+                        req.body.url = uuidv4() + '.' + file.originalname.split('.').slice(-1)
+                        cb(null, req.body.url)
+                    }
+                })
+            }
+        )
+    )
+    @Post('file/:id')
+    @Roles(RoleEnum.Seller)
+    uploadFile(@Param('id', ParseIntPipe) id: number, @Req() request: Request) {
+        const { body } = request
+
+        return this.roomService.uploadImage(id, body.url)
+
     }
 }

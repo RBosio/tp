@@ -8,13 +8,15 @@ import { EditRoomComponent } from './components/edit-room/edit-room.component';
 import { AngularMaterialModule } from '../angular-material.module';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { InfoComponent } from './components/info/info.component';
 
 
 @NgModule({
   declarations: [
     RoomComponent,
     AddRoomComponent,
-    EditRoomComponent
+    EditRoomComponent,
+    InfoComponent
   ],
   imports: [
     CommonModule,

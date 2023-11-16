@@ -5,6 +5,7 @@ import { BookingIResponse } from 'src/app/models/booking.model';
 import { TypeService } from 'src/app/type/services/type.service';
 import { ExtraService } from 'src/app/extra/services/extra.service';
 import { ExtraIResponse } from 'src/app/models/extra.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-detail-booking',
@@ -18,6 +19,7 @@ export class DetailBookingComponent implements OnInit {
   booking: BookingIResponse
   type: string
   extras: ExtraIResponse[]
+  url: string
 
   constructor(
     private bookingService: BookingService,
@@ -33,6 +35,7 @@ export class DetailBookingComponent implements OnInit {
       
       this.bookingService.getOne(this.dni, this.admissionDate).subscribe(res => {
         this.booking = res
+        this.url = `${environment.BASE_URL}uploads/${this.booking.room.image}`
 
         this.typeService.getOne(this.booking?.room?.typeId).subscribe(res => {
           this.type = res.name
@@ -40,13 +43,9 @@ export class DetailBookingComponent implements OnInit {
 
         this.extraService.getAll().subscribe(res => {
           this.extras = res
-          console.log(this.booking.extras)
-          console.log(this.extras)
-        })
+          })
       })
     })
-
-    
   }
 
   check(extra: ExtraIResponse) {

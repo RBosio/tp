@@ -79,4 +79,21 @@ export class RoomService {
       })
     )
   }
+
+  loadImage(id: number, file: File) {
+    const fd = new FormData()
+
+    fd.append('file', file)
+
+    const headers = this.sharedService.setHeader()
+    return this.http.post(environment.BASE_URL + 'room/' + id + '/image', fd, {headers})
+    .pipe(
+      map((res: any) => {
+        return res
+      }),
+      catchError(err => {
+        return throwError(err.error.message)
+      })
+    )
+  }
 }

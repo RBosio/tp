@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./room.component.scss']
 })
 export class RoomComponent implements AfterViewInit, OnDestroy {
-  displayedColumns: string[] = ['id', 'price', 'tv', 'ac', 'towel', 'shower', 'type', 'operations'];
+  displayedColumns: string[] = ['id', 'price', 'tv', 'ac', 'towel', 'type', 'operations'];
   dataSource: MatTableDataSource<RoomIResponse, MatTableDataSourcePaginator>;
 
   subscription1$: Subscription

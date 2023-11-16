@@ -1,0 +1,91 @@
+@import "../../../shared/styles/vars.scss";
+
+.back {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 15px;
+    border-radius: 5px;
+    background-color: $WARN;
+    color: #fff;
+    width: 50px;
+    margin: 20px;
+
+    p {
+        margin-left: 4px;
+    }
+}
+
+.button {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: $PRIMARY;
+    color: #fff;
+    width: 30%;
+    margin: 10px;
+}
+
+.back:hover, .button:hover, img:hover {
+    cursor: pointer;
+    opacity: .8;
+}
+
+.card {
+    width: 60%;
+    margin: 20px auto;
+}
+
+.head {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.img {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+img {
+    object-fit: cover;
+    width: 100%;
+    height: 300px;
+}
+
+.room {
+    margin-left: 10px;
+    width: 40%;
+}
+
+h3 {
+    padding: 10px;
+    background-color: $ACCENT;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: normal;
+    text-decoration: underline;
+    width: 100%;
+    text-align: center;
+}
+
+.data {
+    width: 100%;
+    padding: 0 10px;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.extras {
+    background-color: $ACCENT;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+}

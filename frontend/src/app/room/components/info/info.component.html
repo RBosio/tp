@@ -1,0 +1,30 @@
+<div class="back" routerLink="/room">
+    <i class="fa-solid fa-left-long"></i>
+    <p>Volver</p>
+</div>
+
+<div class="card">
+    <div class="head">
+        <input type="file" (change)="onPhotoSelected($event)" #file style="display: none;">
+        <div class="img">
+            <img [src]="photo" (click)="file.click()">
+            <button class="button" (click)="loadImage()" [disabled]="disable"><p>Guardar</p></button>
+        </div>
+        <div class="room">
+            <h3>Habitacion</h3>
+            <div class="data">
+                <div class="flex">
+                    <p>Numero habitacion: {{room?.id}}</p>
+                    <p>Tipo: {{room?.type.name}}</p>
+                </div>
+                <p>Precio por dia: {{room?.price}}</p>
+            </div>
+            <div class="flex extras">
+                <p><i class="fa-solid fa-toilet-paper"></i> Si</p>
+                <p><i class="fa-solid fa-tv"></i> No</p>
+                <p><i class="fa-solid fa-snowflake"></i> Si</p>
+                <p><i class="fa-solid fa-shower"></i> Si</p>
+            </div>
+        </div>
+    </div>
+</div>

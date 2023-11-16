@@ -62,12 +62,12 @@ export class RoomController {
             }
         )
     )
-    @Post('file/:id')
+    
+    @Post(':id/image')
     @Roles(RoleEnum.Seller)
-    uploadFile(@Param('id', ParseIntPipe) id: number, @Req() request: Request) {
+    uploadImage(@Param('id', ParseIntPipe) id: number, @Req() request: Request) {
         const { body } = request
 
         return this.roomService.uploadImage(id, body.url)
-
     }
 }

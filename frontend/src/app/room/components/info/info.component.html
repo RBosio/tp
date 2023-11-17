@@ -17,13 +17,13 @@
                     <p>Numero habitacion: {{room?.id}}</p>
                     <p>Tipo: {{room?.type.name}}</p>
                 </div>
-                <p>Precio por dia: {{room?.price}}</p>
+                <p>Precio por dia: {{room?.price | currency}}</p>
             </div>
             <div class="flex extras">
-                <p><i class="fa-solid fa-toilet-paper"></i> Si</p>
-                <p><i class="fa-solid fa-tv"></i> No</p>
-                <p><i class="fa-solid fa-snowflake"></i> Si</p>
-                <p><i class="fa-solid fa-shower"></i> Si</p>
+                <p><i class="fa-solid fa-toilet-paper"></i> <span>{{room?.towel ? 'Si' : 'No'}}</span></p>
+                <p><i class="fa-solid fa-tv"></i> <span>{{room?.tv ? 'Si' : 'No'}}</span></p>
+                <p><i class="fa-solid fa-snowflake"></i> <span>{{room?.ac ? 'Si' : 'No'}}</span></p>
+                <p><i class="fa-solid fa-shower"></i> <span>{{room?.shower ? 'Si' : 'No'}}</span></p>
             </div>
         </div>
     </div>

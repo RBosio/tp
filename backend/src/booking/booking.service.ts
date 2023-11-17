@@ -4,15 +4,17 @@ import { HttpException } from '@nestjs/common/exceptions';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RoomService } from 'src/room/room.service';
 import { UserService } from 'src/user/user.service';
-import { Repository } from 'typeorm';
+import { In, LessThan, MoreThan, Not, Repository } from 'typeorm';
 import { Booking } from './booking.entity';
 import { createBookingDto } from './dto/create-booking.dto';
+import { Room } from 'src/room/room.entity';
 
 @Injectable()
 export class BookingService {
     
     constructor(
         @InjectRepository(Booking) private bookingRepository: Repository<Booking>,
+        @InjectRepository(Room) private roomRepository: Repository<Room>,
         private userService: UserService,
         private roomService: RoomService
         ) {}
@@ -21,6 +23,25 @@ export class BookingService {
         return this.bookingRepository.find({
             relations: ['user', 'room']
         })
+    }
+    
+    async findAllAvailable(admission: Date, departure: Date): Promise<Booking[]> {
+        
+        const query = `
+        select roomId from room inner join booking on room.id = booking.roomId where admissionDate >= '${admission}' and departureDate <= '${departure}' or admissionDate <= '${admission}' and departureDate >= '${admission}' or admissionDate <= '${departure}' and departureDate >= '${departure}' group by roomId;
+        `
+
+        let rooms = await this.roomRepository.query(query)
+
+        rooms = rooms.map(x => x.roomId)
+        
+        rooms = await this.roomRepository.find({
+            where: {
+                id: Not(In(rooms)),
+            }
+        })        
+        
+        return rooms
     }
 
     findAllUser(userDni: string): Promise<Booking[]> {

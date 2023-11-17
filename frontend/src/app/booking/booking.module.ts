@@ -7,12 +7,14 @@ import { AngularMaterialModule } from '../angular-material.module';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { DetailBookingComponent } from './components/detail-booking/detail-booking.component';
+import { BookingComponent } from './components/booking/booking.component';
 
 
 @NgModule({
   declarations: [
     BookingSellerComponent,
-    DetailBookingComponent
+    DetailBookingComponent,
+    BookingComponent
   ],
   imports: [
     CommonModule,

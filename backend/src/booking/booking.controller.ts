@@ -21,7 +21,7 @@ export class BookingController {
         return this.bookingService.findAll()
     }
     
-    @Get(':admission/:departure')
+    @Get('rooms/:admission/:departure')
     @Roles(RoleEnum.User)
     getRoomsAvailable(@Param('admission') admission: Date, @Param('departure') departure: Date): Promise<Booking[]> {
         return this.bookingService.findAllAvailable(admission, departure)

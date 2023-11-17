@@ -7,7 +7,7 @@
             <ul class="list flex-row">
                 <p class="welcome" *ngIf="login || token">Bienvenido {{surname}}, {{name}}!</p>
                 <li class="hostel" *ngIf="login || token">
-                    <a [routerLink]="">Hospedarse</a>
+                    <a routerLink="/booking">Hospedarse</a>
                     <i class="fa-solid fa-house"></i>
                 </li>
                 <li class="profile" *ngIf="login || token">

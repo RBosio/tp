@@ -6,20 +6,20 @@
         <div class="options">
             <ul class="list flex-row">
                 <p class="welcome" *ngIf="login || token">Bienvenido {{surname}}, {{name}}!</p>
-                <li class="hostel" *ngIf="login || token">
-                    <a routerLink="/booking">Hospedarse</a>
+                <li class="hostel" *ngIf="login || token" routerLink="/booking">
+                    <a>Hospedarse</a>
                     <i class="fa-solid fa-house"></i>
                 </li>
                 <li class="profile" *ngIf="login || token">
-                    <a [routerLink]="">Perfil</a>
+                    <a>Perfil</a>
                     <i class="fa-solid fa-user"></i>
                 </li>
-                <li class="login" *ngIf="!login && !token">
-                    <a routerLink="/auth/login">Iniciar sesión</a>
+                <li class="login" *ngIf="!login && !token" routerLink="/auth/login">
+                    <a>Iniciar sesión</a>
                     <i class="fa-solid fa-right-to-bracket"></i>
                 </li>
                 <li class="logout" *ngIf="login || token" (click)="logout()">
-                    <a [routerLink]="">Cerrar sesión</a>
+                    <a>Cerrar sesión</a>
                     <i class="fa-solid fa-right-from-bracket"></i>
                 </li>
             </ul>

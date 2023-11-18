@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { BookingI, BookingIResponse } from 'src/app/models/booking.model';
+import { RoomIResponse } from 'src/app/models/room.model';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { environment } from 'src/environments/environment';
 
@@ -16,6 +17,19 @@ export class BookingService {
   getAll(): Observable<BookingIResponse[]> {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'booking', {headers})
+    .pipe(
+      map((res: any) => {
+        return res
+      }),
+      catchError(err => {
+        return throwError(err.error.message)
+      })
+    )
+  }
+
+  getAllAvailables(admissionDate: string, departureDate: string): Observable<RoomIResponse[]> {
+    const headers = this.sharedService.setHeader()
+    return this.http.get(environment.BASE_URL + `booking/rooms/${admissionDate}/${departureDate}`, {headers})
     .pipe(
       map((res: any) => {
         return res

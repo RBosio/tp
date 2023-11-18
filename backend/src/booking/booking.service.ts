@@ -38,6 +38,9 @@ export class BookingService {
         rooms = await this.roomRepository.find({
             where: {
                 id: Not(In(rooms)),
+            },
+            relations: {
+                type: true
             }
         })        
         

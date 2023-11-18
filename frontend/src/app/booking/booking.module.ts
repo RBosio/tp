@@ -8,13 +8,15 @@ import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { DetailBookingComponent } from './components/detail-booking/detail-booking.component';
 import { BookingComponent } from './components/booking/booking.component';
+import { BookingExtrasComponent } from './components/booking-extras/booking-extras.component';
 
 
 @NgModule({
   declarations: [
     BookingSellerComponent,
     DetailBookingComponent,
-    BookingComponent
+    BookingComponent,
+    BookingExtrasComponent
   ],
   imports: [
     CommonModule,

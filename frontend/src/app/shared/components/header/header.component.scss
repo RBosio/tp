@@ -22,18 +22,6 @@
         cursor: pointer;
     }
 
-    .hostel {
-        padding: 10px;
-        a {
-            padding-right: 5px;
-            text-decoration: none;
-        }
-    }
-    .hostel:hover {
-        cursor: pointer;
-        opacity: .6;
-    }
-
     .options {
         .list {
             justify-content: space-between;
@@ -47,7 +35,7 @@
             li {
                 padding: 10px;
                 a {
-                    padding-right: 5px;
+                    margin-right: 5px;
                     text-decoration: none;
                 }
                 a:any-link {

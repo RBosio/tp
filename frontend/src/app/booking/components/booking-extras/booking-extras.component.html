@@ -1,1 +1,15 @@
-<p>booking-extras works!</p>
+<div class="head">
+    <h3 class="title">Adicionales</h3>
+    <p class="days" *ngIf="days">{{days}} dias</p>
+</div>
+<div class="card">
+    <ul>
+        <li *ngFor="let extra of extras">
+            <p>{{extra.name}}</p>
+            <p>{{extra.price * days | currency}}</p>
+            <mat-checkbox color="warn" (change)="check(extra.id)">
+            </mat-checkbox>
+        </li>
+    </ul>
+    <p class="booking" (click)="booking()">Reservar</p>
+</div>

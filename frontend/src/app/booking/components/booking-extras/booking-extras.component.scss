@@ -1,0 +1,55 @@
+@import "../../../shared/styles/vars.scss";
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 25px;
+    margin-top: 25px;
+    margin-right: 50px;
+}
+
+.title {
+    font-weight: 400;
+}
+
+.days {
+    display: block;
+    background-color: $WARN;
+    padding: 10px;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.card {
+    width: 20%;
+    background-color: #fff;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 15px;
+    background-color: $PRIMARY;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.booking {
+    width: 25%;
+    padding: 10px;
+    margin: auto;
+    margin-bottom: 10px;
+    background-color: $ACCENT;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.booking:hover {
+    cursor: pointer;
+    opacity: .8;
+}

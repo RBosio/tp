@@ -19,13 +19,13 @@ export class RoomController {
     constructor(private roomService: RoomService) {}
 
     @Get()
-    @Roles(RoleEnum.User)
+    @Roles(RoleEnum.Admin)
     getRooms(): Promise<Room[]> {
         return this.roomService.findAll()
     }
     
     @Get(':id')
-    @Roles(RoleEnum.User)
+    @Roles(RoleEnum.Admin)
     getRoom(@Param('id', ParseIntPipe) id: number): Promise<Room | HttpException> {
         return this.roomService.findOne(id)
     }
@@ -64,7 +64,7 @@ export class RoomController {
     )
     
     @Post(':id/image')
-    @Roles(RoleEnum.Seller)
+    @Roles(RoleEnum.Admin)
     uploadImage(@Param('id', ParseIntPipe) id: number, @Req() request: Request) {
         const { body } = request
 

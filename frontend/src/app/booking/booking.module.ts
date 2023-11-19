@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { DetailBookingComponent } from './components/detail-booking/detail-booking.component';
 import { BookingComponent } from './components/booking/booking.component';
 import { BookingExtrasComponent } from './components/booking-extras/booking-extras.component';
+import { BookingBillingComponent } from './components/booking-billing/booking-billing.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { BookingExtrasComponent } from './components/booking-extras/booking-extr
     BookingSellerComponent,
     DetailBookingComponent,
     BookingComponent,
-    BookingExtrasComponent
+    BookingExtrasComponent,
+    BookingBillingComponent,
   ],
   imports: [
     CommonModule,

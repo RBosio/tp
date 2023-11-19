@@ -56,9 +56,8 @@
 }
 
 .card {
-    min-width: 23.2%;
-    max-width: 25%;
-    margin: 10px;
+    min-width: calc(25% - 20px);
+    margin: 0 10px;
     background-color: #fff;
 }
 

@@ -27,6 +27,10 @@ import { CORRELATION_ID_HEADER, CorrelationIdMiddleware } from './middlewares/co
 import { Request } from 'express';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { DataSource } from 'typeorm';
+import * as fs from "fs";
+import { UserService } from './user/user.service';
+
 
 @Module({
   imports: [
@@ -70,6 +74,7 @@ import { join } from 'path';
         database: configService.get('DB_DATABASE'),
         entities: [User, Country, Province, City, Role, Extra, Type, Room, Booking],
         synchronize: configService.get('DB_SYNC'),
+        dropSchema: configService.get('DB_DROP')
       }),
       inject: [ConfigService],
     }),
@@ -87,7 +92,32 @@ import { join } from 'path';
   providers: [AppService],
 })
 export class AppModule implements NestModule {
+
+  constructor(
+    private dataSource: DataSource,
+    private userService: UserService) {
+    const queryRunner = this.dataSource.createQueryRunner()
+  
+    this.userService.loadUsers()
+    .then(() => {
+      const queries = readSqlFile('public/defaultData.sql')
+  
+      queries.forEach(query => {
+        queryRunner.query(query)
+      })
+    })
+  }
+  
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(CorrelationIdMiddleware).forRoutes('*')
   }
 }
+
+const readSqlFile = (filepath: string): string[] => {
+  return fs
+    .readFileSync(join(__dirname, '..', filepath))
+    .toString()
+    .replace(/\r?\n|\r/g, '')
+    .split(';')
+    .filter((query) => query?.length);
+};

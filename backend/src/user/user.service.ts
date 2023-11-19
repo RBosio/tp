@@ -110,4 +110,36 @@ export class UserService {
 
         return result
     }
+    
+    async loadUsers() {
+        const user = this.userRepository.create({
+            dni: '33429120',
+            email: 'user@gmail.com',
+            name: 'User',
+            surname: 'User',
+            password: '123456',
+            phone: '33-333333'
+        })
+        await this.userRepository.save(user)
+        
+        const seller = this.userRepository.create({
+            dni: '38233911',
+            email: 'seller@gmail.com',
+            name: 'Seller',
+            surname: 'Seller',
+            password: '123456',
+            phone: '44-444444'
+        })
+        await this.userRepository.save(seller)
+        
+        const admin = this.userRepository.create({
+            dni: '34266592',
+            email: 'admin@gmail.com',
+            name: 'Admin',
+            surname: 'Admin',
+            password: '123456',
+            phone: '55-555555'
+        })
+        await this.userRepository.save(admin)
+    }
 }

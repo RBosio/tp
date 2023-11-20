@@ -4,6 +4,7 @@ import { BookingService } from '../../services/booking.service';
 import { RoomIResponse } from 'src/app/models/room.model';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-booking',
@@ -19,7 +20,8 @@ export class BookingComponent implements OnInit {
 
   constructor(
     private bookingService: BookingService,
-    private router: Router
+    private router: Router,
+    private sharedService: SharedService
     ) {
     this.BASE_URL = environment.BASE_URL
   }
@@ -62,9 +64,16 @@ export class BookingComponent implements OnInit {
   }
 
   booking(id: number) {
-    localStorage.setItem('room', JSON.stringify({
+    const { sub } = this.sharedService.getDecodedAccessToken(localStorage.getItem('token'))
+
+    const room = this.rooms.filter(x => x.id == id)[0]
+    localStorage.setItem('billing', JSON.stringify({
       "roomId": id,
-      "days": this.days
+      "days": this.days,
+      "dni": sub,
+      "admissionDate": this.range.controls['admissionDate'].value.toISOString().split('T')[0],
+      "departureDate": this.range.controls['departureDate'].value.toISOString().split('T')[0],
+      "price": room.price * this.days
     }))
 
     this.router.navigateByUrl('/booking/extras')

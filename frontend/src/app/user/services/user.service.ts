@@ -28,9 +28,9 @@ export class UserService {
     )
   }
 
-  getOne(id: number): Observable<UserIResponse> {
+  getOne(dni: string): Observable<UserIResponse> {
     const headers = this.sharedService.setHeader()
-    return this.http.get(environment.BASE_URL + 'user/' + id, {headers})
+    return this.http.get(environment.BASE_URL + 'user/' + dni, {headers})
     .pipe(
       map((res: any) => {
         return res

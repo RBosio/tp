@@ -20,7 +20,7 @@ export class UserController {
     }
     
     @Get(':dni')
-    @Roles(RoleEnum.Seller)
+    @Roles(RoleEnum.User, RoleEnum.Seller)
     getUser(@Param('dni') dni: string): Promise<User | HttpException> {
         return this.userService.findOneByDni(dni)
     }

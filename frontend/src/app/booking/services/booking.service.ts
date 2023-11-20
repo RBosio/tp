@@ -53,9 +53,9 @@ export class BookingService {
     )
   }
 
-  add(country: BookingI): Observable<BookingIResponse> {
+  add(booking: BookingI): Observable<BookingIResponse> {
     const headers = this.sharedService.setHeader()
-    return this.http.post(environment.BASE_URL + 'country', country, {headers})
+    return this.http.post(environment.BASE_URL + 'booking', booking, {headers})
     .pipe(
       map((res: any) => {
         return res

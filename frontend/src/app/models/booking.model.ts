@@ -14,7 +14,6 @@ export class BookingIResponse {
 export class BookingI {
     admissionDate: Date
     departureDate: Date
-    status: string
-    userDni: number
+    userDni: string
     roomId: number
 }

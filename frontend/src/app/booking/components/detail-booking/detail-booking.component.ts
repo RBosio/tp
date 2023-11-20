@@ -21,6 +21,8 @@ export class DetailBookingComponent implements OnInit {
   extras: ExtraIResponse[]
   url: string
 
+  photo: string
+
   constructor(
     private bookingService: BookingService,
     private typeService: TypeService,
@@ -35,7 +37,11 @@ export class DetailBookingComponent implements OnInit {
       
       this.bookingService.getOne(this.dni, this.admissionDate).subscribe(res => {
         this.booking = res
-        this.url = `${environment.BASE_URL}uploads/${this.booking.room.image}`
+        if(this.booking.room.image) {
+          this.url = `${environment.BASE_URL}uploads/${this.booking.room.image}`
+        }
+
+        this.photo = this.url || 'assets/no-image.png'
 
         this.typeService.getOne(this.booking?.room?.typeId).subscribe(res => {
           this.type = res.name

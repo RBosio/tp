@@ -21,7 +21,7 @@ export class TypeController {
     }
     
     @Get(':id')
-    @Roles(RoleEnum.User)
+    @Roles(RoleEnum.User, RoleEnum.Seller)
     getType(@Param('id', ParseIntPipe) id: number): Promise<Type | HttpException> {
         return this.typeService.findOne(id)
     }

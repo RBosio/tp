@@ -17,20 +17,48 @@ export class HeaderComponent implements OnInit {
   name: string
   surname: string
 
+  user: boolean
+
   ngOnInit(): void {
     this.authService.tokenEvent.subscribe(res => {
-      this.login = res;
-    });
+      this.login = res
+    })
 
-    this.token = localStorage.getItem('token');
+    this.authService.tokenE.subscribe(res => {
+      const { token } = res
+      const { roles } = this.sharedService.getDecodedAccessToken(token)
+      const { name } = this.sharedService.getDecodedAccessToken(token)
+      const { surname } = this.sharedService.getDecodedAccessToken(token)
+      
+      this.name = name
+      this.surname = surname
+      
+      this.name = this.name.charAt(0).toUpperCase() + this.name.slice(1);
+      this.surname = this.surname.charAt(0).toUpperCase() + this.surname.slice(1);
+      
+      let role = roles.filter(x => x == 'user')[0]
+      
+      console.log('hola')
+      if(role) {
+        this.user = true    
+      } else {
+        this.user = false
+      }
+    })
     
-    const {name, surname} = this.sharedService.getDecodedAccessToken(this.token)
-
-    this.name = name
-    this.surname = surname
-
-    this.name = this.name.charAt(0).toUpperCase() + this.name.slice(1);
-    this.surname = this.surname.charAt(0).toUpperCase() + this.surname.slice(1);
+    if(localStorage.getItem('token')) {
+      this.token = localStorage.getItem('token')
+      
+      const { name } = this.sharedService.getDecodedAccessToken(this.token)
+      const { surname } = this.sharedService.getDecodedAccessToken(this.token)
+      this.name = name
+      this.surname = surname
+      
+      this.name = this.name.charAt(0).toUpperCase() + this.name.slice(1);
+      this.surname = this.surname.charAt(0).toUpperCase() + this.surname.slice(1);
+    } else {
+      this.user = true
+    }
   }
   
   constructor(
@@ -46,6 +74,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.token = localStorage.getItem('token');
+    this.user = true
     this.router.navigateByUrl('auth/login');
   }
 }

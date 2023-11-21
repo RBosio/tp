@@ -73,7 +73,7 @@ export class BookingComponent implements OnInit {
       "dni": sub,
       "admissionDate": this.range.controls['admissionDate'].value.toISOString().split('T')[0],
       "departureDate": this.range.controls['departureDate'].value.toISOString().split('T')[0],
-      "price": room.price * this.days
+      "priceRoom": room.price * this.days
     }))
 
     this.router.navigateByUrl('/booking/extras')

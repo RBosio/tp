@@ -1,4 +1,4 @@
-<div class="button" routerLink="/room">
+<div class="button" routerLink="/booking/extras">
     <i class="fa-solid fa-left-long"></i>
     <p>Volver</p>
 </div>
@@ -11,7 +11,7 @@
                 <p>Fecha de inicio: {{admissionDate}}</p>
                 <p>Fecha de fin: {{departureDate}}</p>
             </div>
-            <p class="price">Precio: {{price | currency}}</p>
+            <p class="price">Precio: {{priceRoom + priceExtras | currency}}</p>
         </div>
         <div class="data">
             <h3>Datos cliente</h3>

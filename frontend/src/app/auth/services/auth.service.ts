@@ -4,12 +4,18 @@ import { catchError, map, throwError } from 'rxjs';
 import { UserLoginI } from 'src/app/models/user.model';
 import { environment } from 'src/environments/environment';
 
+interface resToken {
+  token: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   tokenEvent: EventEmitter<boolean> = new EventEmitter()
-  tokenE: EventEmitter<string> = new EventEmitter()
+  tokenE: EventEmitter<resToken> = new EventEmitter()
+  name: EventEmitter<string> = new EventEmitter()
+  surname: EventEmitter<string> = new EventEmitter()
 
   constructor(
     private http: HttpClient,

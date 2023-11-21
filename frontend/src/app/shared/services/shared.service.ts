@@ -2,7 +2,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { DialogComponent } from '../components/dialog/dialog.component';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class SharedService {
 
   getDecodedAccessToken(token: string): any {
     try {
-      return jwt_decode(token);
+      return jwtDecode(token);
     } catch(Error) {
       return null;
     }

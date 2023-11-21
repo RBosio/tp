@@ -1,18 +1,14 @@
 <header class="header">
     <mat-toolbar color="primary">
-        <i class="fa-solid fa-bars menu" (click)="toggleSideNav()"></i>
+        <i class="fa-solid fa-bars menu" (click)="toggleSideNav()" *ngIf="!user"></i>
         <h1 class="title" routerLink="/">Hotelmar</h1>
         <span class="example-spacer"></span>
         <div class="options">
             <ul class="list flex-row">
                 <p class="welcome" *ngIf="login || token">Bienvenido {{surname}}, {{name}}!</p>
-                <li class="hostel" *ngIf="login || token" routerLink="/booking">
+                <li class="hostel" *ngIf="login || token && user" routerLink="/booking">
                     <a>Hospedarse</a>
                     <i class="fa-solid fa-house"></i>
-                </li>
-                <li class="profile" *ngIf="login || token">
-                    <a>Perfil</a>
-                    <i class="fa-solid fa-user"></i>
                 </li>
                 <li class="login" *ngIf="!login && !token" routerLink="/auth/login">
                     <a>Iniciar sesión</a>

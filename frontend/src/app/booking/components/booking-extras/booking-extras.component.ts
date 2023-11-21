@@ -15,7 +15,8 @@ export class BookingExtrasComponent implements OnInit {
   dni: string
   admissionDate: Date
   departureDate: Date
-  price: number
+  priceRoom: number
+  priceExtras: number
   extrasChecked: number[]
 
   constructor(
@@ -27,7 +28,7 @@ export class BookingExtrasComponent implements OnInit {
       this.dni = JSON.parse(localStorage.getItem('billing')).dni
       this.admissionDate = JSON.parse(localStorage.getItem('billing')).admissionDate
       this.departureDate = JSON.parse(localStorage.getItem('billing')).departureDate
-      this.price = JSON.parse(localStorage.getItem('billing')).price
+      this.priceRoom = JSON.parse(localStorage.getItem('billing')).priceRoom
       this.extrasChecked = []
   }
   
@@ -52,10 +53,9 @@ export class BookingExtrasComponent implements OnInit {
       return this.test(x)
     })
 
-    console.log(this.extras)
-
+    this.priceExtras = 0
     this.extras.map(x => {
-      this.price += x.price * this.days
+      this.priceExtras += x.price * this.days
     }) 
 
     localStorage.setItem('billing', JSON.stringify({
@@ -65,7 +65,8 @@ export class BookingExtrasComponent implements OnInit {
       "admissionDate": this.admissionDate,
       "departureDate": this.departureDate,
       "extras": this.extrasChecked,
-      "price": this.price
+      "priceRoom": this.priceRoom,
+      "priceExtras": this.priceExtras
     }))
 
     this.router.navigateByUrl('/booking/billing')

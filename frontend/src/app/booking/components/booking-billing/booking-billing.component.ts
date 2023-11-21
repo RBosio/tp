@@ -26,7 +26,8 @@ export class BookingBillingComponent implements OnInit {
   extras: ExtraIResponse[]
   url: string
   roomId: number
-  price: number
+  priceRoom: number
+  priceExtras: number
   user: UserIResponse
 
   photo: string
@@ -45,7 +46,8 @@ export class BookingBillingComponent implements OnInit {
     this.dni = JSON.parse(localStorage.getItem('billing')).dni
     this.admissionDate = JSON.parse(localStorage.getItem('billing')).admissionDate
     this.departureDate = JSON.parse(localStorage.getItem('billing')).departureDate
-    this.price = JSON.parse(localStorage.getItem('billing')).price
+    this.priceRoom = JSON.parse(localStorage.getItem('billing')).priceRoom
+    this.priceExtras = JSON.parse(localStorage.getItem('billing')).priceExtras
     
     this.roomService.getOne(this.roomId).subscribe(res => {
       this.room = res

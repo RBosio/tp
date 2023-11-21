@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { UserLoginI } from 'src/app/models/user.model';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private readonly fb: FormBuilder,
     private authService: AuthService,
+    private sharedService: SharedService,
     private _snackBar: MatSnackBar,
     private router: Router) {
     
@@ -43,7 +45,12 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.subscription$ = this.authService.login(this.user).subscribe(
         res => {
           const token = res.token;
+          const {name, surname} = this.sharedService.getDecodedAccessToken(token)
+          
           localStorage.setItem('token', token);
+          
+          this.authService.name.emit(name)
+          this.authService.surname.emit(surname)
           this.router.navigateByUrl('/');
         },
         () => this.openSnackBar('Email y/o contraseña incorrectos', 'Cerrar')

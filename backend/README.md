@@ -3,12 +3,10 @@
 
 ## 💻 Pre-requisitos
 
-- MySQL`
+- MySQL
 - Windows / Linux / Mac.
 
 ## 🚀 Instalación
-
-Linux e macOS:
 
 1. En el archivo [.env](./.env) complete los datos de conexión a su base de datos.
 <img src="assets/db.png" alt="Exemplo imagem">

@@ -33,6 +33,7 @@ export class EditProvinceComponent {
 
         this.subscription2$ = this.provinceService.getOne(this.id).subscribe(res => {
           this.name = res.name
+          this.edit.controls['name'].setValue(this.name)
         })
         
         this.subscription3$ = this.countryService.getAll().subscribe(res => {

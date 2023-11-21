@@ -25,7 +25,7 @@ export class RoomController {
     }
     
     @Get(':id')
-    @Roles(RoleEnum.Admin)
+    @Roles(RoleEnum.User, RoleEnum.Admin)
     getRoom(@Param('id', ParseIntPipe) id: number): Promise<Room | HttpException> {
         return this.roomService.findOne(id)
     }

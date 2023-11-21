@@ -64,7 +64,6 @@ export class EditRoomComponent {
   }
 
   onSubmit() {
-    console.log(this.edit.controls['price'].value)
     if(this.edit.valid){
       const room = {
         'price': this.edit.controls['price'].value,

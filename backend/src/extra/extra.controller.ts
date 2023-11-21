@@ -15,7 +15,7 @@ export class ExtraController {
     constructor(private extraService: ExtraService) {}
 
     @Get()
-    @Roles(RoleEnum.User, RoleEnum.Seller)
+    @Roles(RoleEnum.User, RoleEnum.Seller, RoleEnum.Admin)
     getExtras(): Promise<Extra[]> {
         return this.extraService.findAll()
     }

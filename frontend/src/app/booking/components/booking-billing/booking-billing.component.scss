@@ -123,17 +123,18 @@ img {
     background-color: #e95e0d;
 }
 
-.booking {
-    width: 25%;
+.booking-btn {
+    text-align: center;
+    width: 10%;
     padding: 10px;
     margin: auto;
     margin-bottom: 10px;
-    background-color: $ACCENT;
+    background-color: $PRIMARY;
     color: #fff;
     border-radius: 5px;
 }
 
-.booking:hover {
+.booking-btn:hover {
     cursor: pointer;
     opacity: .8;
 }

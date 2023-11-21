@@ -9,17 +9,18 @@ import { Roles } from 'src/role/roles.decorator';
 import { RoleEnum } from 'src/enums/role.enum';
 
 @Controller('country')
+@UseGuards(AuthGuard, RolesGuard)
 export class CountryController {
 
     constructor(private countryService: CountryService) {}
     
     @Get()
+    @Roles(RoleEnum.User, RoleEnum.Admin)
     getCountries(): Promise<Country[]> {
         return this.countryService.findAll()
     }
     
     @Get(':id')
-    @UseGuards(AuthGuard, RolesGuard)
     @Roles(RoleEnum.Admin)
     getCountry(@Param('id', ParseIntPipe) id: number): Promise<Country | HttpException> {
         return this.countryService.findOne(id)

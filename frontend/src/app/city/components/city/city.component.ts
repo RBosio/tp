@@ -33,18 +33,18 @@ export class CityComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.subscription1$ = this.countryService.getAll().subscribe(res => {
       this.countries = res
-    })
+      
+      this.subscription2$ = this.cityService.getAll().subscribe(res => {
+        res = res.map(city => ({...city, country: this.countries.find(country => city.province.countryId == country.id).name}))
+        this.dataSource = new MatTableDataSource<CityIResponse>(res);
 
-    this.subscription2$ = this.cityService.getAll().subscribe(res => {
-      res = res.map(city => ({...city, country: this.countries.find(country => city.province.countryId == country.id).name}))
-      this.dataSource = new MatTableDataSource<CityIResponse>(res);
-
-      this.paginator._intl.itemsPerPageLabel = 'Items por página';
-      this.paginator._intl.firstPageLabel = 'Primera página';
-      this.paginator._intl.lastPageLabel = 'Ultima página';
-      this.paginator._intl.nextPageLabel = 'Siguiente página';
-      this.paginator._intl.previousPageLabel = 'Anterior página';
-      this.dataSource.paginator = this.paginator;
+        this.paginator._intl.itemsPerPageLabel = 'Items por página';
+        this.paginator._intl.firstPageLabel = 'Primera página';
+        this.paginator._intl.lastPageLabel = 'Ultima página';
+        this.paginator._intl.nextPageLabel = 'Siguiente página';
+        this.paginator._intl.previousPageLabel = 'Anterior página';
+        this.dataSource.paginator = this.paginator;
+      })
     })
   }
   

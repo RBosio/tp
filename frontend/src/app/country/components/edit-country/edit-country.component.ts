@@ -28,6 +28,7 @@ export class EditCountryComponent {
 
         this.subscription2$ = this.countryService.getOne(this.id).subscribe(res => {
           this.name = res.name
+          this.edit.controls['name'].setValue(this.name)
         })
       })
     }

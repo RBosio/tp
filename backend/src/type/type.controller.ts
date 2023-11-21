@@ -15,13 +15,13 @@ export class TypeController {
     constructor(private typeService: TypeService) {}
 
     @Get()
-    @Roles(RoleEnum.User)
+    @Roles(RoleEnum.User, RoleEnum.Admin)
     getTypes(): Promise<Type[]> {
         return this.typeService.findAll()
     }
     
     @Get(':id')
-    @Roles(RoleEnum.User, RoleEnum.Seller)
+    @Roles(RoleEnum.User, RoleEnum.Seller, RoleEnum.Admin)
     getType(@Param('id', ParseIntPipe) id: number): Promise<Type | HttpException> {
         return this.typeService.findOne(id)
     }

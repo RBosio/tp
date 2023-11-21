@@ -39,6 +39,7 @@ export class EditCityComponent {
 
         this.subscription2$ = this.cityService.getOne(this.zipCode).subscribe(res => {
           this.name = res.name
+          this.edit.controls['name'].setValue(this.name)
         })
         
         this.subscription3$ = this.countryService.getAll().subscribe(res => {

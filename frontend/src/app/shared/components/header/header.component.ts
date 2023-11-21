@@ -38,7 +38,6 @@ export class HeaderComponent implements OnInit {
       
       let role = roles.filter(x => x == 'user')[0]
       
-      console.log('hola')
       if(role) {
         this.user = true    
       } else {

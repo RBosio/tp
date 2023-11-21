@@ -9,10 +9,10 @@
 ## 🚀 Instalación
 
 1. En el archivo [.env](./.env) complete los datos de conexión a su base de datos.
-<img src="assets/db.png" alt="Exemplo imagem">
+<img src="./src/assets/db.png" alt="Ejemplo imagen">
 
 2. En el archivo [constants.ts](./src/auth/constants.ts) setee una palabra secreta para que funcione jwt
-<img src="assets/secret.png" alt="Exemplo imagem">
+<img src="./src/assets/secret.png" alt="Ejemplo imagen">
 
 3. Para instalar las dependencias requeridas
 ```

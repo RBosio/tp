@@ -20,44 +20,18 @@ export class HeaderComponent implements OnInit {
   user: boolean
 
   ngOnInit(): void {
+    const token = localStorage.getItem('token')
+    if(token) {
+      this.setHeader(token)
+    } else {
+      this.router.navigateByUrl('/')
+    }
+    
     this.authService.tokenEvent.subscribe(res => {
       this.login = res
+      const token = localStorage.getItem('token')
+      this.setHeader(token)
     })
-
-    this.authService.tokenE.subscribe(res => {
-      const { token } = res
-      const { roles } = this.sharedService.getDecodedAccessToken(token)
-      const { name } = this.sharedService.getDecodedAccessToken(token)
-      const { surname } = this.sharedService.getDecodedAccessToken(token)
-      
-      this.name = name
-      this.surname = surname
-      
-      this.name = this.name.charAt(0).toUpperCase() + this.name.slice(1);
-      this.surname = this.surname.charAt(0).toUpperCase() + this.surname.slice(1);
-      
-      let role = roles.filter(x => x == 'user')[0]
-      
-      if(role) {
-        this.user = true    
-      } else {
-        this.user = false
-      }
-    })
-    
-    if(localStorage.getItem('token')) {
-      this.token = localStorage.getItem('token')
-      
-      const { name } = this.sharedService.getDecodedAccessToken(this.token)
-      const { surname } = this.sharedService.getDecodedAccessToken(this.token)
-      this.name = name
-      this.surname = surname
-      
-      this.name = this.name.charAt(0).toUpperCase() + this.name.slice(1);
-      this.surname = this.surname.charAt(0).toUpperCase() + this.surname.slice(1);
-    } else {
-      this.user = true
-    }
   }
   
   constructor(
@@ -73,7 +47,26 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authService.logout();
     this.token = localStorage.getItem('token');
-    this.user = true
+    this.name = null
+    this.login = false
     this.router.navigateByUrl('auth/login');
+  }
+
+  setHeader(token: string) {
+      const { roles }: { roles: string[] } = this.sharedService.getDecodedAccessToken(token)
+      const { name } = this.sharedService.getDecodedAccessToken(token)
+      const { surname } = this.sharedService.getDecodedAccessToken(token)
+      
+      this.name = name
+      this.surname = surname
+      
+      this.name = this.name.charAt(0).toUpperCase() + this.name.slice(1);
+      this.surname = this.surname.charAt(0).toUpperCase() + this.surname.slice(1);
+      
+      if(roles.includes('user')) {
+        this.user = true    
+      } else {
+        this.user = false
+      }
   }
 }

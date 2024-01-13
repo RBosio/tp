@@ -13,7 +13,6 @@ interface resToken {
 })
 export class AuthService {
   tokenEvent: EventEmitter<boolean> = new EventEmitter()
-  tokenE: EventEmitter<resToken> = new EventEmitter()
   name: EventEmitter<string> = new EventEmitter()
   surname: EventEmitter<string> = new EventEmitter()
 
@@ -25,8 +24,8 @@ export class AuthService {
     return this.http.post(environment.BASE_URL + 'auth/login', user)
     .pipe(
       map((res: any) => {
+        localStorage.setItem('token', res.token)
         this.tokenEvent.emit(true);
-        this.tokenE.emit(res);
         return res
       }),
       catchError(err => {

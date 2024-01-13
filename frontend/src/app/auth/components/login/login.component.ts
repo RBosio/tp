@@ -43,14 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         password: this.login.controls['password'].value  
       }  
       this.subscription$ = this.authService.login(this.user).subscribe(
-        res => {
-          const token = res.token;
-          const {name, surname} = this.sharedService.getDecodedAccessToken(token)
-          
-          localStorage.setItem('token', token);
-          
-          this.authService.name.emit(name)
-          this.authService.surname.emit(surname)
+        () => {
           this.router.navigateByUrl('/');
         },
         () => this.openSnackBar('Email y/o contraseña incorrectos', 'Cerrar')

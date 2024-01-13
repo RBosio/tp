@@ -19,28 +19,34 @@ export class AppComponent implements OnInit {
     ) {}
   
   ngOnInit(): void {
-    this.authService.tokenE.subscribe(res => {
-      const { token } = res
-      const { roles } = this.sharedService.getDecodedAccessToken(token)
+    const token = localStorage.getItem('token')
+    if(token) {
+      const { roles }: { roles: string[] } = this.sharedService.getDecodedAccessToken(token)
       
-      let role = roles.filter(x => x == 'seller')[0]
-      
-      if(role) {
+      if(roles.includes('seller')){
         this.seller = true
-      } else {
-        this.seller = false
       }
       
-      role = roles.filter(x => x == 'admin')[0]
-  
-      if(role) {
+      if(roles.includes('admin')){
         this.admin = true
-      } else {
-        this.admin = false
+      }
+    }
+    
+    this.authService.tokenEvent.subscribe(() => {
+      this.seller = false
+      this.admin = false
+
+      const token = localStorage.getItem('token')
+      const { roles }: { roles: string[] } = this.sharedService.getDecodedAccessToken(token)
+      
+      if(roles.includes('seller')){
+        this.seller = true
+      }
+      
+      if(roles.includes('admin')){
+        this.admin = true
       }
     })
-  
-    
   }
 
   closeSidenav(sidenav: MatSidenav) {

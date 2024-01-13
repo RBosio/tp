@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SharedService } from '../shared/services/shared.service';
 
@@ -7,7 +7,10 @@ import { SharedService } from '../shared/services/shared.service';
   providedIn: 'root'
 })
 export class UserRoleGuard implements CanActivate, CanLoad {
-  constructor(private sharedService: SharedService) {}
+  constructor(
+    private sharedService: SharedService,
+    private router: Router
+    ) {}
   
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     const token = localStorage.getItem('token')
@@ -19,6 +22,7 @@ export class UserRoleGuard implements CanActivate, CanLoad {
       return true
     }
     
+    this.router.navigate(['/'])
     return false
   }
 
@@ -30,11 +34,11 @@ export class UserRoleGuard implements CanActivate, CanLoad {
 
       const role = roles.filter(x => x == 'User')[0]
       
-      console.log('holaa')
       if(role) {
         return true
       }
       
+      this.router.navigate(['/'])
       return false
   }
 }

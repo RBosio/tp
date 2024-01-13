@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, Route, UrlSegment, UrlTree } from '@angular/router';
+import { CanLoad, Route, Router, UrlSegment, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SharedService } from '../shared/services/shared.service';
 
@@ -7,7 +7,10 @@ import { SharedService } from '../shared/services/shared.service';
   providedIn: 'root'
 })
 export class AdminRoleGuard implements CanLoad {
-  constructor(private sharedService: SharedService) {}
+  constructor(
+    private sharedService: SharedService,
+    private router: Router
+    ) {}
 
   canLoad(
     route: Route,
@@ -21,6 +24,7 @@ export class AdminRoleGuard implements CanLoad {
         return true
       }
       
+      this.router.navigate(['/'])
       return false
   }
 }

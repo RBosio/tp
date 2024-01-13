@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SharedService } from '../shared/services/shared.service';
 
@@ -7,7 +7,10 @@ import { SharedService } from '../shared/services/shared.service';
   providedIn: 'root'
 })
 export class SellerRoleGuard implements CanActivate, CanLoad {
-  constructor(private sharedService: SharedService) {}
+  constructor(
+    private sharedService: SharedService,
+    private router: Router
+    ) {}
   
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     const token = localStorage.getItem('token')
@@ -19,6 +22,7 @@ export class SellerRoleGuard implements CanActivate, CanLoad {
       return true
     }
     
+    this.router.navigate([''])
     return false
   }
 
@@ -34,6 +38,7 @@ export class SellerRoleGuard implements CanActivate, CanLoad {
         return true
       }
       
+      this.router.navigate([''])
       return false
   }
 }

@@ -93,16 +93,20 @@ export class BookingBillingComponent implements OnInit {
   }
 
   booking() {
-    const booking: BookingI = {
-      "admissionDate": this.admissionDate,
-      "departureDate": this.departureDate,
-      "userDni": this.dni,
-      "roomId": this.roomId
-    }
-
-    this.bookingService.add(booking).subscribe(() => {
-      this.sharedService.openSnackBar('Reserva realizada con éxito!', 'Cerrar')
-      this.router.navigateByUrl('/')
+    this.sharedService.openDialog('Registrar reserva').afterClosed().subscribe(res => {
+      if(res) {
+        const booking: BookingI = {
+          "admissionDate": this.admissionDate,
+          "departureDate": this.departureDate,
+          "userDni": this.dni,
+          "roomId": this.roomId
+        }
+    
+        this.bookingService.add(booking).subscribe(() => {
+          this.sharedService.openSnackBar('Reserva realizada con éxito!', 'Cerrar')
+          this.router.navigateByUrl('/')
+        })
+      }
     })
   }
 }

@@ -10,6 +10,7 @@ import { DetailBookingComponent } from './components/detail-booking/detail-booki
 import { BookingComponent } from './components/booking/booking.component';
 import { BookingExtrasComponent } from './components/booking-extras/booking-extras.component';
 import { BookingBillingComponent } from './components/booking-billing/booking-billing.component';
+import { BookingUserComponent } from './components/booking-user/booking-user.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { BookingBillingComponent } from './components/booking-billing/booking-bi
     BookingComponent,
     BookingExtrasComponent,
     BookingBillingComponent,
+    BookingUserComponent
   ],
   imports: [
     CommonModule,

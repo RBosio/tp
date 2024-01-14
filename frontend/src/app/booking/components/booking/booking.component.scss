@@ -1,5 +1,31 @@
 @import "../../../shared/styles/vars.scss";
 
+.div {
+    width: 100%;
+    height: 90vh;
+    overflow: hidden;
+    background-image: url('../../../../assets/room.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.black {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.3;
+}
+
+.test {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    background-color: transparent;
+}
+
 .head {
     display: flex;
     justify-content: space-between;
@@ -58,13 +84,15 @@
 .card {
     min-width: calc(25% - 20px);
     margin: 0 10px;
-    background-color: #fff;
+    background-color: #f8f8f8;
+    border-radius: 5px;
 }
 
 img {
     width: 100%;
     height: 130px;
     object-fit: cover;
+    border-radius: 5px;
 }
 
 .left, .right {

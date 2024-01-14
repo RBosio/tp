@@ -6,9 +6,13 @@
         <div class="options">
             <ul class="list flex-row">
                 <p class="welcome" *ngIf="name || login">Bienvenido {{surname}}, {{name}}!</p>
+                <li class="hostel" *ngIf="(name || login) && user" routerLink="/booking/user">
+                    <a>Mis reservas</a>
+                    <i class="fa-solid fa-calendar-days"></i>
+                </li>
                 <li class="hostel" *ngIf="(name || login) && user" routerLink="/booking">
                     <a>Hospedarse</a>
-                    <i class="fa-solid fa-house"></i>
+                    <i class="fa-solid fa-magnifying-glass"></i>
                 </li>
                 <li class="login" *ngIf="!name" routerLink="/auth/login">
                     <a>Iniciar sesión</a>

@@ -1,39 +1,45 @@
-<div class="head">
-    <div style="display: flex; align-items: center; margin-left: 25px; margin-top: 16px;">
-        <mat-form-field>
-            <mat-label>Ingrese un rango de fechas</mat-label>
-            <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-                <input matStartDate formControlName="admissionDate" placeholder="Start date">
-                <input matEndDate formControlName="departureDate" placeholder="End date">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-        </mat-form-field>
-        <p class="button" (click)="getRooms()">Buscar</p>
+<div class="div">
+    <div class="black">
     </div>
-    <p class="days" *ngIf="days">{{days}} dias</p>
-</div>
-
-<div class="carousel">
-    <div class="carousel-inner" #carouselInner>
-        <div class="card" *ngFor="let room of rooms">
-            <img [src]="room.image ? BASE_URL+'uploads/'+room.image : 'assets/no-image.png'">
-            <div class="body">
-                <p style="text-align: center;">Numero habitacion: {{room.id}}</p>
-                <div class="flex">
-                    <p>Tipo: {{room?.type.name}}</p>
-                    <p>Precio: {{room.price * days | currency}}</p>
+    <div class="test">
+        <div class="head">
+            <div style="display: flex; align-items: center; margin-left: 25px; margin-top: 16px;">
+                <mat-form-field>
+                    <mat-label>Ingrese un rango de fechas</mat-label>
+                    <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                        <input matStartDate formControlName="admissionDate" placeholder="Start date">
+                        <input matEndDate formControlName="departureDate" placeholder="End date">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+                <p class="button" (click)="getRooms()">Buscar</p>
+            </div>
+            <p class="days" *ngIf="days">{{days}} dias</p>
+        </div>
+        
+        <div class="carousel">
+            <div class="carousel-inner" #carouselInner>
+                <div class="card" *ngFor="let room of rooms">
+                    <img [src]="room.image ? BASE_URL+'uploads/'+room.image : 'assets/no-image.png'">
+                    <div class="body">
+                        <p style="text-align: center;">Numero habitacion: {{room.id}}</p>
+                        <div class="flex">
+                            <p>Tipo: {{room?.type.name}}</p>
+                            <p>Precio: {{room.price * days | currency}}</p>
+                        </div>
+                    </div>
+                    <div class="flex extras">
+                        <p><i class="fa-solid fa-toilet-paper"></i> <span>{{room?.towel ? 'Si' : 'No'}}</span></p>
+                        <p><i class="fa-solid fa-tv"></i> <span>{{room?.tv ? 'Si' : 'No'}}</span></p>
+                        <p><i class="fa-solid fa-snowflake"></i> <span>{{room?.ac ? 'Si' : 'No'}}</span></p>
+                        <p><i class="fa-solid fa-shower"></i> <span>{{room?.shower ? 'Si' : 'No'}}</span></p>
+                    </div>
+                    <p class="booking" (click)="booking(room.id)">Reservar</p>
                 </div>
             </div>
-            <div class="flex extras">
-                <p><i class="fa-solid fa-toilet-paper"></i> <span>{{room?.towel ? 'Si' : 'No'}}</span></p>
-                <p><i class="fa-solid fa-tv"></i> <span>{{room?.tv ? 'Si' : 'No'}}</span></p>
-                <p><i class="fa-solid fa-snowflake"></i> <span>{{room?.ac ? 'Si' : 'No'}}</span></p>
-                <p><i class="fa-solid fa-shower"></i> <span>{{room?.shower ? 'Si' : 'No'}}</span></p>
-            </div>
-            <p class="booking" (click)="booking(room.id)">Reservar</p>
+            <i class="fa-solid fa-chevron-left left" (click)="back(carouselInner)"></i>
+            <i class="fa-solid fa-chevron-right right" (click)="next(carouselInner)"></i>
         </div>
     </div>
-    <i class="fa-solid fa-chevron-left left" (click)="back(carouselInner)"></i>
-    <i class="fa-solid fa-chevron-right right" (click)="next(carouselInner)"></i>
 </div>

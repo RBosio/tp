@@ -28,7 +28,7 @@ export class BookingController {
     }
 
     @Get(':userDni')
-    @Roles(RoleEnum.Seller)
+    @Roles(RoleEnum.User, RoleEnum.Seller)
     getBookingsUser(@Param('userDni') userDni: string): Promise<Booking[]> {
         return this.bookingService.findAllUser(userDni)
     }

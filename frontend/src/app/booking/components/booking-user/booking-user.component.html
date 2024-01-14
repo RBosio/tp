@@ -1,0 +1,55 @@
+<mat-toolbar color="accent" class="toolbar">
+    <mat-toolbar-row>
+        <div class="flex">
+            <p class="title">Reservas</p>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<div style="width: 60%; margin: auto;">
+    <form class="example-form" [formGroup]="form">
+        <table class="example-full-width" cellspacing="0">
+            <tr>
+                <td>
+                    <mat-form-field class="input">
+                        <mat-label>Estado</mat-label>
+                        <mat-select formControlName="status" (selectionChange)="filterByStatus()">
+                            <mat-option *ngFor="let stat of statusList" [value]="stat">{{ stat }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+    </form>
+      
+    <div class="mat-elevation-z8 table">
+        <table mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="nro">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Nro Hab</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">{{element.roomId}}</p></td>
+            </ng-container>
+
+            <ng-container matColumnDef="admission">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Fecha inicio</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">{{element.admissionDate | date:"dd/MM/YYYY"}}</p></td>
+            </ng-container>
+    
+            <ng-container matColumnDef="departure">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Fecha fin</p></th>
+            <td mat-cell *matCellDef="let element"><p style="text-align: center;">{{element.departureDate | date:"dd/MM/YYYY"}}</p></td>
+            </ng-container>
+            
+            <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef><p class="header">Estado</p></th>
+            <td mat-cell *matCellDef="let element" [ngClass]="{'pending': element.status === 'Pendiente', 'checkin-status': element.status === 'En curso', 'checkout-status': element.status === 'Finalizada', 'cancel-status': element.status === 'Cancelada'}"><p style="text-align: center;">{{element.status}}</p></td>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    
+        <mat-paginator [pageSizeOptions]="[5]"
+                        showFirstLastButtons>
+        </mat-paginator>
+    </div>
+</div>

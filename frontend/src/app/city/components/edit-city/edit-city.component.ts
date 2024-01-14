@@ -63,19 +63,23 @@ export class EditCityComponent {
   }
 
   onSubmit() {
-    if(this.edit.valid){
-      const city = {
-        'zipCode': this.zipCode,
-        'name': this.edit.controls['name'].value,
-        'provinceId': this.edit.controls['provinceId'].value
+    this.sharedService.openDialog('Editar ciudad').afterClosed().subscribe(res => {
+      if(res) {
+        if(this.edit.valid){
+          const city = {
+            'zipCode': this.zipCode,
+            'name': this.edit.controls['name'].value,
+            'provinceId': this.edit.controls['provinceId'].value
+          }
+          this.subscription4$ = this.cityService.edit(city, this.zipCode).subscribe(() => {
+            this.sharedService.openSnackBar('Ciudad editada con éxito!', 'Cerrar')
+            this.router.navigateByUrl('/city')
+          }, err => {
+            this.sharedService.openSnackBar(err, 'Cerrar')
+          })
+        }
       }
-      this.subscription4$ = this.cityService.edit(city, this.zipCode).subscribe(() => {
-        this.sharedService.openSnackBar('Ciudad editada con éxito!', 'Cerrar')
-        this.router.navigateByUrl('/city')
-      }, err => {
-        this.sharedService.openSnackBar(err, 'Cerrar')
-      })
-    }
+    })
   }
 
   onChange() {

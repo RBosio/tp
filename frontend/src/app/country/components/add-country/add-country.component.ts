@@ -34,14 +34,18 @@ export class AddCountryComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if(this.add.valid){
-      const country = {
-        'name': this.add.controls['name'].value
-      }
-      this.subscription1$ = this.countryService.add(country).subscribe(() => {
-        this.sharedService.openSnackBar('País agregado con éxito!', 'Cerrar')
-        this.router.navigateByUrl('/country')
-      }, err => {
-        this.sharedService.openSnackBar(err, 'Cerrar')
+      this.sharedService.openDialog('Agregar país').afterClosed().subscribe(res => {
+        if(res) {
+          const country = {
+            'name': this.add.controls['name'].value
+          }
+          this.subscription1$ = this.countryService.add(country).subscribe(() => {
+            this.sharedService.openSnackBar('País agregado con éxito!', 'Cerrar')
+            this.router.navigateByUrl('/country')
+          }, err => {
+            this.sharedService.openSnackBar(err, 'Cerrar')
+          })
+        }
       })
     }
   }

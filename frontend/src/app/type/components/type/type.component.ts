@@ -41,13 +41,17 @@ export class TypeComponent implements AfterViewInit, OnDestroy {
   }
   
   delete(id: number) {
-    this.subscription2$ = this.typeService.delete(id).subscribe(() => {
-      const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
-      this.dataSource.data.splice(indice, 1)
-      this.sharedService.openSnackBar('Tipo de habitación eliminado con éxito!', 'Cerrar')
-      this.dataSource._updateChangeSubscription()
-    }, () => {
-      this.sharedService.openSnackBar('No fue posible eliminar el tipo de habitación!', 'Cerrar')
+    this.sharedService.openDialog('Eliminar tipo de habitación').afterClosed().subscribe(res => {
+      if(res) {
+        this.subscription2$ = this.typeService.delete(id).subscribe(() => {
+          const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
+          this.dataSource.data.splice(indice, 1)
+          this.sharedService.openSnackBar('Tipo de habitación eliminado con éxito!', 'Cerrar')
+          this.dataSource._updateChangeSubscription()
+        }, () => {
+          this.sharedService.openSnackBar('No fue posible eliminar el tipo de habitación!', 'Cerrar')
+        })
+      }
     })
   }
 

@@ -34,18 +34,22 @@ export class AddExtraComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if(this.add.valid){
-      const extra = {
-        'name': this.add.controls['name'].value,
-        'price': this.add.controls['price'].value
+    this.sharedService.openDialog('Agregar extra').afterClosed().subscribe(res => {
+      if(res) {
+        if(this.add.valid){
+          const extra = {
+            'name': this.add.controls['name'].value,
+            'price': this.add.controls['price'].value
+          }
+          this.subscription1$ = this.extraService.add(extra).subscribe(() => {
+            this.sharedService.openSnackBar('Extra agregado con éxito!', 'Cerrar')
+            this.router.navigateByUrl('/extra')
+          }, err => {
+            this.sharedService.openSnackBar(err, 'Cerrar')
+          })
+        }
       }
-      this.subscription1$ = this.extraService.add(extra).subscribe(() => {
-        this.sharedService.openSnackBar('Extra agregado con éxito!', 'Cerrar')
-        this.router.navigateByUrl('/extra')
-      }, err => {
-        this.sharedService.openSnackBar(err, 'Cerrar')
-      })
-    }
+    })
   }
 
   ngOnDestroy(): void {

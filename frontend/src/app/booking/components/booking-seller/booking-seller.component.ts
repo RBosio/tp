@@ -5,9 +5,7 @@ import { BookingService } from '../../services/booking.service';
 import { BookingIResponse } from 'src/app/models/booking.model';
 import { Subscription } from 'rxjs';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { MatOption } from '@angular/material/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-booking-seller',

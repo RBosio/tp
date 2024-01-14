@@ -41,13 +41,17 @@ export class ProvinceComponent implements AfterViewInit, OnDestroy {
   }
   
   delete(id: number) {
-    this.subscription2$ = this.provinceService.delete(id).subscribe(() => {
-      const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
-      this.dataSource.data.splice(indice, 1)
-      this.dataSource._updateChangeSubscription()
-      this.sharedService.openSnackBar('Provincia eliminada con éxito!', 'Cerrar')
-    }, () => {
-      this.sharedService.openSnackBar('No fue posible eliminar la provincia!', 'Cerrar')
+    this.sharedService.openDialog('Eliminar provincia').afterClosed().subscribe(res => {
+      if(res) {
+        this.subscription2$ = this.provinceService.delete(id).subscribe(() => {
+          const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
+          this.dataSource.data.splice(indice, 1)
+          this.dataSource._updateChangeSubscription()
+          this.sharedService.openSnackBar('Provincia eliminada con éxito!', 'Cerrar')
+        }, () => {
+          this.sharedService.openSnackBar('No fue posible eliminar la provincia!', 'Cerrar')
+        })
+      }
     })
   }
 

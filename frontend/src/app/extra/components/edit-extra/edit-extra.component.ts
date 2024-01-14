@@ -51,18 +51,22 @@ export class EditExtraComponent {
   }
 
   onSubmit() {
-    if(this.edit.valid){
-      const extra = {
-        'name': this.edit.controls['name'].value,
-        'price': this.edit.controls['price'].value
+    this.sharedService.openDialog('Editar extra').afterClosed().subscribe(res => {
+      if(res) {
+        if(this.edit.valid){
+          const extra = {
+            'name': this.edit.controls['name'].value,
+            'price': this.edit.controls['price'].value
+          }
+          this.subscription3$ = this.extraService.edit(extra, this.id).subscribe(() => {
+            this.sharedService.openSnackBar('Extra editado con éxito!', 'Cerrar')
+            this.router.navigateByUrl('/extra')
+          }, err => {
+            this.sharedService.openSnackBar(err, 'Cerrar')
+          })
+        }
       }
-      this.subscription3$ = this.extraService.edit(extra, this.id).subscribe(() => {
-        this.sharedService.openSnackBar('Extra editado con éxito!', 'Cerrar')
-        this.router.navigateByUrl('/extra')
-      }, err => {
-        this.sharedService.openSnackBar(err, 'Cerrar')
-      })
-    }
+    })
   }
 
   ngOnDestroy(): void {

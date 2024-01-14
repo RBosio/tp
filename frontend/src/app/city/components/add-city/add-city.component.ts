@@ -49,19 +49,23 @@ export class AddCityComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if(this.add.valid){
-      const city = {
-        'zipCode': this.add.controls['zipCode'].value,
-        'name': this.add.controls['name'].value,
-        'provinceId': this.add.controls['provinceId'].value
+    this.sharedService.openDialog('Agregar ciudad').afterClosed().subscribe(res => {
+      if(res) {
+        if(this.add.valid){
+          const city = {
+            'zipCode': this.add.controls['zipCode'].value,
+            'name': this.add.controls['name'].value,
+            'provinceId': this.add.controls['provinceId'].value
+          }
+          this.subscription2$ = this.cityService.add(city).subscribe(() => {
+            this.sharedService.openSnackBar('Ciudad agregada con éxito!', 'Cerrar')
+            this.router.navigateByUrl('/city')
+          }, err => {
+            this.sharedService.openSnackBar(err, 'Cerrar')
+          })
+        }
       }
-      this.subscription2$ = this.cityService.add(city).subscribe(() => {
-        this.sharedService.openSnackBar('Ciudad agregada con éxito!', 'Cerrar')
-        this.router.navigateByUrl('/city')
-      }, err => {
-        this.sharedService.openSnackBar(err, 'Cerrar')
-      })
-    }
+    })
   }
   
   onChange() {

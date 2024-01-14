@@ -51,14 +51,18 @@ export class CityComponent implements AfterViewInit, OnDestroy {
   }
   
   delete(zipCode: string) {
+    this.sharedService.openDialog('Eliminar ciudad').afterClosed().subscribe(res => {
+      if(res) {
         this.subscription3$ = this.cityService.delete(zipCode).subscribe(() => {
           const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.zipCode == zipCode))
           this.dataSource.data.splice(indice, 1)
           this.dataSource._updateChangeSubscription()
         this.sharedService.openSnackBar('Ciudad eliminada con éxito!', 'Cerrar')
-      }, () => {
-        this.sharedService.openSnackBar('No fue posible eliminar la ciudad!', 'Cerrar')
-      })
+        }, () => {
+          this.sharedService.openSnackBar('No fue posible eliminar la ciudad!', 'Cerrar')
+        })
+      }
+    })        
   }
 
   ngOnDestroy(): void {

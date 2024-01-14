@@ -33,17 +33,21 @@ export class AddTypeComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if(this.add.valid){
-      const type = {
-        'name': this.add.controls['name'].value
+    this.sharedService.openDialog('Agregar tipo de habitación').afterClosed().subscribe(res => {
+      if(res) {
+        if(this.add.valid){
+          const type = {
+            'name': this.add.controls['name'].value
+          }
+          this.subscription1$ = this.typeService.add(type).subscribe(() => {
+            this.sharedService.openSnackBar('Tipo de habitación agregado con éxito!', 'Cerrar')
+            this.router.navigateByUrl('/type')
+          }, err => {
+            this.sharedService.openSnackBar(err, 'Cerrar')
+          })
+        }
       }
-      this.subscription1$ = this.typeService.add(type).subscribe(() => {
-        this.sharedService.openSnackBar('Tipo de habitación agregado con éxito!', 'Cerrar')
-        this.router.navigateByUrl('/type')
-      }, err => {
-        this.sharedService.openSnackBar(err, 'Cerrar')
-      })
-    }
+    })
   }
 
   ngOnDestroy(): void {

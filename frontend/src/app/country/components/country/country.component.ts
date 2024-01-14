@@ -41,13 +41,17 @@ export class CountryComponent implements AfterViewInit, OnDestroy {
   }
   
   delete(id: number) {
-    this.subscription2$ = this.countryService.delete(id).subscribe(() => {
-      const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
-      this.dataSource.data.splice(indice, 1)
-      this.dataSource._updateChangeSubscription()
-      this.sharedService.openSnackBar('País eliminado con éxito!', 'Cerrar')
-    }, () => {
-      this.sharedService.openSnackBar('No fue posible eliminar el país!', 'Cerrar')
+    this.sharedService.openDialog('Eliminar país').afterClosed().subscribe(res => {
+      if(res) {
+        this.subscription2$ = this.countryService.delete(id).subscribe(() => {
+          const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
+          this.dataSource.data.splice(indice, 1)
+          this.dataSource._updateChangeSubscription()
+          this.sharedService.openSnackBar('País eliminado con éxito!', 'Cerrar')
+        }, () => {
+          this.sharedService.openSnackBar('No fue posible eliminar el país!', 'Cerrar')
+        })
+      }
     })
   }
 

@@ -58,15 +58,19 @@ export class EditProvinceComponent {
 
   onSubmit() {
     if(this.edit.valid){
-      const province = {
-        'name': this.edit.controls['name'].value,
-        'countryId': this.edit.controls['countryId'].value
-      }
-      this.subscription4$ = this.provinceService.edit(province, this.id).subscribe(() => {
-        this.sharedService.openSnackBar('Provincia editada con éxito!', 'Cerrar')
-        this.router.navigateByUrl('/province')
-      }, err => {
-        this.sharedService.openSnackBar(err, 'Cerrar')
+      this.sharedService.openDialog('Editar provincia').afterClosed().subscribe(res => {
+        if(res) {
+          const province = {
+            'name': this.edit.controls['name'].value,
+            'countryId': this.edit.controls['countryId'].value
+          }
+          this.subscription4$ = this.provinceService.edit(province, this.id).subscribe(() => {
+            this.sharedService.openSnackBar('Provincia editada con éxito!', 'Cerrar')
+            this.router.navigateByUrl('/province')
+          }, err => {
+            this.sharedService.openSnackBar(err, 'Cerrar')
+          })
+        }
       })
     }
   }

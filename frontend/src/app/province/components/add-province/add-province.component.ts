@@ -43,15 +43,19 @@ export class AddProvinceComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if(this.add.valid){
-      const province = {
-        'name': this.add.controls['name'].value,
-        'countryId': this.add.controls['countryId'].value
-      }
-      this.subscription2$ = this.provinceService.add(province).subscribe(() => {
-        this.sharedService.openSnackBar('Provincia agregada con éxito!', 'Cerrar')
-        this.router.navigateByUrl('/province')
-      }, err => {
-        this.sharedService.openSnackBar(err, 'Cerrar')
+      this.sharedService.openDialog('Agregar provincia').afterClosed().subscribe(res => {
+        if(res) {
+          const province = {
+            'name': this.add.controls['name'].value,
+            'countryId': this.add.controls['countryId'].value
+          }
+          this.subscription2$ = this.provinceService.add(province).subscribe(() => {
+            this.sharedService.openSnackBar('Provincia agregada con éxito!', 'Cerrar')
+            this.router.navigateByUrl('/province')
+          }, err => {
+            this.sharedService.openSnackBar(err, 'Cerrar')
+          })
+        }
       })
     }
   }

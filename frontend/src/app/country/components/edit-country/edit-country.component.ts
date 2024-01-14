@@ -48,14 +48,18 @@ export class EditCountryComponent {
 
   onSubmit() {
     if(this.edit.valid){
-      const country = {
-        'name': this.edit.controls['name'].value
-      }
-      this.subscription3$ = this.countryService.edit(country, this.id).subscribe(() => {
-        this.sharedService.openSnackBar('País editado con éxito!', 'Cerrar')
-        this.router.navigateByUrl('/country')
-      }, err => {
-        this.sharedService.openSnackBar(err, 'Cerrar')
+      this.sharedService.openDialog('Editar país').afterClosed().subscribe(res => {
+        if(res) {
+          const country = {
+            'name': this.edit.controls['name'].value
+          }
+          this.subscription3$ = this.countryService.edit(country, this.id).subscribe(() => {
+            this.sharedService.openSnackBar('País editado con éxito!', 'Cerrar')
+            this.router.navigateByUrl('/country')
+          }, err => {
+            this.sharedService.openSnackBar(err, 'Cerrar')
+          })
+        }
       })
     }
   }

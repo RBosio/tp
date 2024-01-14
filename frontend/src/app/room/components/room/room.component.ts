@@ -41,6 +41,8 @@ export class RoomComponent implements AfterViewInit, OnDestroy {
   }
   
   delete(id: number) {
+    this.sharedService.openDialog('Eliminar habitación').afterClosed().subscribe(res => {
+      if(res) {
         this.subscription2$ = this.roomService.delete(id).subscribe(() => {
           const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
           this.dataSource.data.splice(indice, 1)
@@ -49,6 +51,8 @@ export class RoomComponent implements AfterViewInit, OnDestroy {
         }, () => {
           this.sharedService.openSnackBar('No fue posible eliminar la habitación!', 'Cerrar')
         })
+      }
+    })
   }
 
   ngOnDestroy(): void {

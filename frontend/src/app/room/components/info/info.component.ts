@@ -54,11 +54,15 @@ export class InfoComponent implements OnInit {
   }
 
   loadImage() {
-    this.roomService.loadImage(this.room.id, this.file).subscribe(() => {
-      this.sharedService.openSnackBar('Imagen cargada con éxito!', 'Cerrar')
-      this.disable = true
-    }, () => {
-      this.sharedService.openSnackBar('No fue posible cargar la imagen!', 'Cerrar')
+    this.sharedService.openDialog('Cargar imagen').afterClosed().subscribe(res => {
+      if(res) {
+        this.roomService.loadImage(this.room.id, this.file).subscribe(() => {
+          this.sharedService.openSnackBar('Imagen cargada con éxito!', 'Cerrar')
+          this.disable = true
+        }, () => {
+          this.sharedService.openSnackBar('No fue posible cargar la imagen!', 'Cerrar')
+        })
+      }
     })
   }
 }

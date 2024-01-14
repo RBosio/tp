@@ -47,17 +47,21 @@ export class EditTypeComponent {
   }
 
   onSubmit() {
-    if(this.edit.valid){
-      const type = {
-        'name': this.edit.controls['name'].value
+    this.sharedService.openDialog('Editar tipo de habitación').afterClosed().subscribe(res => {
+      if(res) {
+        if(this.edit.valid){
+          const type = {
+            'name': this.edit.controls['name'].value
+          }
+          this.subscription3$ = this.typeService.edit(type, this.id).subscribe(() => {
+            this.sharedService.openSnackBar('Tipo de habitación editado con éxito!', 'Cerrar')
+            this.router.navigateByUrl('/type')
+          }, err => {
+            this.sharedService.openSnackBar(err, 'Cerrar')
+          })
+        }
       }
-      this.subscription3$ = this.typeService.edit(type, this.id).subscribe(() => {
-        this.sharedService.openSnackBar('Tipo de habitación editado con éxito!', 'Cerrar')
-        this.router.navigateByUrl('/type')
-      }, err => {
-        this.sharedService.openSnackBar(err, 'Cerrar')
-      })
-    }
+    })
   }
 
   ngOnDestroy(): void {

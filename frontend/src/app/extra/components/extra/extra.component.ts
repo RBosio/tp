@@ -41,13 +41,17 @@ export class ExtraComponent implements AfterViewInit, OnDestroy {
   }
   
   delete(id: number) {
-    this.subscription2$ = this.extraService.delete(id).subscribe(() => {
-      const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
-      this.dataSource.data.splice(indice, 1)
-      this.dataSource._updateChangeSubscription()
-      this.sharedService.openSnackBar('Extra eliminado con éxito!', 'Cerrar')
-    }, () => {
-      this.sharedService.openSnackBar('No fue posible eliminar el extra!', 'Cerrar')
+    this.sharedService.openDialog('Eliminar extra').afterClosed().subscribe(res => {
+      if(res) {
+        this.subscription2$ = this.extraService.delete(id).subscribe(() => {
+          const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
+          this.dataSource.data.splice(indice, 1)
+          this.dataSource._updateChangeSubscription()
+          this.sharedService.openSnackBar('Extra eliminado con éxito!', 'Cerrar')
+        }, () => {
+          this.sharedService.openSnackBar('No fue posible eliminar el extra!', 'Cerrar')
+        })
+      }
     })
   }
 

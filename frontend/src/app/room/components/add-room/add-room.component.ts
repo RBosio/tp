@@ -67,22 +67,26 @@ export class AddRoomComponent {
   }
 
   onSubmit() {
-    if(this.add.valid){
-      const room = {
-        'price': this.add.controls['price'].value,
-        'typeId': this.add.controls['typeId'].value,
-        'ac': this.add.controls['ac'].value,
-        'tv': this.add.controls['tv'].value,
-        'towel': this.add.controls['towel'].value,
-        'shower': this.add.controls['shower'].value
+    this.sharedService.openDialog('Agregar habitación').afterClosed().subscribe(res => {
+      if(res) {
+        if(this.add.valid){
+          const room = {
+            'price': this.add.controls['price'].value,
+            'typeId': this.add.controls['typeId'].value,
+            'ac': this.add.controls['ac'].value,
+            'tv': this.add.controls['tv'].value,
+            'towel': this.add.controls['towel'].value,
+            'shower': this.add.controls['shower'].value
+          }
+          this.subscription4$ = this.roomService.add(room).subscribe(() => {
+            this.sharedService.openSnackBar('Habitación agregada con éxito!', 'Cerrar')
+            this.router.navigateByUrl('/room')
+          }, err => {
+            this.sharedService.openSnackBar(err, 'Cerrar')
+          })
+        }
       }
-      this.subscription4$ = this.roomService.add(room).subscribe(() => {
-        this.sharedService.openSnackBar('Habitación agregada con éxito!', 'Cerrar')
-        this.router.navigateByUrl('/room')
-      }, err => {
-        this.sharedService.openSnackBar(err, 'Cerrar')
-      })
-    }
+    })
   }
 
   ngOnDestroy(): void {

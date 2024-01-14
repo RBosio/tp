@@ -67,22 +67,26 @@ export class EditRoomComponent {
   }
 
   onSubmit() {
-    if(this.edit.valid){
-      const room = {
-        'price': this.edit.controls['price'].value,
-        'typeId': this.edit.controls['typeId'].value,
-        'ac': this.edit.controls['ac'].value,
-        'tv': this.edit.controls['tv'].value,
-        'towel': this.edit.controls['towel'].value,
-        'shower': this.edit.controls['shower'].value
+    this.sharedService.openDialog('Editar habitación').afterClosed().subscribe(res => {
+      if(res) {
+        if(this.edit.valid){
+          const room = {
+            'price': this.edit.controls['price'].value,
+            'typeId': this.edit.controls['typeId'].value,
+            'ac': this.edit.controls['ac'].value,
+            'tv': this.edit.controls['tv'].value,
+            'towel': this.edit.controls['towel'].value,
+            'shower': this.edit.controls['shower'].value
+          }
+          this.subscription4$ = this.roomService.edit(room, this.id).subscribe(() => {
+            this.sharedService.openSnackBar('Habitación editada con éxito!', 'Cerrar')
+            this.router.navigateByUrl('/room')
+          }, err => {
+            this.sharedService.openSnackBar(err, 'Cerrar')
+          })
+        }
       }
-      this.subscription4$ = this.roomService.edit(room, this.id).subscribe(() => {
-        this.sharedService.openSnackBar('Habitación editada con éxito!', 'Cerrar')
-        this.router.navigateByUrl('/room')
-      }, err => {
-        this.sharedService.openSnackBar(err, 'Cerrar')
-      })
-    }
+    })
   }
 
   ngOnDestroy(): void {

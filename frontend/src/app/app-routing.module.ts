@@ -3,8 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './shared/components/home/home.component';
 import { SessionGuard } from './guards/session.guard';
 import { AdminRoleGuard } from './guards/admin-role.guard';
-import { SellerRoleGuard } from './guards/seller-role.guard';
-import { UserRoleGuard } from './guards/user-role.guard';
 
 const routes: Routes = [
   {

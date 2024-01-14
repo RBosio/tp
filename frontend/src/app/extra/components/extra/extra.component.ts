@@ -4,6 +4,7 @@ import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/materi
 import { ExtraService } from '../../services/extra.service';
 import { ExtraIResponse } from 'src/app/models/extra.model';
 import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-extra',
@@ -19,7 +20,8 @@ export class ExtraComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private extraService: ExtraService,
-  ) {
+    private sharedService: SharedService
+    ) {
 
   }
 
@@ -43,6 +45,9 @@ export class ExtraComponent implements AfterViewInit, OnDestroy {
       const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
       this.dataSource.data.splice(indice, 1)
       this.dataSource._updateChangeSubscription()
+      this.sharedService.openSnackBar('Extra eliminado con éxito!', 'Cerrar')
+    }, () => {
+      this.sharedService.openSnackBar('No fue posible eliminar el extra!', 'Cerrar')
     })
   }
 

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TypeIResponse } from 'src/app/models/type.model';
 import { TypeService } from 'src/app/type/services/type.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-edit-room',
@@ -33,7 +34,9 @@ export class EditRoomComponent {
     private roomService: RoomService,
     private router: Router,
     private route: ActivatedRoute,
-    private typeService: TypeService) {
+    private typeService: TypeService,
+    private sharedService: SharedService
+    ) {
       this.subscription1$ = this.route.params.subscribe(params => {
         this.id = params['id']
 
@@ -74,7 +77,10 @@ export class EditRoomComponent {
         'shower': this.edit.controls['shower'].value
       }
       this.subscription4$ = this.roomService.edit(room, this.id).subscribe(() => {
+        this.sharedService.openSnackBar('Habitación editada con éxito!', 'Cerrar')
         this.router.navigateByUrl('/room')
+      }, err => {
+        this.sharedService.openSnackBar(err, 'Cerrar')
       })
     }
   }

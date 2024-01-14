@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TypeService } from '../../services/type.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-edit-type',
@@ -22,12 +23,15 @@ export class EditTypeComponent {
     private fb: FormBuilder,
     private typeService: TypeService,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private sharedService: SharedService
+    ) {
       this.subscription1$ = this.route.params.subscribe(params => {
         this.id = params['id']
 
         this.subscription2$ = this.typeService.getOne(this.id).subscribe(res => {
           this.name = res.name
+          this.edit.controls['name'].setValue(this.name)
         })
       })
     }
@@ -48,7 +52,10 @@ export class EditTypeComponent {
         'name': this.edit.controls['name'].value
       }
       this.subscription3$ = this.typeService.edit(type, this.id).subscribe(() => {
-      this.router.navigateByUrl('/type')
+        this.sharedService.openSnackBar('Tipo de habitación editado con éxito!', 'Cerrar')
+        this.router.navigateByUrl('/type')
+      }, err => {
+        this.sharedService.openSnackBar(err, 'Cerrar')
       })
     }
   }

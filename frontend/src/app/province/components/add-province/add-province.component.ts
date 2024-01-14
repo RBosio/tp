@@ -5,6 +5,7 @@ import { ProvinceService } from '../../services/province.service';
 import { CountryService } from 'src/app/country/services/country.service';
 import { CountryIResponse } from 'src/app/models/country.model';
 import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-add-province',
@@ -22,7 +23,9 @@ export class AddProvinceComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private provinceService: ProvinceService,
     private router: Router,
-    private countryService: CountryService) {}
+    private countryService: CountryService,
+    private sharedService: SharedService
+    ) {}
 
   ngOnInit(): void {
       this.add = this.initForm()
@@ -45,7 +48,10 @@ export class AddProvinceComponent implements OnInit, OnDestroy {
         'countryId': this.add.controls['countryId'].value
       }
       this.subscription2$ = this.provinceService.add(province).subscribe(() => {
-      this.router.navigateByUrl('/province')
+        this.sharedService.openSnackBar('Provincia agregada con éxito!', 'Cerrar')
+        this.router.navigateByUrl('/province')
+      }, err => {
+        this.sharedService.openSnackBar(err, 'Cerrar')
       })
     }
   }

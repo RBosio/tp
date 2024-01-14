@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountryService } from '../../services/country.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-edit-country',
@@ -22,7 +23,9 @@ export class EditCountryComponent {
     private fb: FormBuilder,
     private countryService: CountryService,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private sharedService: SharedService
+    ) {
       this.subscription1$ = this.route.params.subscribe(params => {
         this.id = params['id']
 
@@ -49,7 +52,10 @@ export class EditCountryComponent {
         'name': this.edit.controls['name'].value
       }
       this.subscription3$ = this.countryService.edit(country, this.id).subscribe(() => {
-      this.router.navigateByUrl('/country')
+        this.sharedService.openSnackBar('País editado con éxito!', 'Cerrar')
+        this.router.navigateByUrl('/country')
+      }, err => {
+        this.sharedService.openSnackBar(err, 'Cerrar')
       })
     }
   }

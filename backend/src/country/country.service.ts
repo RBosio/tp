@@ -36,14 +36,23 @@ export class CountryService {
         if (countryFound) {
             throw new HttpException('El nombre ya existe', HttpStatus.BAD_REQUEST)
         }
-
+        
         const newCountry = this.countryRepository.create(country)
-
+        
         return this.countryRepository.save(newCountry)
     }
-
+    
     async update(id: number, country: updateCountryDto) {
-        const countryFound = await this.countryRepository.findOne({
+        let countryFound = await this.countryRepository.findOne({
+            where: {
+                name: country.name
+            }
+        })
+        if (countryFound) {
+            throw new HttpException('El nombre ya existe', HttpStatus.BAD_REQUEST)
+        }
+
+        countryFound = await this.countryRepository.findOne({
             where: {
                 id
             }

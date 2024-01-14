@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExtraService } from '../../services/extra.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-edit-extra',
@@ -23,7 +24,9 @@ export class EditExtraComponent {
     private fb: FormBuilder,
     private extraService: ExtraService,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private sharedService: SharedService
+    ) {
       this.subscription1$ = this.route.params.subscribe(params => {
         this.id = params['id']
 
@@ -54,7 +57,10 @@ export class EditExtraComponent {
         'price': this.edit.controls['price'].value
       }
       this.subscription3$ = this.extraService.edit(extra, this.id).subscribe(() => {
-      this.router.navigateByUrl('/extra')
+        this.sharedService.openSnackBar('Extra editado con éxito!', 'Cerrar')
+        this.router.navigateByUrl('/extra')
+      }, err => {
+        this.sharedService.openSnackBar(err, 'Cerrar')
       })
     }
   }

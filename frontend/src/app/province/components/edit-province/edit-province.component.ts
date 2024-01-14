@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CountryIResponse } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/country/services/country.service';
 import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-edit-province',
@@ -27,7 +28,9 @@ export class EditProvinceComponent {
     private provinceService: ProvinceService,
     private router: Router,
     private route: ActivatedRoute,
-    private countryService: CountryService) {
+    private countryService: CountryService,
+    private sharedService: SharedService
+    ) {
       this.subscription1$ = this.route.params.subscribe(params => {
         this.id = params['id']
 
@@ -60,7 +63,10 @@ export class EditProvinceComponent {
         'countryId': this.edit.controls['countryId'].value
       }
       this.subscription4$ = this.provinceService.edit(province, this.id).subscribe(() => {
+        this.sharedService.openSnackBar('Provincia editada con éxito!', 'Cerrar')
         this.router.navigateByUrl('/province')
+      }, err => {
+        this.sharedService.openSnackBar(err, 'Cerrar')
       })
     }
   }

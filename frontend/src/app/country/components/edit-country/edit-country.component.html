@@ -13,7 +13,7 @@
     <mat-card-content>
         <mat-form-field class="input">
             <mat-label>Nombre</mat-label>
-            <input type="text" matInput formControlName="name" value="{{ name }}">
+            <input type="text" matInput formControlName="name" value="{{ name }}" autofocus>
             <mat-error *ngIf="edit.get('name')?.touched && edit.get('name').errors?.['required']">
                 Nombre <strong>requerido</strong>
             </mat-error>

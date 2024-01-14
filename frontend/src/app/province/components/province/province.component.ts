@@ -4,6 +4,7 @@ import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/materi
 import { ProvinceService } from '../../services/province.service';
 import { ProvinceIResponse } from 'src/app/models/province.model';
 import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-province',
@@ -19,6 +20,7 @@ export class ProvinceComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private provinceService: ProvinceService,
+    private sharedService: SharedService
   ) {
 
   }
@@ -39,11 +41,14 @@ export class ProvinceComponent implements AfterViewInit, OnDestroy {
   }
   
   delete(id: number) {
-        this.subscription2$ = this.provinceService.delete(id).subscribe(() => {
-          const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
-          this.dataSource.data.splice(indice, 1)
-          this.dataSource._updateChangeSubscription()
-        })
+    this.subscription2$ = this.provinceService.delete(id).subscribe(() => {
+      const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
+      this.dataSource.data.splice(indice, 1)
+      this.dataSource._updateChangeSubscription()
+      this.sharedService.openSnackBar('Provincia eliminada con éxito!', 'Cerrar')
+    }, () => {
+      this.sharedService.openSnackBar('No fue posible eliminar la provincia!', 'Cerrar')
+    })
   }
 
   ngOnDestroy(): void {

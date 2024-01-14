@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountryService } from '../../services/country.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-add-country',
@@ -17,7 +18,9 @@ export class AddCountryComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private countryService: CountryService,
-    private router: Router) {}
+    private router: Router,
+    private sharedService: SharedService
+    ) {}
 
   ngOnInit(): void {
       this.add = this.initForm()
@@ -35,7 +38,10 @@ export class AddCountryComponent implements OnInit, OnDestroy {
         'name': this.add.controls['name'].value
       }
       this.subscription1$ = this.countryService.add(country).subscribe(() => {
-      this.router.navigateByUrl('/country')
+        this.sharedService.openSnackBar('País agregado con éxito!', 'Cerrar')
+        this.router.navigateByUrl('/country')
+      }, err => {
+        this.sharedService.openSnackBar(err, 'Cerrar')
       })
     }
   }

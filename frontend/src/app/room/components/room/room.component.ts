@@ -4,6 +4,7 @@ import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/materi
 import { RoomService } from '../../services/room.service';
 import { RoomIResponse } from 'src/app/models/room.model';
 import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-room',
@@ -19,7 +20,8 @@ export class RoomComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private roomService: RoomService,
-  ) {
+    private sharedService: SharedService
+    ) {
 
   }
 
@@ -43,6 +45,9 @@ export class RoomComponent implements AfterViewInit, OnDestroy {
           const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
           this.dataSource.data.splice(indice, 1)
           this.dataSource._updateChangeSubscription()
+          this.sharedService.openSnackBar('Habitación eliminada con éxito!', 'Cerrar')
+        }, () => {
+          this.sharedService.openSnackBar('No fue posible eliminar la habitación!', 'Cerrar')
         })
   }
 

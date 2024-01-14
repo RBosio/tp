@@ -13,7 +13,7 @@
     <mat-card-content>
         <mat-form-field class="input">
             <mat-label>Codigo postal</mat-label>
-            <input type="text" matInput formControlName="zipCode">
+            <input type="text" matInput formControlName="zipCode" autofocus>
             <mat-error *ngIf="add.get('zipCode')?.touched && add.get('zipCode').errors?.['required']">
                 Codigo postal <strong>requerido</strong>
             </mat-error>

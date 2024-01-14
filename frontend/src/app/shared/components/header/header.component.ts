@@ -25,6 +25,8 @@ export class HeaderComponent implements OnInit {
       this.setHeader(token)
     } else {
       this.router.navigateByUrl('/')
+      this.name = null
+      this.login = false
     }
     
     this.authService.tokenEvent.subscribe(res => {
@@ -46,9 +48,6 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authService.logout();
-    this.token = localStorage.getItem('token');
-    this.name = null
-    this.login = false
     this.router.navigateByUrl('auth/login');
   }
 

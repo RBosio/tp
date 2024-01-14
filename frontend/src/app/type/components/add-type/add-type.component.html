@@ -1,9 +1,9 @@
 <mat-toolbar color="accent" class="toolbar">
     <mat-toolbar-row>
         <div class="flex">
-            <p class="ope" routerLink="/country">Listado</p>
+            <p class="ope" routerLink="/type">Listado</p>
             <p class="title">Tipos de habitacion</p>
-            <p class="ope" routerLink="/country/add">Agregar</p>
+            <p class="ope" routerLink="/type/add">Agregar</p>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>
@@ -13,7 +13,7 @@
     <mat-card-content>
         <mat-form-field class="input">
             <mat-label>Nombre</mat-label>
-            <input type="text" matInput formControlName="name">
+            <input type="text" matInput formControlName="name" autofocus>
             <mat-error *ngIf="add.get('name')?.touched && add.get('name').errors?.['required']">
                 Nombre <strong>requerido</strong>
             </mat-error>

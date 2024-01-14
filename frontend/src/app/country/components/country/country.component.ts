@@ -4,6 +4,7 @@ import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/materi
 import { CountryService } from '../../services/country.service';
 import { CountryIResponse } from 'src/app/models/country.model';
 import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-country',
@@ -19,6 +20,7 @@ export class CountryComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private countryService: CountryService,
+    private sharedService: SharedService
   ) {
 
   }
@@ -43,6 +45,9 @@ export class CountryComponent implements AfterViewInit, OnDestroy {
       const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
       this.dataSource.data.splice(indice, 1)
       this.dataSource._updateChangeSubscription()
+      this.sharedService.openSnackBar('País eliminado con éxito!', 'Cerrar')
+    }, () => {
+      this.sharedService.openSnackBar('No fue posible eliminar el país!', 'Cerrar')
     })
   }
 

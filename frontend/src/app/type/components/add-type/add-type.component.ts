@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TypeService } from '../../services/type.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-add-type',
@@ -17,7 +18,9 @@ export class AddTypeComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private typeService: TypeService,
-    private router: Router) {}
+    private router: Router,
+    private sharedService: SharedService
+    ) {}
 
   ngOnInit(): void {
       this.add = this.initForm()
@@ -35,7 +38,10 @@ export class AddTypeComponent implements OnInit, OnDestroy {
         'name': this.add.controls['name'].value
       }
       this.subscription1$ = this.typeService.add(type).subscribe(() => {
-      this.router.navigateByUrl('/type')
+        this.sharedService.openSnackBar('Tipo de habitación agregado con éxito!', 'Cerrar')
+        this.router.navigateByUrl('/type')
+      }, err => {
+        this.sharedService.openSnackBar(err, 'Cerrar')
       })
     }
   }

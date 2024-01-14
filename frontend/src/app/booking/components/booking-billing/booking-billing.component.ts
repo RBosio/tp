@@ -10,6 +10,7 @@ import { UserService } from 'src/app/user/services/user.service';
 import { BookingService } from '../../services/booking.service';
 import { BookingI } from 'src/app/models/booking.model';
 import { Router } from '@angular/router';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-booking-billing',
@@ -38,7 +39,8 @@ export class BookingBillingComponent implements OnInit {
     private extraService: ExtraService,
     private userService: UserService,
     private bookingService: BookingService,
-    private router: Router
+    private router: Router,
+    private sharedService: SharedService
   ) { }
 
   ngOnInit(): void {
@@ -67,7 +69,7 @@ export class BookingBillingComponent implements OnInit {
 
         
         this.extras = this.extras.filter(x => {
-          return this.test(x)
+          return this.selectExtras(x)
         })
       })
 
@@ -78,7 +80,7 @@ export class BookingBillingComponent implements OnInit {
  
   }
 
-  test(x: ExtraIResponse): boolean {
+  selectExtras(x: ExtraIResponse): boolean {
     const extrasSelected: number[] = JSON.parse(localStorage.getItem('billing')).extras
 
     for (let i = 0; i < extrasSelected.length; i++) {
@@ -99,6 +101,7 @@ export class BookingBillingComponent implements OnInit {
     }
 
     this.bookingService.add(booking).subscribe(() => {
+      this.sharedService.openSnackBar('Reserva realizada con éxito!', 'Cerrar')
       this.router.navigateByUrl('/')
     })
   }

@@ -4,6 +4,7 @@ import { MatTableDataSource, MatTableDataSourcePaginator } from '@angular/materi
 import { TypeService } from '../../services/type.service';
 import { TypeIResponse } from 'src/app/models/type.model';
 import { Subscription } from 'rxjs';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-type',
@@ -19,7 +20,8 @@ export class TypeComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private typeService: TypeService,
-  ) {
+    private sharedService: SharedService
+    ) {
 
   }
 
@@ -42,7 +44,10 @@ export class TypeComponent implements AfterViewInit, OnDestroy {
     this.subscription2$ = this.typeService.delete(id).subscribe(() => {
       const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.id == id))
       this.dataSource.data.splice(indice, 1)
+      this.sharedService.openSnackBar('Tipo de habitación eliminado con éxito!', 'Cerrar')
       this.dataSource._updateChangeSubscription()
+    }, () => {
+      this.sharedService.openSnackBar('No fue posible eliminar el tipo de habitación!', 'Cerrar')
     })
   }
 

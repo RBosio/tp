@@ -6,6 +6,7 @@ import { CityIResponse } from 'src/app/models/city.model';
 import { Subscription } from 'rxjs';
 import { CountryIResponse } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/country/services/country.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-city',
@@ -23,7 +24,8 @@ export class CityComponent implements AfterViewInit, OnDestroy {
   
   constructor(
     private cityService: CityService,
-    private countryService: CountryService
+    private countryService: CountryService,
+    private sharedService: SharedService
   ) {
 
   }
@@ -53,7 +55,10 @@ export class CityComponent implements AfterViewInit, OnDestroy {
           const indice = this.dataSource.data.indexOf(this.dataSource.data.find(data => data.zipCode == zipCode))
           this.dataSource.data.splice(indice, 1)
           this.dataSource._updateChangeSubscription()
-        })
+        this.sharedService.openSnackBar('Ciudad eliminada con éxito!', 'Cerrar')
+      }, () => {
+        this.sharedService.openSnackBar('No fue posible eliminar la ciudad!', 'Cerrar')
+      })
   }
 
   ngOnDestroy(): void {

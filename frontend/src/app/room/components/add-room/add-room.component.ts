@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TypeIResponse } from 'src/app/models/type.model';
 import { TypeService } from 'src/app/type/services/type.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-add-room',
@@ -33,7 +34,9 @@ export class AddRoomComponent {
     private roomService: RoomService,
     private router: Router,
     private route: ActivatedRoute,
-    private typeService: TypeService) {
+    private typeService: TypeService,
+    private sharedService: SharedService
+    ) {
       this.subscription1$ = this.route.params.subscribe(params => {
         this.id = params['id']
 
@@ -64,7 +67,6 @@ export class AddRoomComponent {
   }
 
   onSubmit() {
-    console.log(this.add.controls['price'].value)
     if(this.add.valid){
       const room = {
         'price': this.add.controls['price'].value,
@@ -75,7 +77,10 @@ export class AddRoomComponent {
         'shower': this.add.controls['shower'].value
       }
       this.subscription4$ = this.roomService.add(room).subscribe(() => {
+        this.sharedService.openSnackBar('Habitación agregada con éxito!', 'Cerrar')
         this.router.navigateByUrl('/room')
+      }, err => {
+        this.sharedService.openSnackBar(err, 'Cerrar')
       })
     }
   }

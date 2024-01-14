@@ -7,6 +7,7 @@ import { CountryService } from 'src/app/country/services/country.service';
 import { Subscription } from 'rxjs';
 import { ProvinceIResponse } from 'src/app/models/province.model';
 import { ProvinceService } from 'src/app/province/services/province.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-edit-city',
@@ -33,6 +34,7 @@ export class EditCityComponent {
     private route: ActivatedRoute,
     private countryService: CountryService,
     private provinceService: ProvinceService,
+    private sharedService: SharedService
     ) {
       this.subscription1$ = this.route.params.subscribe(params => {
         this.zipCode = params['zipCode']
@@ -68,7 +70,10 @@ export class EditCityComponent {
         'provinceId': this.edit.controls['provinceId'].value
       }
       this.subscription4$ = this.cityService.edit(city, this.zipCode).subscribe(() => {
+        this.sharedService.openSnackBar('Ciudad editada con éxito!', 'Cerrar')
         this.router.navigateByUrl('/city')
+      }, err => {
+        this.sharedService.openSnackBar(err, 'Cerrar')
       })
     }
   }

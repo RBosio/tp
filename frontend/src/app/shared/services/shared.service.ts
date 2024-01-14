@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { jwtDecode } from 'jwt-decode';
 import { DialogComponent } from '../components/dialog/dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,10 @@ export class SharedService {
   titleDialog: EventEmitter<string> = new EventEmitter<string>()
   textDialog: EventEmitter<string> = new EventEmitter<string>()
 
-  constructor(public dialog: MatDialog) { }
+  constructor(
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar
+    ) { }
 
   getDecodedAccessToken(token: string): any {
     try {
@@ -43,5 +47,11 @@ export class SharedService {
     });
 
     return _dialog
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 3000
+    });
   }
 }

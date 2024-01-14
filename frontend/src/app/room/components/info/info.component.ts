@@ -3,6 +3,7 @@ import { RoomService } from '../../services/room.service';
 import { ActivatedRoute } from '@angular/router';
 import { RoomIResponse } from 'src/app/models/room.model';
 import { environment } from 'src/environments/environment';
+import { SharedService } from 'src/app/shared/services/shared.service';
 
 @Component({
   selector: 'app-info',
@@ -21,7 +22,9 @@ export class InfoComponent implements OnInit {
 
   constructor(
     private roomService: RoomService,
-    private router: ActivatedRoute) {}
+    private router: ActivatedRoute,
+    private sharedService: SharedService
+    ) {}
   
   ngOnInit(): void {
     this.router.params.subscribe(params => {
@@ -52,7 +55,10 @@ export class InfoComponent implements OnInit {
 
   loadImage() {
     this.roomService.loadImage(this.room.id, this.file).subscribe(() => {
+      this.sharedService.openSnackBar('Imagen cargada con éxito!', 'Cerrar')
       this.disable = true
+    }, () => {
+      this.sharedService.openSnackBar('No fue posible cargar la imagen!', 'Cerrar')
     })
   }
 }

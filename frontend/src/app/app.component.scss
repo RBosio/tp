@@ -1,0 +1,13 @@
+@import "shared/styles/vars.scss";
+
+a {
+    user-select: none;
+}
+
+.title {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: underline;
+    background-color: $PRIMARY;
+    color: #fff;
+}

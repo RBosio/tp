@@ -1,0 +1,29 @@
+<app-header [sidenav]="sidenav"></app-header>
+
+<mat-sidenav-container>
+    <mat-sidenav #sidenav>
+        <mat-nav-list (click)="closeSidenav(sidenav)">
+            <a mat-list-item routerLink="/">Home</a>
+            <div class="seller" *ngIf="seller">
+                <a class="title">Recepción</a>
+                <a mat-list-item routerLink="/booking/seller">Reservas</a>
+            </div>
+            <div class="admin" *ngIf="admin">
+                <a class="title">Administración</a>
+                <a mat-list-item routerLink="/user">Usuarios</a>
+                <a mat-list-item routerLink="/type">Tipos de habitaciones</a>
+                <a mat-list-item routerLink="/room">Habitaciones</a>
+                <a mat-list-item routerLink="/extra">Extras</a>
+                <a mat-list-item routerLink="/city">Ciudades</a>
+                <a mat-list-item routerLink="/province">Provincias</a>
+                <a mat-list-item routerLink="/country">Paises</a>
+            </div>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content style="height: 90vh;">
+        <div>
+            <router-outlet></router-outlet>
+            <app-footer></app-footer>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

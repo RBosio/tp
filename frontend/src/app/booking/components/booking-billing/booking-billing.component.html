@@ -1,0 +1,42 @@
+<div class="div">
+  <div class="black"></div>
+  <div class="test">
+    <div class="button" routerLink="/booking/extras">
+      <i class="fa-solid fa-left-long"></i>
+      <p>Volver</p>
+    </div>
+
+    <div class="card">
+      <div class="head">
+        <div class="img"><img [src]="photo" alt="" /></div>
+        <div class="booking">
+          <div class="date">
+            <p>Fecha de inicio: {{ admissionDate }}</p>
+            <p>Fecha de fin: {{ departureDate }}</p>
+          </div>
+          <p class="price">Precio: {{ priceRoom + priceExtras | currency }}</p>
+        </div>
+        <div class="data">
+          <h3>Datos cliente</h3>
+          <p>Dni: {{ dni }}</p>
+          <p>Nombre: {{ user?.name }}</p>
+          <p>Apellido: {{ user?.surname }}</p>
+          <p>Email: {{ user?.email }}</p>
+          <p>Telefono: {{ user?.phone }}</p>
+        </div>
+      </div>
+      <div class="room">
+        <h3>Habitacion</h3>
+        <div>
+          <p>Numero: {{ room?.id }}</p>
+          <p>Tipo: {{ type }}</p>
+        </div>
+      </div>
+      <h3 class="extra">Extras</h3>
+      <ul class="extras">
+        <li *ngFor="let extra of extras">{{ extra.name }}</li>
+      </ul>
+      <p class="booking-btn" (click)="booking()">Reservar</p>
+    </div>
+  </div>
+</div>

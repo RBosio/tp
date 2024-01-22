@@ -1,0 +1,58 @@
+@import "../../styles/vars.scss";
+
+.header {
+    user-select: none;
+
+    .menu {
+        font-size: 20px;
+        padding: 5px;
+    }
+
+    .menu:hover {
+        cursor: pointer;
+    }
+
+    .title {
+        font-size: 2em;
+        padding: 10px;
+        font-weight: 500;
+    }
+
+    .title:hover {
+        cursor: pointer;
+    }
+
+    .options {
+        .list {
+            justify-content: space-between;
+            align-items: center;
+            list-style-type: none;
+            
+            .welcome {
+                padding: 10px;
+            }
+            
+            li {
+                padding: 10px;
+                a {
+                    margin-right: 5px;
+                    text-decoration: none;
+                }
+                a:any-link {
+                    color: #fff;
+                }
+                a:active {
+                    color: #fff;
+                }
+            }
+            li:hover {
+                cursor: pointer;
+                opacity: .6;
+            }
+        }
+    }
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+}

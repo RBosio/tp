@@ -1,0 +1,86 @@
+@import "../../../shared/styles/vars.scss";
+
+.div {
+    width: 100%;
+    height: 90vh;
+    overflow: hidden;
+    background-image: url('../../../../assets/extra.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.black {
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.3;
+}
+
+.test {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    background-color: transparent;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 25px;
+    margin-top: 25px;
+    margin-right: 50px;
+}
+
+.title {
+    font-weight: 400;
+    padding: 5px;
+    background-color: $ACCENT;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.days {
+    display: block;
+    background-color: $WARN;
+    padding: 10px;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.card {
+    width: 20%;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 15px;
+    background-color: $PRIMARY;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.booking {
+    width: 25%;
+    padding: 10px;
+    margin: auto;
+    margin-bottom: 10px;
+    background-color: $ACCENT;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.booking:hover {
+    cursor: pointer;
+    opacity: .8;
+}

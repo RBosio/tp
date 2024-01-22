@@ -1,0 +1,60 @@
+.toolbar {
+    width: 60%;
+    margin: 0 auto 20px auto;
+    
+    .mat-toolbar-row {
+        height: 50px;
+    }
+
+    .ope {
+        padding: 10px;
+    }
+
+    .ope:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    .title {
+        font-size: 24px;
+        text-decoration: underline;
+    }
+    
+    .flex {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.mat-toolbar-multiple-rows {
+    min-height: 0px;
+}
+
+
+.flex-row {
+    justify-content: center;
+}
+
+.table {
+    width: 60%;
+}
+
+button {
+    padding: 5px;
+    margin: 5px;
+}
+
+.header {
+    text-align: center;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    
+    button {
+        color: #fff;
+    }
+}

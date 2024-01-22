@@ -1,0 +1,37 @@
+<mat-toolbar color="accent" class="toolbar">
+    <mat-toolbar-row>
+        <div class="flex">
+            <p class="ope" routerLink="/room">Listado</p>
+            <p class="title">Habitaciones</p>
+            <p class="ope" routerLink="/room/add">Agregar</p>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-card class="form">
+    <form (ngSubmit)="onSubmit()" [formGroup]="add">
+    <mat-card-content>
+        <mat-form-field class="input">
+            <mat-label>Precio</mat-label>
+            <input type="text" matInput formControlName="price" value="{{ room.price }}" autofocus>
+            <mat-error *ngIf="add.get('price').errors?.['required']">
+                Precio <strong>requerido</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="input">
+            <mat-label>Escoge una opción</mat-label>
+            <mat-select formControlName="typeId">
+                <mat-option *ngFor="let type of types" [value]="type.id">{{ type.name }}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="add.get('typeId')?.touched && add.get('typeId').errors?.['required']">Tipo requerido</mat-error>
+        </mat-form-field>
+    </mat-card-content>
+    <mat-checkbox class="example-margin" formControlName="tv">Tv</mat-checkbox>
+    <mat-checkbox class="example-margin" formControlName="ac">Aire</mat-checkbox>
+    <mat-checkbox class="example-margin" formControlName="towel">Toallas</mat-checkbox>
+    <mat-checkbox class="example-margin" formControlName="shower">Ducha</mat-checkbox>
+    <mat-card-actions class="actions">
+            <button class="button" type="submit" mat-flat-button color="primary">Agregar</button>
+        </mat-card-actions>
+    </form>
+</mat-card>

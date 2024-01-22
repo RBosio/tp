@@ -1,0 +1,3 @@
+## Documentación 📖
+
+🔹 [Proposal](./proposal.md)

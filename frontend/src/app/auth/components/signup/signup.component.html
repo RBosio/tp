@@ -1,0 +1,65 @@
+<mat-card class="form">
+    <i class="fa-solid fa-user icon"></i>
+    <form (ngSubmit)="onSubmit()" [formGroup]="signup">
+        <mat-card-content style="margin: auto;">
+            <table class="" cellspacing="0">
+                <tr>
+                    <td>
+                        <mat-form-field class="input">
+                            <mat-label>Nombre</mat-label>
+                            <input type="text" matInput formControlName="name">
+                            <mat-error *ngIf="signup.get('name')?.touched && signup.get('name')?.errors?.['required']">Nombre <strong>requerido</strong></mat-error>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="input">
+                            <mat-label>Apellido</mat-label>
+                            <input type="text" matInput formControlName="surname">
+                            <mat-error *ngIf="signup.get('surname')?.touched && signup.get('surname')?.errors?.['required']">Apellido <strong>requerido</strong></mat-error>
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+            <table class="" cellspacing="0">
+                <tr>
+                    <td>
+                        <mat-form-field class="input">
+                            <mat-label>Email</mat-label>
+                            <input type="text" matInput formControlName="email"  placeholder="Ej. ejemplo@gmail.com">
+                            <mat-error *ngIf="signup.get('email')?.touched && signup.get('email')?.errors?.['email']">Email <strong>inválido</strong></mat-error>
+                            <mat-error *ngIf="signup.get('email')?.touched && signup.get('email')?.errors?.['required']">Email <strong>requerido</strong></mat-error>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="input">
+                            <mat-label>Password</mat-label>
+                            <input type="password" matInput formControlName="password">
+                            <mat-error *ngIf="signup.get('password')?.touched && signup.get('password')?.errors?.['required']">Contraseña <strong>requerida</strong></mat-error>
+                            <mat-error *ngIf="signup.get('password')?.touched && signup.get('password')?.errors?.['minlength']">Mínimo <strong>6</strong> caracteres</mat-error>
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+            <table class="" cellspacing="0">
+                <tr>
+                    <td>
+                        <mat-form-field class="input">
+                            <mat-label>DNI</mat-label>
+                            <input type="text" matInput formControlName="dni">
+                            <mat-error *ngIf="signup.get('dni')?.touched && signup.get('dni')?.errors?.['required']">Dni <strong>requerido</strong></mat-error>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="input">
+                            <mat-label>Teléfono</mat-label>
+                            <input type="text" matInput formControlName="phone">
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+        </mat-card-content>
+        <mat-card-actions class="actions">
+            <button class="button" type="submit" mat-flat-button color="primary">Registrarse</button>
+        </mat-card-actions>
+    </form>
+</mat-card>

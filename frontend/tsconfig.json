@@ -5,6 +5,7 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "types": [
+      "jest",
       "node"
     ],
     "typeRoots": [

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CityService } from '../../services/city.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
   templateUrl: './edit-city.component.html',
   styleUrls: ['./edit-city.component.scss']
 })
-export class EditCityComponent {
+export class EditCityComponent implements OnInit, OnDestroy {
   edit: FormGroup
   zipCode: string
   name: string

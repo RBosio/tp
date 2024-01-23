@@ -19,7 +19,7 @@ export class ProvinceService {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'province', {headers})
     .pipe(
-      map((res: any) => {
+      map((res: ProvinceIResponse[]) => {
         return res
       }),
       catchError(err => {
@@ -32,7 +32,7 @@ export class ProvinceService {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'province/country/' + countryId, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: ProvinceIResponse[]) => {
         return res
       }),
       catchError(err => {
@@ -45,7 +45,7 @@ export class ProvinceService {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'province/' + id, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: ProvinceIResponse) => {
         return res
       }),
       catchError(err => {
@@ -58,7 +58,7 @@ export class ProvinceService {
     const headers = this.sharedService.setHeader()
     return this.http.post(environment.BASE_URL + 'province', province, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: ProvinceIResponse) => {
         return res
       }),
       catchError(err => {
@@ -71,7 +71,7 @@ export class ProvinceService {
     const headers = this.sharedService.setHeader()
     return this.http.patch(environment.BASE_URL + 'province/' + id, province, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: ProvinceIResponse) => {
         return res
       }),
       catchError(err => {
@@ -84,7 +84,7 @@ export class ProvinceService {
     const headers = this.sharedService.setHeader()
     return this.http.delete(environment.BASE_URL + 'province/' + id, {headers})
     .pipe(
-      map((res: any) => {
+      map((res) => {
         return res
       }),
       catchError(err => {

@@ -15,7 +15,7 @@ export class BookingService {
   getAll(): Observable<BookingIResponse[]> {
     const headers = this.sharedService.setHeader();
     return this.http.get(environment.BASE_URL + 'booking', { headers }).pipe(
-      map((res: any) => {
+      map((res: BookingIResponse[]) => {
         return res;
       }),
       catchError((err) => {
@@ -36,7 +36,7 @@ export class BookingService {
         { headers }
       )
       .pipe(
-        map((res: any) => {
+        map((res: RoomIResponse[]) => {
           return res;
         }),
         catchError((err) => {
@@ -52,7 +52,7 @@ export class BookingService {
         headers,
       })
       .pipe(
-        map((res: any) => {
+        map((res: BookingIResponse[]) => {
           return res;
         }),
         catchError((err) => {
@@ -68,7 +68,7 @@ export class BookingService {
         headers,
       })
       .pipe(
-        map((res: any) => {
+        map((res: BookingIResponse) => {
           return res;
         }),
         catchError((err) => {
@@ -82,7 +82,7 @@ export class BookingService {
     return this.http
       .post(environment.BASE_URL + 'booking', booking, { headers })
       .pipe(
-        map((res: any) => {
+        map((res: BookingIResponse) => {
           return res;
         }),
         catchError((err) => {
@@ -101,7 +101,7 @@ export class BookingService {
         { headers }
       )
       .pipe(
-        map((res: any) => {
+        map((res: BookingIResponse) => {
           return res;
         }),
         catchError((err) => {
@@ -120,7 +120,7 @@ export class BookingService {
         { headers }
       )
       .pipe(
-        map((res: any) => {
+        map((res: BookingIResponse) => {
           return res;
         }),
         catchError((err) => {
@@ -139,7 +139,7 @@ export class BookingService {
         { headers }
       )
       .pipe(
-        map((res: any) => {
+        map((res: BookingIResponse) => {
           return res;
         }),
         catchError((err) => {

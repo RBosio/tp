@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountryService } from '../../services/country.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
   templateUrl: './edit-country.component.html',
   styleUrls: ['./edit-country.component.scss']
 })
-export class EditCountryComponent {
+export class EditCountryComponent implements OnInit, OnDestroy {
   edit: FormGroup
   id: number
   name: string

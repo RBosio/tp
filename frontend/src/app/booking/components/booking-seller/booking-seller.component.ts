@@ -66,7 +66,7 @@ export class BookingSellerComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  checkin(dni: string, admissionDate: any) {
+  checkin(dni: string, admissionDate) {
     this.sharedService.openDialog('Realizar checkin').afterClosed().subscribe(res => {
       const admission = admissionDate
       admissionDate = admissionDate.split('T')[0]
@@ -79,7 +79,7 @@ export class BookingSellerComponent implements AfterViewInit, OnDestroy {
     })
   }
   
-  checkout(dni: string, admissionDate: any) {
+  checkout(dni: string, admissionDate) {
     this.sharedService.openDialog('Realizar checkout').afterClosed().subscribe(res => {
       const admission = admissionDate
       admissionDate = admissionDate.split('T')[0]
@@ -92,7 +92,7 @@ export class BookingSellerComponent implements AfterViewInit, OnDestroy {
     })
   }
   
-  cancel(dni: string, admissionDate: any) {
+  cancel(dni: string, admissionDate) {
     this.sharedService.openDialog('Cancelar reserva').afterClosed().subscribe(res => {
       const admission = admissionDate
       admissionDate = admissionDate.split('T')[0]

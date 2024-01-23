@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ExtraService } from '../../services/extra.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
   templateUrl: './edit-extra.component.html',
   styleUrls: ['./edit-extra.component.scss']
 })
-export class EditExtraComponent {
+export class EditExtraComponent implements OnInit, OnDestroy {
   edit: FormGroup
   id: number
   name: string

@@ -6,6 +6,13 @@ import { jwtDecode } from 'jwt-decode';
 import { DialogComponent } from '../components/dialog/dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+interface Token {
+  sub: string
+  name: string
+  surname: string
+  roles: string[]
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +27,7 @@ export class SharedService {
     private _snackBar: MatSnackBar
     ) { }
 
-  getDecodedAccessToken(token: string): any {
+  getDecodedAccessToken(token: string): Token {
     try {
       return jwtDecode(token);
     } catch(Error) {
@@ -36,7 +43,7 @@ export class SharedService {
     return headers
   }
 
-  openDialog(title: string): MatDialogRef<DialogComponent, any> {
+  openDialog(title: string): MatDialogRef<DialogComponent> {
     const _dialog = this.dialog.open(DialogComponent, {
       width: '250px',
       enterAnimationDuration: '250ms',

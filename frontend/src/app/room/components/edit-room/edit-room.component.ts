@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RoomService } from '../../services/room.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
   templateUrl: './edit-room.component.html',
   styleUrls: ['./edit-room.component.scss']
 })
-export class EditRoomComponent {
+export class EditRoomComponent implements OnInit, OnDestroy {
   edit: FormGroup
   id: number
   room = {

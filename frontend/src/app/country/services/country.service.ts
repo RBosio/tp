@@ -19,7 +19,7 @@ export class CountryService {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'country', {headers})
     .pipe(
-      map((res: any) => {
+      map((res: CountryIResponse[]) => {
         return res
       }),
       catchError(err => {
@@ -32,7 +32,7 @@ export class CountryService {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'country/' + id, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: CountryIResponse) => {
         return res
       }),
       catchError(err => {
@@ -45,7 +45,7 @@ export class CountryService {
     const headers = this.sharedService.setHeader()
     return this.http.post(environment.BASE_URL + 'country', country, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: CountryIResponse) => {
         return res
       }),
       catchError(err => {
@@ -58,7 +58,7 @@ export class CountryService {
     const headers = this.sharedService.setHeader()
     return this.http.patch(environment.BASE_URL + 'country/' + id, country, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: CountryIResponse) => {
         return res
       }),
       catchError(err => {
@@ -71,7 +71,7 @@ export class CountryService {
     const headers = this.sharedService.setHeader()
     return this.http.delete(environment.BASE_URL + 'country/' + id, {headers})
     .pipe(
-      map((res: any) => {
+      map((res) => {
         return res
       }),
       catchError(err => {

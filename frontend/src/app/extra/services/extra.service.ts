@@ -19,7 +19,7 @@ export class ExtraService {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'extra', {headers})
     .pipe(
-      map((res: any) => {
+      map((res: ExtraIResponse[]) => {
         return res
       }),
       catchError(err => {
@@ -32,7 +32,7 @@ export class ExtraService {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'extra/' + id, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: ExtraIResponse) => {
         return res
       }),
       catchError(err => {
@@ -45,7 +45,7 @@ export class ExtraService {
     const headers = this.sharedService.setHeader()
     return this.http.post(environment.BASE_URL + 'extra', extra, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: ExtraIResponse) => {
         return res
       }),
       catchError(err => {
@@ -58,7 +58,7 @@ export class ExtraService {
     const headers = this.sharedService.setHeader()
     return this.http.patch(environment.BASE_URL + 'extra/' + id, extra, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: ExtraIResponse) => {
         return res
       }),
       catchError(err => {
@@ -71,7 +71,7 @@ export class ExtraService {
     const headers = this.sharedService.setHeader()
     return this.http.delete(environment.BASE_URL + 'extra/' + id, {headers})
     .pipe(
-      map((res: any) => {
+      map((res) => {
         return res
       }),
       catchError(err => {

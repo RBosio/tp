@@ -19,7 +19,7 @@ export class CityService {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'city', {headers})
     .pipe(
-      map((res: any) => {
+      map((res: CityIResponse[]) => {
         return res
       }),
       catchError(err => {
@@ -32,7 +32,7 @@ export class CityService {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'city/province/' + provinceId, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: CityIResponse[]) => {
         return res
       }),
       catchError(err => {
@@ -45,7 +45,7 @@ export class CityService {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'city/' + zipCode, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: CityIResponse) => {
         return res
       }),
       catchError(err => {
@@ -58,7 +58,7 @@ export class CityService {
     const headers = this.sharedService.setHeader()
     return this.http.post(environment.BASE_URL + 'city', city, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: CityIResponse) => {
         return res
       }),
       catchError(err => {
@@ -71,7 +71,7 @@ export class CityService {
     const headers = this.sharedService.setHeader()
     return this.http.patch(environment.BASE_URL + 'city/' + zipCode, city, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: CityIResponse) => {
         return res
       }),
       catchError(err => {
@@ -84,7 +84,7 @@ export class CityService {
     const headers = this.sharedService.setHeader()
     return this.http.delete(environment.BASE_URL + 'city/' + zipCode, {headers})
     .pipe(
-      map((res: any) => {
+      map((res) => {
         return res
       }),
       catchError(err => {

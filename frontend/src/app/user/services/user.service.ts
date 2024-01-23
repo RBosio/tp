@@ -19,7 +19,7 @@ export class UserService {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'user', {headers})
     .pipe(
-      map((res: any) => {
+      map((res: UserIResponse[]) => {
         return res
       }),
       catchError(err => {
@@ -32,7 +32,7 @@ export class UserService {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'user/' + dni, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: UserIResponse) => {
         return res
       }),
       catchError(err => {

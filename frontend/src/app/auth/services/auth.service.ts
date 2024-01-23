@@ -23,7 +23,7 @@ export class AuthService {
   login(user: UserLoginI) {
     return this.http.post(environment.BASE_URL + 'auth/login', user)
     .pipe(
-      map((res: any) => {
+      map((res: resToken) => {
         localStorage.setItem('token', res.token)
         this.tokenEvent.emit(true);
         return res
@@ -37,7 +37,7 @@ export class AuthService {
   signup(user: UserLoginI) {
     return this.http.post(environment.BASE_URL + 'auth/signup', user)
     .pipe(
-      map((res: any) => {
+      map((res) => {
         return res
       }),
       catchError(err => {

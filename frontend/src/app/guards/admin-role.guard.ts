@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, Route, Router, UrlSegment, UrlTree } from '@angular/router';
+import { CanLoad, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SharedService } from '../shared/services/shared.service';
 
@@ -12,9 +12,7 @@ export class AdminRoleGuard implements CanLoad {
     private router: Router
     ) {}
 
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canLoad(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       const token = localStorage.getItem('token')
       const { roles } = this.sharedService.getDecodedAccessToken(token)
 

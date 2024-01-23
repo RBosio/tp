@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TypeService } from '../../services/type.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
   templateUrl: './edit-type.component.html',
   styleUrls: ['./edit-type.component.scss']
 })
-export class EditTypeComponent {
+export class EditTypeComponent implements OnInit, OnDestroy {
   edit: FormGroup
   id: number
   name: string

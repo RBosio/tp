@@ -1,5 +1,3 @@
-import { ProvinceIResponse } from "./province.model"
-
 export class ExtraIResponse {
     id: number
     name: string

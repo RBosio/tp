@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { AuthService } from 'src/app/auth/services/auth.service';
 import { TypeI, TypeIResponse } from 'src/app/models/type.model';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { environment } from 'src/environments/environment';
@@ -21,7 +20,7 @@ export class TypeService {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'type', {headers})
     .pipe(
-      map((res: any) => {
+      map((res: TypeIResponse[]) => {
         return res
       }),
       catchError(err => {
@@ -34,7 +33,7 @@ export class TypeService {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'type/' + id, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: TypeIResponse) => {
         return res
       }),
       catchError(err => {
@@ -47,7 +46,7 @@ export class TypeService {
     const headers = this.sharedService.setHeader()
     return this.http.post(environment.BASE_URL + 'type', type, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: TypeIResponse) => {
         return res
       }),
       catchError(err => {
@@ -60,7 +59,7 @@ export class TypeService {
     const headers = this.sharedService.setHeader()
     return this.http.patch(environment.BASE_URL + 'type/' + id, type, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: TypeIResponse) => {
         return res
       }),
       catchError(err => {
@@ -73,7 +72,7 @@ export class TypeService {
     const headers = this.sharedService.setHeader()
     return this.http.delete(environment.BASE_URL + 'type/' + id, {headers})
     .pipe(
-      map((res: any) => {
+      map((res: TypeIResponse) => {
         return res
       }),
       catchError(err => {

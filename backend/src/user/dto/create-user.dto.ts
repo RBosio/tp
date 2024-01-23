@@ -6,4 +6,5 @@ export class createUserDto {
     password: string
     phone: string
     role?: number[]
+    cityZipCode: string
 }

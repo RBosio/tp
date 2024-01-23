@@ -17,6 +17,16 @@ export class ProvinceService {
             relations: ['country']
         })
     }
+
+    getAllByCountry(id: number): Promise<Province[]> {
+        return this.provinceRepository.find({
+            where: {
+                country: {
+                    id
+                }
+            }            
+        })
+    }
     
     async findOne(id: number): Promise<Province | HttpException> {
         const provinceFound = await this.provinceRepository.findOne({
@@ -30,7 +40,7 @@ export class ProvinceService {
         }
         
         return provinceFound
-    }
+    }    
 
     async create(province: createProvinceDto): Promise<Province | HttpException> {
         const provinceFound = await this.provinceRepository.findOne({

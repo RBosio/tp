@@ -1,10 +1,17 @@
 @import '../../../shared/styles/vars.scss';
 
 .form {
-    width: 40%;
+    width: 80%;
     margin: 20px auto;
     padding: 15px;
     align-items: center;
+
+    .flex {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px 20px
+    }
 
     .icon {
         font-size: 6em;

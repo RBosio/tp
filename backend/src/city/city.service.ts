@@ -17,6 +17,16 @@ export class CityService {
             relations: ['province']
         })
     }
+
+    findAllByProvince(id: number): Promise<City[]> {
+        return this.cityRepository.find({
+            where: {
+                province: {
+                    id
+                }
+            }
+        })
+    }
     
     async findOne(zipCode: string): Promise<City | HttpException> {
         const cityFound = await this.cityRepository.findOne({

@@ -28,6 +28,19 @@ export class ProvinceService {
     )
   }
 
+  getAllByCountry(countryId: number): Observable<ProvinceIResponse[]> {
+    const headers = this.sharedService.setHeader()
+    return this.http.get(environment.BASE_URL + 'province/country/' + countryId, {headers})
+    .pipe(
+      map((res: any) => {
+        return res
+      }),
+      catchError(err => {
+        return throwError(err.error.message)
+      })
+    )
+  }
+
   getOne(id: number): Observable<ProvinceIResponse> {
     const headers = this.sharedService.setHeader()
     return this.http.get(environment.BASE_URL + 'province/' + id, {headers})

@@ -11,3 +11,6 @@
 |Usuario|user@gmail.com|123456|
 |Vendedor|seller@gmail.com|123456|
 |Administrador|admin@gmail.com|123456|
+
+## Demo
+[![Watch the video](./docs/home.jpeg)](https://www.youtube.com/watch?v=HZxvk_1BQCY)
